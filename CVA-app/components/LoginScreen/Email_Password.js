@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
         marginBottom:15,
         borderRadius:5,
         fontSize:15,
+        backgroundColor:'#fff'
     },
     errorText:{
         fontSize:20,

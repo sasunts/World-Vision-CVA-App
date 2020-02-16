@@ -1,10 +1,11 @@
+import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import firebase from 'firebase'
 import { View, Text, StyleSheet } from 'react-native';
 import Loading from './components/Loading';
 import LoginForm from './components/LoginScreen/LoginForm';
 import Home from './components/Home';
-
+import Navigator from './routes/homeStack';
 
 class App extends Component{
   
@@ -48,7 +49,7 @@ class App extends Component{
       case false:
         return <LoginForm/>
       case true:
-        return <Home/>
+        return <Navigator/>
       default:
         return <Loading/>
 
@@ -58,20 +59,15 @@ class App extends Component{
 
   render(){
     return (
-      <View style={styles.container}>
-       {this.renderContent()}
-      </View>
+          this.renderContent()
     );
   }
 }
+
+
 const styles = StyleSheet.create({
   container: {
-    paddingTop: "50%",
-    padding: 20,
-    flex: 1,
-    height:'100%',
-    width:'100%',
-    backgroundColor: '#b3e5fc' 
+    
   },
 });
 
