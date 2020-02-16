@@ -1,6 +1,7 @@
 import * as React from 'react';
 import firebase from 'firebase'
 import { View, Text, StyleSheet,TouchableOpacity, Button } from 'react-native';
+import styles from '../assets/styleSheet'
 
 const Home = ({navigation}) => {
   // firebase.auth().signOut();
@@ -8,39 +9,19 @@ const Home = ({navigation}) => {
           <View style={styles.container}>
               <View style={styles.container} >
                   <Text style={styles.heading} >
-                      Login Successful page //TODO: Should be home page
+                      Home Page To be designed and styled..
                   </Text>
-              <TouchableOpacity style={{padding:20 }} onPress={()=> firebase.auth().signOut()} >
-                      <Text style={{color:'#1B9CFC'}} >Logout</Text>
-              </TouchableOpacity>
-
-              <Button title="Action Plan" onPress={()=>navigation.navigate('Action-Plan')}/> 
+                  <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('Action-Plan')}>
+                    <Text style={ styles.buttonText} >Action Plan</Text> 
+                  </TouchableOpacity>
+                  <View style={{paddingTop:20}}></View>
+                 <TouchableOpacity style={styles.buttonContainer} onPress={()=> firebase.auth().signOut()} >
+                      <Text style={ styles.buttonText} >Logout</Text>
+                  </TouchableOpacity>
               </View>
           
           </View>
   );
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-      paddingTop:"50%",
-      padding: 20,
-      flex: 1,
-      justifyContent:'center',
-      alignItems:'center'  
-      
-  },
-  heading:{
-     fontSize:22,
-     color:'black',
-     marginBottom:10
-  },
-  content:{
-    marginTop:10,
-    fontSize:19,
-    
-  }
-});
 
 export default Home;

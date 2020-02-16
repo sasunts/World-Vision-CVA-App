@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase'
 import { View, Text, StyleSheet,TextInput,TouchableOpacity } from 'react-native';
+import styles from '../../assets/styleSheet'
+
 
 class Email_Password extends Component {
     state={
@@ -57,37 +59,5 @@ class Email_Password extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding:20
-    },
-    input:{
-        height:40,
-        paddingLeft:10,
-        marginBottom:15,
-        borderRadius:5,
-        fontSize:15,
-        backgroundColor:'#fff'
-    },
-    errorText:{
-        fontSize:20,
-        color:'red',
-        alignSelf:'center',
-        marginTop:10
-    },
-    buttonText:{
-        textAlign:'center',
-        color:'#fff',
-        fontWeight:'bold',
-        fontSize:20
-    },
-    buttonContainer:{
-        backgroundColor:'#3B3B98',
-        padding:15,
-        borderRadius:8
-    }
-});
 
 export default Email_Password;
