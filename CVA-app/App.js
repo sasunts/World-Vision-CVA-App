@@ -24,7 +24,7 @@ class App extends Component{
     };
     // Initialize Firebase
     if (!firebase.apps.length) {
-      firebase.initializeApp({});
+      firebase.initializeApp(firebaseConfig);
   }
  
      firebase.auth().onAuthStateChanged(user => {
