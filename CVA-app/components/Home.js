@@ -15,7 +15,7 @@ const Home = ({navigation}) => {
                     <Text style={ styles.buttonText} >Action Plan</Text> 
                   </TouchableOpacity>
                   <View style={{paddingTop:20}}></View>
-                  <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('Govt-Commitments')}>
+                  <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('Govt-Commitments-Home')}>
                     <Text style={ styles.buttonText} >Govt Commitments</Text> 
                   </TouchableOpacity>
                   <View style={{paddingTop:20}}></View>

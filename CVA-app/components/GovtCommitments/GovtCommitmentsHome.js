@@ -43,6 +43,8 @@ export default class GovtCommitmentsHome extends Component {
         },
     ]
 
+    
+
     renderRow({ item }) {
         return (
             <CommitmentOverview
