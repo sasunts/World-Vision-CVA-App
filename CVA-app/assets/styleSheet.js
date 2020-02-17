@@ -69,6 +69,14 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginHorizontal: 5,
         marginTop: 5
+    },
+    addButton:{
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        margin: 20,
+        alignSelf:"center",
+        backgroundColor: '#5F3B98'
     }
 });
 

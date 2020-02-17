@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import CommitmentOverview from './CommitmentOverview'
 import styles from "../../assets/styleSheet";
 
@@ -53,13 +53,14 @@ export default class GovtCommitmentsHome extends Component {
 
     render() {
         return (
-            <View style={styles.commitmentHomeViewContainer}>
+            <ScrollView style={styles.commitmentHomeViewContainer}>
                 <FlatList
                     data={this.list}
                     renderItem={this.renderRow}
                     keyExtractor={item => item.commitmentTitle}
                 />
-            </View>
+                <TouchableOpacity style={styles.addButton}></TouchableOpacity>
+            </ScrollView>
         );
     }
 }
