@@ -11,14 +11,14 @@ export default class Commitment extends Component {
         this.state = {
             tableHead: ["Input Type", "Government Standards"],
             testStandards: [
-                {
-                    inputType: "teachers:students",
-                    govtStandard: "1:45"
-                },
-                {
-                    inputType: "chairs:students",
-                    govtStandard: "1:1"
-                }
+                [
+                    "teachers:students",
+                    "1:45"
+                ],
+                [
+                    "chairs:students",
+                    "1:1"
+                ]
             ]
         };
     }
