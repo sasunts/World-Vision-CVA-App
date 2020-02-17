@@ -42,6 +42,7 @@ class Email_Password extends Component {
                     placeholder="password" 
                     style={styles.input}
                     secureTextEntry
+                    autoCapitalize="none"
                      value={this.state.password}
                      onChangeText={password => this.setState({password})}
                      />
