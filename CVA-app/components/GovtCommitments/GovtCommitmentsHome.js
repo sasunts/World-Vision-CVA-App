@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, FlatList, TouchableOpacity, Text } from 'react-native';
 import CommitmentOverview from './CommitmentOverview'
 import styles from "../../assets/styleSheet";
+import * as api from "../../api/govtCommitmentsApi"
 
 export default class GovtCommitmentsHome extends Component {
     constructor(props) {
@@ -11,40 +12,15 @@ export default class GovtCommitmentsHome extends Component {
         };
     }
 
-    list = [
-        {
-            commitmentTitle: "Education Commitments",
-            commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
-            commitmentScoreOverview: "TBD what goes here or if we want it at all"
-        },
-        {
-            commitmentTitle: "Health Center Commitments",
-            commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
-            commitmentScoreOverview: "TBD what goes here or if we want it at all"
-        },
-        {
-            commitmentTitle: "Commitment test title 2",
-            commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
-            commitmentScoreOverview: "TBD what goes here or if we want it at all"
-        },
-        {
-            commitmentTitle: "Commitment test title 3",
-            commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
-            commitmentScoreOverview: "TBD what goes here or if we want it at all"
-        },
-        {
-            commitmentTitle: "Commitment test title 4",
-            commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
-            commitmentScoreOverview: "TBD what goes here or if we want it at all"
-        },
-        {
-            commitmentTitle: "Commitment test title 5",
-            commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
-            commitmentScoreOverview: "TBD what goes here or if we want it at all"
-        },
-    ]
+    onGovtCommitmentsFetched = commitmentData => {
+        this.setState(prevState => ({
+            commitmentData: (prevState.commitmentData = commitmentData)
+        }));
+    };
 
-    
+    componentDidMount() {
+        api.getGovtCommitmentsByDate(this.onGovtCommitmentsFetched);
+    }
 
     renderRow({ item }) {
         return (
@@ -58,7 +34,7 @@ export default class GovtCommitmentsHome extends Component {
         return (
             <ScrollView style={styles.commitmentHomeViewContainer}>
                 <FlatList
-                    data={this.list}
+                    data={this.state.commitmentData}
                     renderItem={this.renderRow}
                     keyExtractor={item => item.commitmentTitle}
                 />
