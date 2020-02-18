@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: '#3B3B98',
         padding: 15,
-        borderRadius: 8
+        borderRadius: 8,
+        margin: 5
     },
     commitmentHomeViewContainer: {
         backgroundColor: '#FFFFFF',
@@ -70,13 +71,29 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         marginTop: 5
     },
-    addButton:{
+    addButton: {
         width: 50,
         height: 50,
-        borderRadius: 25,
         margin: 20,
-        alignSelf:"center",
+        borderRadius: 15,
+        alignSelf: "center",
+        alignItems:"center",
+        justifyContent: "center",
         backgroundColor: '#5F3B98'
+    },
+    addButtonText: {
+        flexDirection: "column",
+        textAlignVertical:"center",
+        fontSize: 20,
+    },
+    standardsTableOuterContainer:{
+        backgroundColor:"#898989",
+        margin:5,
+
+    },
+    standardsTableInnerContainer:{
+        backgroundColor: "#A9A9A9",
+        margin: 5
     }
 });
 

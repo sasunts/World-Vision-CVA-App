@@ -15,8 +15,12 @@ function MyStack() {
             <Stack.Navigator>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Action-Plan" component={ActionPlanHome} />
-                <Stack.Screen name="Govt-Commitments-Home" key="Govt-Commitments-Home" component={GovtCommitmentsHome} />
-                <Stack.Screen name="Commitment" component={Commitment} />
+                <Stack.Screen name="Govt-Commitments-Home" 
+                component={GovtCommitmentsHome}
+                options={{title: "Government Commitments"}} />
+                <Stack.Screen name="Commitment" 
+                component={Commitment} 
+                options={({ route }) => ({ title: route.params.details?.commitmentTitle })}/>
             </Stack.Navigator>
       </NavigationContainer>
     );

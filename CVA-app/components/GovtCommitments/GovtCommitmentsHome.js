@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { ScrollView, FlatList, TouchableOpacity, Text } from 'react-native';
 import CommitmentOverview from './CommitmentOverview'
 import styles from "../../assets/styleSheet";
 
@@ -7,17 +7,18 @@ export default class GovtCommitmentsHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            commitmentData: []
         };
     }
 
     list = [
         {
-            commitmentTitle: "Commitment test title 0",
+            commitmentTitle: "Education Commitments",
             commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
             commitmentScoreOverview: "TBD what goes here or if we want it at all"
         },
         {
-            commitmentTitle: "Commitment test title 1",
+            commitmentTitle: "Health Center Commitments",
             commitmentDescription: "Commitmnt test description, brief description of what this commitment is",
             commitmentScoreOverview: "TBD what goes here or if we want it at all"
         },
@@ -61,7 +62,9 @@ export default class GovtCommitmentsHome extends Component {
                     renderItem={this.renderRow}
                     keyExtractor={item => item.commitmentTitle}
                 />
-                <TouchableOpacity style={styles.addButton}></TouchableOpacity>
+                <TouchableOpacity style={styles.addButton}>
+                    <Text style={styles.addButtonText}>Add</Text>
+                </TouchableOpacity>
             </ScrollView>
         );
     }
