@@ -5,10 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const ActionPlanOverview = ({ params }) => {
   const navigation = useNavigation();
+  const passParams = params;
   return (
     <TouchableOpacity
       onPress={() => {
-        //navigation.navigate("ActionPlan", {details: params});
+        navigation.navigate("ActionPlan", { list: passParams });
       }}
     >
       <Text>Title: {params.title}</Text>

@@ -19,7 +19,7 @@ export default class ActionPlanHome extends Component {
   };
 
   onActionsFetched = actionPlansList => {
-    console.log(actionPlansList);
+    // console.log(actionPlansList);
     this.setState(prevState => ({
       actionPlansList: (prevState.actionPlansList = actionPlansList)
     }));
