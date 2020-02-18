@@ -3,31 +3,25 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import styles from '../../assets/styleSheet';
 
-
-
-
 function Commitment({ navigation, route }) {
 
     state = [];
     // This screen gets all it's details through the route paramter
-    // TODO: remove test data
     if (route.params.details) {
         const details = route.params.details;
+
+        let fetchedStandards = [];
+        // Need to format data properly for tables
+        for (let i = 0; i < details.inputTypes.length; i++) 
+            fetchedStandards.push([details.inputTypes[i], details.govtStandards[i]]);
+        
+        // Probably don't need to set it up as state like this 
+        // just force of habit
         state = {
             tableHead: ["Input Type", "Government Standards"],
-            title: details?.commitmentTitle,
-            description: details?.commitmentDescription,
-            standards: details?.standards,
-            testStandards: [
-                [
-                    "teachers:students",
-                    "1:45"
-                ],
-                [
-                    "chairs:students",
-                    "1:1"
-                ]
-            ]
+            title: details?.title,
+            description: details?.description,
+            standards: fetchedStandards,
         };
     }
 
@@ -37,7 +31,7 @@ function Commitment({ navigation, route }) {
                 <View style={styles.standardsTableInnerContainer}>
                     <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
                         <Row data={state.tableHead} />
-                        <Rows data={state.testStandards} />
+                        <Rows data={state.standards} />
                     </Table>
                 </View>
             </View>
@@ -54,4 +48,3 @@ function Commitment({ navigation, route }) {
 }
 
 export default Commitment;
-
