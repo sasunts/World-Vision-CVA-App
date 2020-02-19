@@ -13,6 +13,7 @@ export default class GovtCommitmentsHome extends Component {
     }
 
     onGovtCommitmentsFetched = commitmentData => {
+        console.log(commitmentData);
         this.setState(prevState => ({
             commitmentData: (prevState.commitmentData = commitmentData)
         }));
@@ -36,10 +37,10 @@ export default class GovtCommitmentsHome extends Component {
                 <FlatList
                     data={this.state.commitmentData}
                     renderItem={this.renderRow}
-                    keyExtractor={item => item.commitmentTitle}
+                    keyExtractor={item => item.id}
                 />
                 <TouchableOpacity style={styles.addButton}>
-                    <Text style={styles.addButtonText}>Add</Text>
+                    <Text style={styles.addButtonText}>+</Text>
                 </TouchableOpacity>
             </ScrollView>
         );

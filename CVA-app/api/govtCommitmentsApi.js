@@ -17,7 +17,17 @@ export async function getGovtCommitmentsByDate(commitmentsFetched){
     var data = await firebase.firestore().collection('govtCommitments').orderBy('creationDate').get()
 
     data.forEach((document) => {
-        govtCommitments.push(document.data())
+        let temp = document.data();
+        const commitment = {
+            id: document.id,
+            creationDate: temp.creationDate,
+            title: temp.title,
+            description: temp.description,
+            inputTypes: temp.inputTypes,
+            govtStandards: temp.govtStandards,
+            scoreOverview: temp.scoreOverview
+        }
+        govtCommitments.push(commitment)
     });
     commitmentsFetched(govtCommitments);
 }

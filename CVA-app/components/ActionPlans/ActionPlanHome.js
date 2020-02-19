@@ -40,7 +40,7 @@ export default class ActionPlanHome extends Component {
         <FlatList
           data={this.state.actionPlansList}
           renderItem={this.renderRow}
-          keyExtractor={item => item.title}
+          keyExtractor={item => item.id}
         />
         <TouchableOpacity style={styles.addButton}>
           <Text style={styles.buttonText}>+</Text>
