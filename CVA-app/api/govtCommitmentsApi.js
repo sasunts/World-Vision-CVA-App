@@ -8,6 +8,7 @@ export function createGovtCommitment(govtCommitment, createComplete){
         description: govtCommitment.description,
         inputTypes: govtCommitment.inputTypes,
         govtStandards: govtCommitment.govtStandards,
+        scoreOverview: ":) (test data)",
         creationDate: firebase.firestore.FieldValue.serverTimestamp()
     }).then((data) => data.get()
     ).then((govtCommitmentData) => createComplete(govtCommitmentData.data()))
