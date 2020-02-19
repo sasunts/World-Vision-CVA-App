@@ -6,6 +6,7 @@ import Home from "../components/Home";
 import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
 import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
 import Commitment from "../components/GovtCommitments/Commitment";
+import CreateCommitment from '../components/GovtCommitments/CreateCommitment';
 import ActionPlan from "../components/ActionPlans/ActionPlan";
 
 const Stack = createStackNavigator();
@@ -38,6 +39,10 @@ function MyStack() {
           options={({ route }) => ({
             title: route.params.details?.commitmentTitle
           })}
+        />
+        <Stack.Screen
+          name="CreateCommitment"
+          component={CreateCommitment}
         />
       </Stack.Navigator>
     </NavigationContainer>

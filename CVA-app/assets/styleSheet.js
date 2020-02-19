@@ -94,7 +94,30 @@ const styles = StyleSheet.create({
     standardsTableInnerContainer:{
         backgroundColor: "#A9A9A9",
         margin: 5
-    }
+    },
+    inputCommitmentTitle: {
+        height: 40,
+        paddingTop: 5,
+        paddingLeft: 10,
+        marginBottom: 15,
+        borderRadius: 5,
+        fontSize: 20,
+        textAlign: "left",
+        textAlignVertical: "top",
+        backgroundColor: '#fff'
+    },
+    inputCommitmentDescription: {
+        height: 80,
+        paddingTop: 5,
+        paddingLeft: 10,
+        marginBottom: 15,
+        paddingTop: 10,
+        borderRadius: 5,
+        fontSize: 15,
+        textAlign: "left",
+        textAlignVertical: "top",
+        backgroundColor: '#fff'
+    },
 });
 
 
