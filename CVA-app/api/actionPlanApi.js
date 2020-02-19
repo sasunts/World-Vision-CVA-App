@@ -34,5 +34,26 @@ export async function getActions(actionsFetched) {
         actionPlans.push(actionPlan)
     });
 
-    actionsFetched(actionPlans);
+  actionsFetched(actionPlans);
+}
+
+export function updateAction(action, updateComplete) {
+  action.creationDate = firebase.firestore.FieldValue.serverTimestamp();
+  firebase
+    .firestore()
+    .collection("actionPlans")
+    .doc(action.id)
+    .set(action)
+    .then(() => updateComplete(action))
+    .catch(error => console.log(error));
+}
+
+export function deleteAction(action, deleteComplete) {
+  firebase
+    .firestore()
+    .collection("actionPlans")
+    .doc(action.id)
+    .delete()
+    .then(() => deleteComplete())
+    .catch(error => console.log(error));
 }
