@@ -2,10 +2,12 @@ import firebase from 'firebase';
 import 'firebase/firestore';    
 
 export function createGovtCommitment(govtCommitment, createComplete){
+    console.log("api: " + govtCommitment)
     firebase.firestore().collection('govtCommitments').add({
         title: govtCommitment.title,
         description: govtCommitment.description,
-        standards: govtCommitment.standards,
+        inputTypes: govtCommitment.inputTypes,
+        govtStandards: govtCommitment.govtStandards,
         creationDate: firebase.firestore.FieldValue.serverTimestamp()
     }).then((data) => data.get()
     ).then((govtCommitmentData) => createComplete(govtCommitmentData.data()))

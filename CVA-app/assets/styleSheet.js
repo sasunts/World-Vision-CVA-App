@@ -77,21 +77,21 @@ const styles = StyleSheet.create({
         margin: 20,
         borderRadius: 15,
         alignSelf: "center",
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: "center",
         backgroundColor: '#5F3B98'
     },
     addButtonText: {
-        flexDirection: "column",
-        textAlignVertical:"center",
+
+        textAlignVertical: "center",
         fontSize: 20,
     },
-    standardsTableOuterContainer:{
-        backgroundColor:"#898989",
-        margin:5,
+    standardsTableOuterContainer: {
+        backgroundColor: "#898989",
+        margin: 5,
 
     },
-    standardsTableInnerContainer:{
+    standardsTableInnerContainer: {
         backgroundColor: "#A9A9A9",
         margin: 5
     },
@@ -117,6 +117,45 @@ const styles = StyleSheet.create({
         textAlign: "left",
         textAlignVertical: "top",
         backgroundColor: '#fff'
+    },
+    inputCommitmentInputs: {
+        flex:1,
+        height: 40,
+        paddingTop: 5,
+        paddingLeft: 10,
+        borderRadius: 5,
+        marginRight: 5,
+        marginVertical: 5,
+        fontSize: 15,
+        textAlign: "left",
+        textAlignVertical: "top",
+        backgroundColor: '#fff'
+    },
+    inputsContainer: {
+        flex: 0, 
+        flexDirection: 'row',
+        alignContent: "space-around"
+    },
+    addInputButton: {
+        width: 30,
+        height: 30,
+        margin: 20,
+        borderRadius: 10,
+        fontSize: 20,
+        alignSelf: "center",
+        alignItems: "center",
+        textAlignVertical: "center",
+        justifyContent: "center",
+        backgroundColor: '#A9A9A9'
+    },
+    removeInputButton: {
+        width: 30,
+        height: 30,
+        borderRadius: 10,
+        fontSize: 20,
+        alignItems: "center",
+        alignSelf: "center",
+        backgroundColor: '#A9A9A9'
     },
 });
 
