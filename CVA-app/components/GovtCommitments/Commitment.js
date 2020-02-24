@@ -47,6 +47,9 @@ function Commitment({ navigation, route }) {
 				>
 					<Text>Create Standards Report</Text>
 				</TouchableOpacity>
+				<TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('Suggestions')}>
+                    <Text style={ styles.buttonContainer} >Suggestions</Text> 
+                  </TouchableOpacity>
 			</View>
 		</View>
 	);
