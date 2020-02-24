@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
 import styles from "../../assets/styleSheet";
+import CreateCommitment from "../GovtCommitments/CreateCommitment";
+import * as api from "../../api/govtCommitmentsApi";
 
 function Commitment({ navigation, route }) {
-	state = [];
+	let state = [];
 	const passParams = route.params.details;
 	// This screen gets all it's details through the route paramter
 	if (route.params.details) {
@@ -18,10 +20,12 @@ function Commitment({ navigation, route }) {
 		// Probably don't need to set it up as state like this
 		// just force of habit
 		state = {
+			id: details?.id,
 			tableHead: ["Input Type", "Government Standards"],
 			title: details?.title,
 			description: details?.description,
-			standards: fetchedStandards
+			standards: fetchedStandards,
+			renderEditor: false
 		};
 	}
 
@@ -48,8 +52,28 @@ function Commitment({ navigation, route }) {
 					<Text>Create Standards Report</Text>
 				</TouchableOpacity>
 			</View>
+			<TouchableOpacity
+				style={styles.buttonContainer}
+				onPress={() => { handleDeleteCommitment(navigation); }}>
+				<Text>Delete Commitment</Text>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={styles.buttonContainer}
+				onPress={() => { handleUpdateCommitment(); }}>
+				<Text>Edit Commitment</Text>
+			</TouchableOpacity>
+			<CreateCommitment props={passParams}/>
 		</View>
 	);
+}
+
+const handleDeleteCommitment = (navigation) => {
+	api.deleteGovtCommitment(state.id, () => console.log("Document Deleted Successfully"));
+	navigation.goBack();
+};
+
+const handleUpdateCommitment = () => {
+
 }
 
 export default Commitment;
