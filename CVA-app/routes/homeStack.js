@@ -9,6 +9,7 @@ import Commitment from "../components/GovtCommitments/Commitment";
 import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
 import ActionPlan from "../components/ActionPlans/ActionPlan";
 import Report from "../components/Reports/Report";
+import Suggestions from "../components/Suggestions/Suggestions";
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,11 @@ function MyStack() {
 					options={({ route }) => ({
 						title: route.params.details?.commitmentTitle
 					})}
+				/>
+				<Stack.Screen
+					name="Suggestions"
+					component={Suggestions}
+					options={{ title: "Suggestions" }}
 				/>
 				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />
 				<Stack.Screen name="Report" component={Report} />

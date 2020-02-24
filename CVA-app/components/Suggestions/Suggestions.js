@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ScrollView, FlatList, TouchableOpacity, Text, View } from 'react-native';
 import styles from "../../assets/styleSheet";
+import CreateSuggestion from "./CreateSuggestion"
 
-export default class CreateSuggestion extends Component {
+export default class Suggestions extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -11,9 +12,10 @@ export default class CreateSuggestion extends Component {
     render() {
         return (
             <View>
-                <Text>
-                    Hello!
-                </Text>
+                <TouchableOpacity style={styles.addButton}
+                    onPress={() => { <CreateSuggestion/> }}>
+                    <Text style={styles.addButtonText}>+</Text>
+                </TouchableOpacity>
             </View>
         );
     }
