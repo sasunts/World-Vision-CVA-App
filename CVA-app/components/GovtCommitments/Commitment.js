@@ -64,6 +64,9 @@ function Commitment({ navigation, route }) {
 						onPress={() => { handleUpdateCommitment(state); }}>
 						<Text>Edit Commitment</Text>
 					</TouchableOpacity>
+					<TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('Suggestions')}>
+						<Text style={ styles.buttonContainer} >Suggestions</Text> 
+					</TouchableOpacity>
 				</View>}
 		</ScrollView>
 	);
