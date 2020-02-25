@@ -56,7 +56,7 @@ function Commitment({ navigation, route }) {
 					</View>
 					<TouchableOpacity
 						style={styles.buttonContainer}
-						onPress={() => { handleDeleteCommitment(navigation); }}>
+						onPress={() => { handleDeleteCommitment(navigation, state); }}>
 						<Text>Delete Commitment</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -69,7 +69,7 @@ function Commitment({ navigation, route }) {
 	);
 }
 
-const handleDeleteCommitment = (navigation) => {
+const handleDeleteCommitment = (navigation, state) => {
 	api.deleteGovtCommitment(state.id, () => console.log("Document Deleted Successfully"));
 	navigation.goBack();
 };
