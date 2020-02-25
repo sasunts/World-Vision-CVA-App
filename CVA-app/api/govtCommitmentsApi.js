@@ -49,7 +49,7 @@ export async function updateGovtCommitment(commitment, updateComplete) {
     commitment.creationDate = firebase.firestore.FieldValue.serverTimestamp();
     await firebase
         .firestore()
-        .collection("actionPlans")
+        .collection("govtCommitments")
         .doc(commitment.id)
         .set(commitment)
         .then(() => updateComplete(commitment))

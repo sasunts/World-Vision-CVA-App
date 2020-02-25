@@ -10,21 +10,24 @@ export default class CreateCommitment extends Component {
     let temp = [];
     let commitment = Object.values(this.props)[0];
 
-    if (commitment.inputTypes && commitment.govtStandards) {
-      for (let i = 0; i < commitment.inputTypes.length; i++) {
-        const commitmentName = commitment.inputTypes[i];
-        const standard = commitment.govtStandards[i];
+    if (commitment != null) {
 
-        temp.push({ name: commitmentName, standard: standard })
+      if (commitment.inputTypes && commitment.govtStandards) {
+        for (let i = 0; i < commitment.inputTypes.length; i++) {
+          const commitmentName = commitment.inputTypes[i];
+          const standard = commitment.govtStandards[i];
 
+          temp.push({ name: commitmentName, standard: standard })
+
+        }
       }
     }
 
     console.log(temp)
 
     this.state = {
-      title: commitment.title ?? null,
-      description: commitment.description ?? null,
+      title: commitment?.title ?? null,
+      description: commitment?.description ?? null,
       inputs: temp ?? [{ name: "", standard: "" }],
     };
   }
