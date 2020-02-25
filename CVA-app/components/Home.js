@@ -4,6 +4,7 @@ import { View, Text, StyleSheet,TouchableOpacity, Button } from 'react-native';
 import styles from '../assets/styleSheet'
 
 const Home = ({navigation}) => {
+  // firebase.auth().signOut();
   return (
           <View style={styles.container}>
               <View style={styles.container} >
