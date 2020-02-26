@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import styles from '../../assets/styleSheet';
 import { updateGovtCommitment } from "../../api/govtCommitmentsApi";
-
+import * as RootNavigation  from "../../routes/RootNavigation";
 export default class UpdateCommitment extends Component {
   constructor(props) {
     super(props);
@@ -61,7 +61,7 @@ export default class UpdateCommitment extends Component {
   };
 
   handleSubmit() {
-    
+
     const { title, description, inputs, id } = this.state;
     console.log(this.state)
     let inputTypes = [];
@@ -75,8 +75,8 @@ export default class UpdateCommitment extends Component {
       title, description,
       inputTypes, govtStandards, id
     }
-    console.log(govtCommitments);
-    updateGovtCommitment(govtCommitments, () => { console.log("commitment updated!") })
+    updateGovtCommitment(govtCommitments, () => { console.log("commitment updated!") });
+    RootNavigation.navigate('Govt-Commitments-Home');
   };
 
   render() {

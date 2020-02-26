@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text } from "react-native";
 import styles from "../../assets/styleSheet";
 import * as api from "../../api/govtCommitmentsApi";
 import Commitment from "./Commitment";
-import { useNavigation } from '@react-navigation/native';
 
 function CommitmentPage({ route }) {
     const passParams = route.params.details;

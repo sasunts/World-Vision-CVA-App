@@ -51,13 +51,10 @@ export default class Commitment extends Component {
 							onPress={() => { this.setState({ renderEditor: true }) }}>
 							<Text>Edit Commitment</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.buttonContainer} onPress={() => RootNavigation.navigate('Suggestions')}>
-							<Text>Suggestions</Text>
-						</TouchableOpacity>
 
-						<View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-							<TouchableOpacity style={styles.buttonContainer}>
-								<Text>View Actual Standards</Text>
+						<View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+							<TouchableOpacity style={styles.buttonContainer} onPress={() => RootNavigation.navigate('Suggestions')}>
+								<Text>Suggestions</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								style={styles.buttonContainer}
