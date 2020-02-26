@@ -6,10 +6,29 @@ import { createGovtCommitment } from "../../api/govtCommitmentsApi";
 export default class CreateCommitment extends Component {
   constructor(props) {
     super(props);
+
+    let temp = null;
+    let commitment = Object.values(this.props)[0];
+
+    if (commitment != null) {
+
+      if (commitment.inputTypes && commitment.govtStandards) {
+        for (let i = 0; i < commitment.inputTypes.length; i++) {
+          const commitmentName = commitment.inputTypes[i];
+          const standard = commitment.govtStandards[i];
+
+          temp.push({ name: commitmentName, standard: standard })
+
+        }
+      }
+    }
+
+    console.log(temp)
+
     this.state = {
-      title: null,
-      description: null,
-      inputs: [{ name: "", standard: "" }],
+      title: commitment?.title ?? null,
+      description: commitment?.description ?? null,
+      inputs: temp ?? [{ name: "", standard: "" }],
     };
   }
 
@@ -56,7 +75,7 @@ export default class CreateCommitment extends Component {
       title, description,
       inputTypes, govtStandards
     }
-    createGovtCommitment(govtCommitments, ()=>{console.log("commitment uploaded")})
+    createGovtCommitment(govtCommitments, () => { console.log("commitment uploaded") })
   };
 
   render() {
