@@ -48,23 +48,13 @@ export default class Commitment extends Component {
 							<TouchableOpacity style={styles.buttonContainer}>
 								<Text>View Actual Standards</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.buttonContainer}
-								onPress={() => {
-									navigation.navigate("Report", { passParams });
-								}}>
-								<Text>Create Standards Report</Text>
-							</TouchableOpacity>
+							
 						</View>
 
 						<TouchableOpacity
 							style={styles.buttonContainer}
 							onPress={() => { this.setState({ renderEditor: true }) }}>
 							<Text>Edit Commitment</Text>
-						</TouchableOpacity>
-
-						<TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Suggestions')}>
-							<Text style={styles.buttonContainer} >Suggestions</Text>
 						</TouchableOpacity>
 					</View>}
 			</ScrollView>
