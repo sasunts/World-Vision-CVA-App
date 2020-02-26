@@ -50,8 +50,10 @@ function MyStack() {
 					options={{ title: "Suggestions" }}
 				/>
 				{/* <Stack.Screen name="Commitment" component={Commitment} />
-				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />
-				<Stack.Screen name="UpdateCommitment" component={UpdateCommitment} /> */}
+				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />*/}
+				<Stack.Screen name="UpdateCommitment" 
+				component={UpdateCommitment} 
+				/> 
 				<Stack.Screen name="Report" component={Report} />
 			</Stack.Navigator>
 		</NavigationContainer>

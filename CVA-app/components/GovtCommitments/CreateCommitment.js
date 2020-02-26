@@ -7,8 +7,9 @@ export default class CreateCommitment extends Component {
   constructor(props) {
     super(props);
 
-    let temp = null;
-    let commitment = Object.values(this.props)[0];
+    let temp = [];
+    let commitment = this.props.commitment;
+    console.log(this.props)
 
     if (commitment != null) {
 

@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Table, Row, Rows } from "react-native-table-component";
 import styles from "../../assets/styleSheet";
 import * as api from "../../api/govtCommitmentsApi";
+import UpdateCommitment from "./UpdateCommitment";
 
 export default class Commitment extends Component {
 	constructor(props) {
@@ -24,7 +25,8 @@ export default class Commitment extends Component {
 				tableHead: ["Input Type", "Government Standards"],
 				title: commitment?.title,
 				description: commitment?.description,
-				standards: fetchedStandards
+				standards: fetchedStandards,
+				renderEditor: false
 			};
 		}
 	}
@@ -32,7 +34,7 @@ export default class Commitment extends Component {
 	render() {
 		return (
 			<ScrollView>
-				{this.state.renderEditor ? <CreateCommitment props={passParams} /> :
+				{this.state.renderEditor ? <UpdateCommitment commitment={this.props.commitment} /> :
 					<View>
 						<View style={styles.standardsTableOuterContainer}>
 							<View style={styles.standardsTableInnerContainer}>
@@ -50,16 +52,17 @@ export default class Commitment extends Component {
 								style={styles.buttonContainer}
 								onPress={() => {
 									navigation.navigate("Report", { passParams });
-								}}
-							>
+								}}>
 								<Text>Create Standards Report</Text>
 							</TouchableOpacity>
 						</View>
+
 						<TouchableOpacity
 							style={styles.buttonContainer}
-							onPress={() => { navigation.navigate("UpdateCommitment", passParams); }}>
+							onPress={() => { this.setState({ renderEditor: true }) }}>
 							<Text>Edit Commitment</Text>
 						</TouchableOpacity>
+
 						<TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Suggestions')}>
 							<Text style={styles.buttonContainer} >Suggestions</Text>
 						</TouchableOpacity>
