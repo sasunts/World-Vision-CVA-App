@@ -4,6 +4,7 @@ import { Table, Row, Rows } from "react-native-table-component";
 import styles from "../../assets/styleSheet";
 import * as api from "../../api/govtCommitmentsApi";
 import UpdateCommitment from "./UpdateCommitment";
+import * as RootNavigation from "../../routes/RootNavigation";
 
 export default class Commitment extends Component {
 	constructor(props) {
@@ -32,6 +33,7 @@ export default class Commitment extends Component {
 	}
 
 	render() {
+		const commitment = this.props.commitment;
 		return (
 			<ScrollView>
 				{this.state.renderEditor ? <UpdateCommitment commitment={this.props.commitment} /> :
@@ -44,17 +46,31 @@ export default class Commitment extends Component {
 								</Table>
 							</View>
 						</View>
-						<View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-							<TouchableOpacity style={styles.buttonContainer}>
-								<Text>View Actual Standards</Text>
-							</TouchableOpacity>
-							
-						</View>
-
 						<TouchableOpacity
 							style={styles.buttonContainer}
 							onPress={() => { this.setState({ renderEditor: true }) }}>
 							<Text>Edit Commitment</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.buttonContainer} onPress={() => RootNavigation.navigate('Suggestions')}>
+							<Text>Suggestions</Text>
+						</TouchableOpacity>
+
+						<View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+							<TouchableOpacity style={styles.buttonContainer}>
+								<Text>View Actual Standards</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={styles.buttonContainer}
+								onPress={() => {
+									RootNavigation.navigate("Report", { commitment });
+								}}>
+								<Text>Create Standards Report</Text>
+							</TouchableOpacity>
+						</View>
+						<TouchableOpacity
+							style={styles.buttonContainer}
+							onPress={() => { handleDeleteCommitment(passParams.id); }}>
+							<Text>Delete Commitment</Text>
 						</TouchableOpacity>
 					</View>}
 			</ScrollView>

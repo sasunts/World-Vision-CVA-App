@@ -12,12 +12,13 @@ import Report from "../components/Reports/Report";
 import Suggestions from "../components/Suggestions/Suggestions";
 import CommitmentPage from "../components/GovtCommitments/CommitmentPage";
 import Commitment from "../components/GovtCommitments/Commitment";
+import { navigationRef } from './RootNavigation';
 
 const Stack = createStackNavigator();
 
 function MyStack() {
 	return (
-		<NavigationContainer>
+		<NavigationContainer ref={navigationRef}>
 			<Stack.Navigator>
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen
