@@ -1,15 +1,17 @@
-import * as React from "react";
-import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../components/Home";
-import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
-import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
-import Commitment from "../components/GovtCommitments/Commitment";
-import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
+import * as React from "react";
+import "react-native-gesture-handler";
 import ActionPlan from "../components/ActionPlans/ActionPlan";
+import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
+import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
+import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
+import UpdateCommitment from "../components/GovtCommitments/UpdateCommitment";
+import Home from "../components/Home";
 import Report from "../components/Reports/Report";
 import Suggestions from "../components/Suggestions/Suggestions";
+import CommitmentPage from "../components/GovtCommitments/CommitmentPage";
+import Commitment from "../components/GovtCommitments/Commitment";
 
 const Stack = createStackNavigator();
 
@@ -36,10 +38,10 @@ function MyStack() {
 					options={{ title: "Government Commitments" }}
 				/>
 				<Stack.Screen
-					name="Commitment"
-					component={Commitment}
+					name="CommitmentPage"
+					component={CommitmentPage}
 					options={({ route }) => ({
-						title: route.params.details?.commitmentTitle
+						title: route.params.details?.title
 					})}
 				/>
 				<Stack.Screen
@@ -47,7 +49,11 @@ function MyStack() {
 					component={Suggestions}
 					options={{ title: "Suggestions" }}
 				/>
-				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />
+				{/* <Stack.Screen name="Commitment" component={Commitment} />
+				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />*/}
+				<Stack.Screen name="UpdateCommitment" 
+				component={UpdateCommitment} 
+				/> 
 				<Stack.Screen name="Report" component={Report} />
 			</Stack.Navigator>
 		</NavigationContainer>

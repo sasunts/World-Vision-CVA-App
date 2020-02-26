@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import styles from '../../assets/styleSheet';
-import { createGovtCommitment } from "../../api/govtCommitmentsApi";
+import { updateGovtCommitment } from "../../api/govtCommitmentsApi";
 
-export default class CreateCommitment extends Component {
+export default class UpdateCommitment extends Component {
   constructor(props) {
     super(props);
 
     let temp = [];
     let commitment = this.props.commitment;
-    console.log(this.props)
 
     if (commitment != null) {
 
@@ -23,13 +22,11 @@ export default class CreateCommitment extends Component {
         }
       }
     }
-
-    console.log(temp)
-
     this.state = {
       title: commitment?.title ?? null,
       description: commitment?.description ?? null,
       inputs: temp ?? [{ name: "", standard: "" }],
+      id: commitment?.id ?? null
     };
   }
 
@@ -64,7 +61,9 @@ export default class CreateCommitment extends Component {
   };
 
   handleSubmit() {
-    const { title, description, inputs } = this.state;
+    
+    const { title, description, inputs, id } = this.state;
+    console.log(this.state)
     let inputTypes = [];
     let govtStandards = [];
     // Formating the standards and input types for storage
@@ -74,17 +73,18 @@ export default class CreateCommitment extends Component {
     });
     const govtCommitments = {
       title, description,
-      inputTypes, govtStandards
+      inputTypes, govtStandards, id
     }
-    createGovtCommitment(govtCommitments, () => { console.log("commitment uploaded") })
+    console.log(govtCommitments);
+    updateGovtCommitment(govtCommitments, () => { console.log("commitment updated!") })
   };
 
   render() {
     return (
-      <View>
+      <ScrollView>
         {/*------ Title and Description Section ------*/}
         <View style={styles.commitmentOverviewContainer}>
-          <Text style={styles.heading}> Create Commitment </Text>
+          <Text style={styles.heading}> Edit Commitment </Text>
           <TextInput placeholder="Commitment Title"
             style={styles.inputCommitmentTitle}
             value={this.state.title}
@@ -130,9 +130,9 @@ export default class CreateCommitment extends Component {
         {/*------ Submiting the new Commitment ------*/}
         <TouchableOpacity style={styles.buttonContainer}
           onPress={() => { this.handleSubmit() }}>
-          <Text style={styles.addButtonText}>Create Commitment</Text>
+          <Text style={styles.addButtonText}>Update Commitment</Text>
         </TouchableOpacity>
-      </View >
+      </ScrollView >
     );
   }
 }

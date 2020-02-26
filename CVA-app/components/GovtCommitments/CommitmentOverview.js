@@ -10,7 +10,7 @@ const CommitmentOverview = ({
     return (
         <TouchableOpacity style={styles.commitmentOverviewContainer}
             onPress={() => {
-                navigation.navigate("Commitment", {details: params});
+                navigation.navigate("CommitmentPage", {details: params});
             }}>
             <Text>{params.title}</Text>
             <Text>{params.description}</Text>

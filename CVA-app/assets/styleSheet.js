@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import CommimentOverview from "../components/GovtCommitments/CommitmentOverview";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const styles = StyleSheet.create({
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	buttonContainer: {
-		backgroundColor: "#3B3B98",
+		backgroundColor: "#A9A9A9",
 		padding: 15,
 		borderRadius: 8
 	},
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	buttonContainer: {
-		backgroundColor: "#3B3B98",
+		backgroundColor: "#A9A9A9",
 		padding: 15,
 		borderRadius: 8,
 		margin: 5
