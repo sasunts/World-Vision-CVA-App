@@ -4,6 +4,7 @@ import 'firebase/firestore';
 export function createSuggestion(suggestion, createComplete){
     console.log("api: " + suggestion)
     firebase.firestore().collection('suggestions').add({
+        commitmentId: suggestion.commitmentId,
         commitment: suggestion.commitment,
         description: suggestion.description,
         upvotes: 0,
@@ -13,7 +14,7 @@ export function createSuggestion(suggestion, createComplete){
     .catch((error) => console.log(error));
 }
 
-export async function getSuggestionsByDate(suggestionsFetched){
+export async function getSuggestions(commitmentId, suggestionsFetched){
     var suggestions = [];
     var data = await firebase.firestore().collection('suggestions').orderBy('creationDate').get()
 
@@ -21,6 +22,7 @@ export async function getSuggestionsByDate(suggestionsFetched){
         let temp = document.data();
         const suggestion = {
             id: document.id,
+            commitmentId: temp.commitmentId,
             creationDate: temp.creationDate,
             commitment: temp.commitment,
             description: temp.description,

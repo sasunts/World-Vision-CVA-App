@@ -53,8 +53,8 @@ export default class Commitment extends Component {
 						</TouchableOpacity>
 
 						<View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-							<TouchableOpacity style={styles.buttonContainer} onPress={() => RootNavigation.navigate('Suggestions')}>
-								<Text>Suggestions</Text>
+							<TouchableOpacity style={styles.buttonContainer} onPress={() => RootNavigation.navigate('SuggestionsHome', { commitment })}>
+								<Text style={styles.buttonContainer} >Suggestions</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								style={styles.buttonContainer}
