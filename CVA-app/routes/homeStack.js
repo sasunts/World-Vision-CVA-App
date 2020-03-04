@@ -9,7 +9,7 @@ import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHo
 import UpdateCommitment from "../components/GovtCommitments/UpdateCommitment";
 import Home from "../components/Home";
 import Report from "../components/Reports/Report";
-import Suggestions from "../components/Suggestions/Suggestions";
+import SuggestionsHome from "../components/Suggestions/SuggestionsHome";
 import CommitmentPage from "../components/GovtCommitments/CommitmentPage";
 import Commitment from "../components/GovtCommitments/Commitment";
 
@@ -45,9 +45,9 @@ function MyStack() {
 					})}
 				/>
 				<Stack.Screen
-					name="Suggestions"
-					component={Suggestions}
-					options={{ title: "Suggestions" }}
+					name="SuggestionsHome"
+					component={SuggestionsHome}
+					options={{ title: "SuggestionsHome" }}
 				/>
 				{/* <Stack.Screen name="Commitment" component={Commitment} />
 				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />*/}

@@ -8,6 +8,9 @@ import CreateSuggestion from './CreateSuggestion';
 export default class Suggestions extends Component {
     constructor(props) {
         super(props);
+
+        let commitment = this.props.commitment;
+
         this.state = {
             suggestionData: [],
             renderCreateSuggestion: false
@@ -21,7 +24,8 @@ export default class Suggestions extends Component {
     };
 
     componentDidMount() {
-        api.getSuggestionsByDate(this.onSuggestionsFetched);
+        api.getSuggestions(this.props.commitment.id, this.onSuggestionsFetched);
+        console.log(this.props.commitment.id);
     }
 
     renderRow({ item }) {
@@ -36,8 +40,9 @@ export default class Suggestions extends Component {
         let { suggestionData, renderCreateSuggestion } = this.state;
         return (
             <ScrollView style={styles.commitmentHomeViewContainer}>
-                {renderCreateSuggestion ? <CreateSuggestion /> :
+                {renderCreateSuggestion ? <CreateSuggestion commitment = {this.props.commitment}/> :
                     <View>
+                        <Text>{this.props.commitment.title}</Text>
                         <FlatList
                             data={suggestionData}
                             renderItem={this.renderRow}

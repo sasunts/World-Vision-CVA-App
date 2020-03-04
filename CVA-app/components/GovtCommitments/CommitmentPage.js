@@ -21,7 +21,7 @@ function CommitmentPage({ route }) {
                 }}>
                 <Text>Create Standards Report</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Suggestions')}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('SuggestionsHome', {passParams})}>
                 <Text style={styles.buttonContainer} >Suggestions</Text>
             </TouchableOpacity>
             <TouchableOpacity
