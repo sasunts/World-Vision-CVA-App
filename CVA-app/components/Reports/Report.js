@@ -13,7 +13,8 @@ import {
 import styles from "../../assets/styleSheet";
 
 const Report = ({ route, params }) => {
-	const details = route.params;
+	console.log(route.params.commitment.title);
+	const details = route.params.commitment;
 
 	const data = {
 		labels: ["Very good", "Good", "Ok", "Bad", "Very bad"],
@@ -35,7 +36,7 @@ const Report = ({ route, params }) => {
 					padding: 10
 				}}
 			>
-				{details.passParams.title}
+				{details.title}
 			</Text>
 			<BarChart
 				data={data}

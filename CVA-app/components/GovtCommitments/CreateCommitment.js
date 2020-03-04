@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from '../../assets/styleSheet';
 import { createGovtCommitment } from "../../api/govtCommitmentsApi";
+import * as RootNavigation from "../../routes/RootNavigation";
 
 export default class CreateCommitment extends Component {
   constructor(props) {
     super(props);
 
-    let temp = [];
+    let temp = null;
     let commitment = this.props.commitment;
     console.log(this.props)
 
@@ -77,6 +78,7 @@ export default class CreateCommitment extends Component {
       inputTypes, govtStandards
     }
     createGovtCommitment(govtCommitments, () => { console.log("commitment uploaded") })
+    RootNavigation.navigate('Govt-Commitments-Home');
   };
 
   render() {

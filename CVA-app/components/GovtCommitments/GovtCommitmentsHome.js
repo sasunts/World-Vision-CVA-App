@@ -35,7 +35,7 @@ export default class GovtCommitmentsHome extends Component {
     render() {
         let { commitmentData, renderCreateCommitment } = this.state;
         return (
-            <ScrollView style={styles.commitmentHomeViewContainer}>
+            <ScrollView style={styles.commitmentHomeViewContainer} >
                 {renderCreateCommitment ? <CreateCommitment /> :
                     <View>
                         <FlatList

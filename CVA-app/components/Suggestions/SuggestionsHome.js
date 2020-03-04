@@ -5,7 +5,7 @@ import Suggestions from "./Suggestions"
 import styles from "../../assets/styleSheet";
 
 function SuggestionsHome({ route, navigation }) {
-  const { passParams } = route.params;
+  const passParams  = route.params.commitment;
   return (
     <View>
       <Suggestions commitment={passParams}/>
