@@ -11,12 +11,17 @@ import Home from "../components/Home";
 import Report from "../components/Reports/Report";
 import SuggestionsHome from "../components/Suggestions/SuggestionsHome";
 import CommitmentPage from "../components/GovtCommitments/CommitmentPage";
-import Commitment from "../components/GovtCommitments/Commitment";
-import { navigationRef } from './RootNavigation';
+import { navigationRef, isMountedRef } from './RootNavigation';
 
 const Stack = createStackNavigator();
 
 function MyStack() {
+	React.useEffect(() => {
+		isMountedRef.current = true;
+
+		return () => (isMountedRef.current = false);
+	}, []);
+
 	return (
 		<NavigationContainer ref={navigationRef}>
 			<Stack.Navigator>
@@ -50,11 +55,9 @@ function MyStack() {
 					component={SuggestionsHome}
 					options={{ title: "SuggestionsHome" }}
 				/>
-				{/* <Stack.Screen name="Commitment" component={Commitment} />
-				<Stack.Screen name="CreateCommitment" component={CreateCommitment} />*/}
-				<Stack.Screen name="UpdateCommitment" 
-				component={UpdateCommitment} 
-				/> 
+				<Stack.Screen name="UpdateCommitment"
+					component={UpdateCommitment}
+				/>
 				<Stack.Screen name="Report" component={Report} />
 			</Stack.Navigator>
 		</NavigationContainer>

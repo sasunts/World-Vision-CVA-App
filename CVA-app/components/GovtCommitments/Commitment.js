@@ -5,6 +5,7 @@ import styles from "../../assets/styleSheet";
 import * as api from "../../api/govtCommitmentsApi";
 import UpdateCommitment from "./UpdateCommitment";
 import * as RootNavigation from "../../routes/RootNavigation";
+import GovtCommitmentsHome from './GovtCommitmentsHome';
 
 export default class Commitment extends Component {
 	constructor(props) {
@@ -32,6 +33,16 @@ export default class Commitment extends Component {
 		}
 	}
 
+	handleDeleteCommitment(id) {
+		api.deleteGovtCommitment(id).then(() => {
+			console.log("Commitment deletion successful");
+			RootNavigation.navigate("Govt-Commitments-Home");
+		}
+		).catch(e =>
+			console.log("Error: deletion unsuccessful: " + e)
+		)
+	}
+
 	render() {
 		const commitment = this.props.commitment;
 		return (
@@ -53,20 +64,20 @@ export default class Commitment extends Component {
 						</TouchableOpacity>
 
 						<View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-							<TouchableOpacity style={styles.buttonContainer} onPress={() => RootNavigation.navigate('SuggestionsHome', { commitment })}>
-								<Text style={styles.buttonContainer} >Suggestions</Text>
+							<TouchableOpacity style={styles.buttonContainer} onPress={() =>
+								RootNavigation.navigate('SuggestionsHome', { commitment })}>
+								<Text style={styles}>Suggestions</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								style={styles.buttonContainer}
-								onPress={() => {
-									RootNavigation.navigate("Report", { commitment });
-								}}>
+								onPress={() =>
+									RootNavigation.navigate("Report", { commitment })}>
 								<Text>Create Standards Report</Text>
 							</TouchableOpacity>
 						</View>
 						<TouchableOpacity
 							style={styles.buttonContainer}
-							onPress={() => { handleDeleteCommitment(passParams.id); }}>
+							onPress={() => { this.handleDeleteCommitment(commitment.id); }}>
 							<Text>Delete Commitment</Text>
 						</TouchableOpacity>
 					</View>}
