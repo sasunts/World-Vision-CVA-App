@@ -1,8 +1,7 @@
 import firebase from 'firebase';
-import 'firebase/firestore';    
+import 'firebase/firestore';
 
-export function createGovtCommitment(govtCommitment, createComplete){
-    console.log("api: " + govtCommitment)
+export function createGovtCommitment(govtCommitment, createComplete) {
     firebase.firestore().collection('govtCommitments').add({
         title: govtCommitment.title,
         description: govtCommitment.description,
@@ -12,10 +11,10 @@ export function createGovtCommitment(govtCommitment, createComplete){
         creationDate: firebase.firestore.FieldValue.serverTimestamp()
     }).then((data) => data.get()
     ).then((govtCommitmentData) => createComplete(govtCommitmentData.data()))
-    .catch((error) => console.log(error));
+        .catch((error) => console.log(error));
 }
 
-export async function getGovtCommitmentsByDate(commitmentsFetched){
+export async function getGovtCommitmentsByDate(commitmentsFetched) {
     var govtCommitments = [];
     var data = await firebase.firestore().collection('govtCommitments').orderBy('creationDate').get()
 
@@ -33,4 +32,26 @@ export async function getGovtCommitmentsByDate(commitmentsFetched){
         govtCommitments.push(commitment)
     });
     commitmentsFetched(govtCommitments);
+}
+
+export async function deleteGovtCommitment(commitmentID, deleteComplete) {
+    await firebase
+        .firestore()
+        .collection("govtCommitments")
+        .doc(commitmentID)
+        .delete()
+        .then(() => deleteComplete())
+        .catch(error => console.log(error));
+}
+
+
+export async function updateGovtCommitment(commitment, updateComplete) {
+    commitment.creationDate = firebase.firestore.FieldValue.serverTimestamp();
+    await firebase
+        .firestore()
+        .collection("govtCommitments")
+        .doc(commitment.id)
+        .set(commitment)
+        .then(() => updateComplete(commitment))
+        .catch(error => console.log(error));
 }
