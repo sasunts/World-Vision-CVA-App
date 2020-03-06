@@ -1,24 +1,32 @@
-import firebase from 'firebase';
-import 'firebase/firestore';    
+import firebase from "firebase";
+import "firebase/firestore";
 
-export function createSuggestion(suggestion, createComplete){
-    console.log("api: " + suggestion)
-    firebase.firestore().collection('suggestions').add({
-        commitmentId: suggestion.commitmentId,
-        commitment: suggestion.commitment,
-        description: suggestion.description,
-        upvotes: 0,
-        creationDate: firebase.firestore.FieldValue.serverTimestamp()
-    }).then((data) => data.get()
-    ).then((suggestionData) => createComplete(suggestionData.data()))
-    .catch((error) => console.log(error));
+export function createSuggestion(suggestion, createComplete) {
+    console.log("api: " + suggestion);
+    firebase
+        .firestore()
+        .collection("suggestions")
+        .add({
+            commitmentId: suggestion.commitmentId,
+            commitment: suggestion.commitment,
+            description: suggestion.description,
+            upvotes: 0,
+            creationDate: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(data => data.get())
+        .then(suggestionData => createComplete(suggestionData.data()))
+        .catch(error => console.log(error));
 }
 
-export async function getSuggestions(commitmentId, suggestionsFetched){
+export async function getSuggestions(commitmentId, suggestionsFetched) {
     var suggestions = [];
-    var data = await firebase.firestore().collection('suggestions').orderBy('creationDate').get()
+    var data = await firebase
+        .firestore()
+        .collection("suggestions")
+        .orderBy("creationDate")
+        .get();
 
-    data.forEach((document) => {
+    data.forEach(document => {
         let temp = document.data();
         const suggestion = {
             id: document.id,
@@ -27,8 +35,8 @@ export async function getSuggestions(commitmentId, suggestionsFetched){
             commitment: temp.commitment,
             description: temp.description,
             upvotes: temp.upvotes
-        }
-        suggestions.push(suggestion)
+        };
+        suggestions.push(suggestion);
     });
     suggestionsFetched(suggestions);
 }
