@@ -5,7 +5,6 @@ import {
     Row,
     Rows,
     Col,
-    Cols,
     TableWrapper
 } from "react-native-table-component";
 import styles from "../../assets/styleSheet";
@@ -36,7 +35,7 @@ export default class Commitment extends Component {
             // Probably don't need to set it up as state like this
             // just force of habit
             this.state = {
-                commitmentGradesRecieved: [], /////////////////////////////
+                commitmentGradesRecieved: [],
                 modeGrade: [],
                 gradeTableHead: ["Commitment Grade"],
                 gradeTableData: [],
@@ -62,22 +61,29 @@ export default class Commitment extends Component {
         for (let i = 0; i < commitmentGradesRecieved.length; i++) {
             justGradesGiven.push(commitmentGradesRecieved[i].commitmentGrade);
         }
-        console.log(justGradesGiven);
 
-        let modeGrade = [
-            justGradesGiven
-                .sort(
-                    (a, b) =>
-                        justGradesGiven.filter(v => v === a).length -
-                        justGradesGiven.filter(v => v === b).length
-                )
-                .pop()
-        ];
+        let modeGrade = Math.round(
+            justGradesGiven.reduce((a, b) => a + b, 0) / justGradesGiven.length
+        );
+        if (modeGrade == 1) {
+            modeGrade = "Very Bad.";
+        }
+        if (modeGrade == 2) {
+            modeGrade = "Bad.";
+        }
+        if (modeGrade == 3) {
+            modeGrade = "Average.";
+        }
+        if (modeGrade == 4) {
+            modeGrade = "Good!";
+        }
+        if (modeGrade == 5) {
+            modeGrade = "Very Good!";
+        }
+
         this.setState(prevState => ({
             modeGrade: [(prevState.modeGrade = modeGrade)]
         }));
-
-        console.log(modeGrade);
     };
 
     componentDidMount() {
@@ -127,7 +133,7 @@ export default class Commitment extends Component {
                         <TouchableOpacity
                             style={styles.veryGoodButtonContainer}
                             onPress={() => {
-                                this.handleSubmit("Very Good!");
+                                this.handleSubmit(5);
                             }}
                         >
                             <Text style={styles.gradeButtonText}>
@@ -137,7 +143,7 @@ export default class Commitment extends Component {
                         <TouchableOpacity
                             style={styles.goodButtonContainer}
                             onPress={() => {
-                                this.handleSubmit("Good!");
+                                this.handleSubmit(4);
                             }}
                         >
                             <Text style={styles.gradeButtonText}>Good!</Text>
@@ -145,7 +151,7 @@ export default class Commitment extends Component {
                         <TouchableOpacity
                             style={styles.averageButtonContainer}
                             onPress={() => {
-                                this.handleSubmit("Average.");
+                                this.handleSubmit(3);
                             }}
                         >
                             <Text style={styles.gradeButtonText}>Average.</Text>
@@ -153,7 +159,7 @@ export default class Commitment extends Component {
                         <TouchableOpacity
                             style={styles.badButtonContainer}
                             onPress={() => {
-                                this.handleSubmit("Bad.");
+                                this.handleSubmit(2);
                             }}
                         >
                             <Text style={styles.gradeButtonText}>Bad.</Text>
@@ -161,7 +167,7 @@ export default class Commitment extends Component {
                         <TouchableOpacity
                             style={styles.veryBadButtonContainer}
                             onPress={() => {
-                                this.handleSubmit("Very Bad.");
+                                this.handleSubmit(1);
                             }}
                         >
                             <Text style={styles.gradeButtonText}>
