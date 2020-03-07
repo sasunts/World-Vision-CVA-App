@@ -65,6 +65,9 @@ export default class Commitment extends Component {
         let modeGrade = Math.round(
             justGradesGiven.reduce((a, b) => a + b, 0) / justGradesGiven.length
         );
+        if (isNaN(modeGrade) == true) {
+            modeGrade = "Has not been graded yet.";
+        }
         if (modeGrade == 1) {
             modeGrade = "Very Bad.";
         }
@@ -121,6 +124,10 @@ export default class Commitment extends Component {
         gradeCommitment(grade, () => {
             console.log("commitment graded");
         });
+        getGradesByCommitmentId(
+            this.props.commitment.id,
+            this.onCommitmentsGradesFetched
+        );
     };
 
     render() {
