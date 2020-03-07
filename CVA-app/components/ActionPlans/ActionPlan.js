@@ -14,7 +14,7 @@ function ActionPlan({ route, navigation }) {
       <Text>Deadline: {list.deadline.toDate().toString()} </Text>
       <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>TEST</Text>
+          <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
       </View>
     </View>
