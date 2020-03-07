@@ -17,7 +17,7 @@ export function gradeCommitment(grade, createComplete) {
         .catch(error => console.log(error));
 }
 
-export async function getGrades(commitmentId, gradesFetched) {
+export async function getGradesByCommitmentId(commitmentId, gradesFetched) {
     var grades = [];
     var data = await firebase
         .firestore()
@@ -27,14 +27,16 @@ export async function getGrades(commitmentId, gradesFetched) {
 
     data.forEach(document => {
         let temp = document.data();
-        const grade = {
-            id: document.id,
-            commitmentId: temp.commitmentId,
-            gradeDate: temp.gradeDate,
-            commitmentGrade: temp.commitmentGrade,
-            commitment: temp.commitment
-        };
-        grades.push(grade);
+        if (commitmentId == temp.commitmentId) {
+            const grade = {
+                id: document.id,
+                commitmentId: temp.commitmentId,
+                gradeDate: temp.gradeDate,
+                commitmentGrade: temp.commitmentGrade,
+                commitment: temp.commitment
+            };
+            grades.push(grade);
+        }
     });
     gradesFetched(grades);
 }

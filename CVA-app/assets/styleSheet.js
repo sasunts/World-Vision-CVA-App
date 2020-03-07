@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     modalGradeBox: {
         paddingTop: "10%"
     },
+    wrapper: { flexDirection: "row" },
 
     tableContainer: {
         flex: 1,
