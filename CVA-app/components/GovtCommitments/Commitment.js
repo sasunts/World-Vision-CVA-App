@@ -1,11 +1,21 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, TouchableOpacity, Modal } from "react-native";
-import { Table, Row, Rows } from "react-native-table-component";
+import {
+    Table,
+    Row,
+    Rows,
+    Col,
+    Cols,
+    TableWrapper
+} from "react-native-table-component";
 import styles from "../../assets/styleSheet";
 import * as api from "../../api/govtCommitmentsApi";
 import UpdateCommitment from "./UpdateCommitment";
 import * as RootNavigation from "../../routes/RootNavigation";
-import { gradeCommitment } from "../../api/commitmentGradeApi";
+import {
+    gradeCommitment,
+    getGradesByCommitmentId
+} from "../../api/commitmentGradeApi";
 import GovtCommitmentsHome from "./GovtCommitmentsHome";
 
 export default class Commitment extends Component {
@@ -26,6 +36,10 @@ export default class Commitment extends Component {
             // Probably don't need to set it up as state like this
             // just force of habit
             this.state = {
+                commitmentGradesRecieved: [], /////////////////////////////
+                modeGrade: [],
+                gradeTableHead: ["Commitment Grade"],
+                gradeTableData: [],
                 id: commitment?.id,
                 commitmentId: commitment.id,
                 commitment: commitment?.title ?? null,
@@ -34,10 +48,43 @@ export default class Commitment extends Component {
                 description: commitment?.description,
                 standards: fetchedStandards,
                 renderEditor: false,
-                commitmentGrade: "", /////////////////////////
-                modalOpen: false /////////////////////////////
+                commitmentGrade: "",
+                modalOpen: false
             };
         }
+    }
+    onCommitmentsGradesFetched = commitmentGradesRecieved => {
+        this.setState(prevState => ({
+            commitmentGradesRecieved: (prevState.commitmentGradesRecieved = commitmentGradesRecieved)
+        }));
+        let justGradesGiven = [];
+
+        for (let i = 0; i < commitmentGradesRecieved.length; i++) {
+            justGradesGiven.push(commitmentGradesRecieved[i].commitmentGrade);
+        }
+        console.log(justGradesGiven);
+
+        let modeGrade = [
+            justGradesGiven
+                .sort(
+                    (a, b) =>
+                        justGradesGiven.filter(v => v === a).length -
+                        justGradesGiven.filter(v => v === b).length
+                )
+                .pop()
+        ];
+        this.setState(prevState => ({
+            modeGrade: [(prevState.modeGrade = modeGrade)]
+        }));
+
+        console.log(modeGrade);
+    };
+
+    componentDidMount() {
+        getGradesByCommitmentId(
+            this.props.commitment.id,
+            this.onCommitmentsGradesFetched
+        );
     }
 
     handleDeleteCommitment(id) {
@@ -148,8 +195,20 @@ export default class Commitment extends Component {
                                     <Row data={this.state.tableHead} />
                                     <Rows data={this.state.standards} />
                                 </Table>
+                                <Table
+                                    borderStyle={{
+                                        borderWidth: 2,
+                                        borderColor: "#c8e1ff"
+                                    }}
+                                >
+                                    <TableWrapper style={styles.wrapper}>
+                                        <Col data={this.state.gradeTableHead} />
+                                        <Col data={this.state.modeGrade} />
+                                    </TableWrapper>
+                                </Table>
                             </View>
                         </View>
+
                         <TouchableOpacity
                             style={styles.buttonContainer}
                             onPress={() => {
