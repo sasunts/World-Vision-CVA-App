@@ -10,7 +10,7 @@ export default class CreateActionPlan extends Component {
     super(props);
 
     let actionPlan = this.props.actionPlan;
-
+    let datePickerRender = false;
     this.state = {
       title: actionPlan?.title ?? null,
       description: actionPlan?.description ?? null,
@@ -48,10 +48,14 @@ export default class CreateActionPlan extends Component {
   }
 
   onChange(event, date) {
-    print = new Date(date);
     this.setState({
       deadline: new Date(date)
     });
+  }
+
+  showDatepicker() {
+    this.datePickerRender = true;
+    return;
   }
 
   render() {
@@ -95,12 +99,25 @@ export default class CreateActionPlan extends Component {
             onChangeText={comments => this.setState({ comments })}
           />
           <Text>Action Plan deadline</Text>
-          <DateTimePicker
-            mode="date"
-            value={this.state.deadline}
-            minimumDate={new Date()}
-            onChange={this.onChange}
-          />
+          <Text>Deadline: {this.state.deadline.toString()}</Text>
+
+          {this.state.datePickerRender ? (
+            <DateTimePicker
+              mode="date"
+              value={this.state.deadline}
+              minimumDate={new Date()}
+              onChange={this.onChange}
+            />
+          ) : (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => {
+                this.setState({ datePickerRender: true });
+              }}
+            >
+              <Text style={styles.addButtonText}>Select Deadline Date</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/*------ Submiting the new Commitment 
