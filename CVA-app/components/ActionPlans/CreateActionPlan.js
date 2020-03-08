@@ -48,9 +48,12 @@ export default class CreateActionPlan extends Component {
   }
 
   onChange(event, date) {
-    this.setState({
-      deadline: new Date(date)
-    });
+    if (date !== undefined) {
+      this.setState({
+        deadline: new Date(date)
+      });
+    }
+    this.setState({ datePickerRender: false });
   }
 
   showDatepicker() {
