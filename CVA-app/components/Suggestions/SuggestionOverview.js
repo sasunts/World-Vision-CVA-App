@@ -9,9 +9,9 @@ const SuggestionOverview = ({
     const navigation = useNavigation();
     return (
         <TouchableOpacity style={styles.commitmentOverviewContainer}>
-            <Text>{params.commitment}</Text>
             <Text>{params.description}</Text>
-            <Text>{params.upvotes}</Text>
+            <Text>Upvotes: {params.upvotesCount}</Text>
+            <Text>Down votes: {params.downvotesCount}</Text>
         </TouchableOpacity>
     );}
 
