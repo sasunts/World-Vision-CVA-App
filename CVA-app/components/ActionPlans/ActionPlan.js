@@ -1,17 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
-import { Table, Row, Rows } from "react-native-table-component";
 import styles from "../../assets/styleSheet";
-import { deleteAction } from "../../api/actionPlanApi";
+import * as api from "../../api/actionPlanApi";
+import * as RootNavigation from "../../routes/RootNavigation"
+
 
 function handleDeleteActionPlan(id) {
-  deleteAction(id)
-    .then(() => {
-      console.log("Action Plan deletion successful");
-      //TODO: FIX RETURNING AFTER DELETE
-      RootNavigation.navigate("Action-Plan");
-    })
-    .catch(e => console.log("Error: deletion unsuccessful: " + e));
+  api.deleteAction(id, () => {
+    console.log("Action Plan deletion successful");
+    //TODO: FIX RETURNING AFTER DELETE
+    RootNavigation.navigate("Action-Plan");
+  });
 }
 
 function ActionPlan({ route, navigation }) {
