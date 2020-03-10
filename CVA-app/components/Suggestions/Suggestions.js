@@ -46,13 +46,13 @@ export default class Suggestions extends Component {
                 >
                     <TouchableOpacity
                         style={styles.buttonContainer}
-                        onPress={() => { api.upvote(item, () => { console.log("upvoted") }); api.getSuggestions(this.props.commitment.id, this.onSuggestionsFetched); }}
+                        onPress={() => { api.upvote(item, () => { api.getSuggestions(this.props.commitment.id, this.onSuggestionsFetched) });}}
                     >
                         <Text>Upvote</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.buttonContainer}
-                        onPress={() => { api.downvote(item, () => { console.log("downvoted") }); api.getSuggestions(this.props.commitment.id, this.onSuggestionsFetched); }}
+                        onPress={() => { api.downvote(item, () => { api.getSuggestions(this.props.commitment.id, this.onSuggestionsFetched); }); }}
                     >
                         <Text>Down vote</Text>
                     </TouchableOpacity>
@@ -62,7 +62,7 @@ export default class Suggestions extends Component {
     }
 
     render() {
-        let { suggestionData, renderCreateSuggestion, lastRefresh } = this.state;
+        let { suggestionData, renderCreateSuggestion } = this.state;
         return (
             <ScrollView style={styles.commitmentHomeViewContainer}>
                 {renderCreateSuggestion ? <CreateSuggestion commitment = {this.props.commitment}/> :
