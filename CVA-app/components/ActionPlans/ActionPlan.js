@@ -1,7 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
-import { Table, Row, Rows } from "react-native-table-component";
 import styles from "../../assets/styleSheet";
+import * as api from "../../api/actionPlanApi";
+import * as RootNavigation from "../../routes/RootNavigation"
+
+
+function handleDeleteActionPlan(id) {
+  api.deleteAction(id, () => {
+    console.log("Action Plan deletion successful");
+    //TODO: FIX RETURNING AFTER DELETE
+    RootNavigation.navigate("Action-Plan");
+  });
+}
 
 function ActionPlan({ route, navigation }) {
   const { list } = route.params;
@@ -14,7 +24,15 @@ function ActionPlan({ route, navigation }) {
       <Text>Deadline: {list.deadline.toDate().toString()} </Text>
       <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>TEST</Text>
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            console.log(list.id), handleDeleteActionPlan(list.id);
+          }}
+        >
+          <Text>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>

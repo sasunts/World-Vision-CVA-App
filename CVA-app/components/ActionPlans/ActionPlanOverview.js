@@ -8,6 +8,7 @@ const ActionPlanOverview = ({ params }) => {
   const passParams = params;
   return (
     <TouchableOpacity
+      style={styles.commitmentOverviewContainer}
       onPress={() => {
         navigation.navigate("ActionPlan", { list: passParams });
       }}

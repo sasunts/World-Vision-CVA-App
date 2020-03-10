@@ -11,12 +11,17 @@ import styles from "../../assets/styleSheet";
 import { createAction, getActions } from "../../api/actionPlanApi";
 import { FlatList } from "react-native-gesture-handler";
 import ActionPlanOverview from "./ActionPlanOverview";
+import CreateActionPlan from "./CreateActionPlan";
 
 export default class ActionPlanHome extends Component {
-  state = {
-    actionPlansList: [],
-    currentActionPlanList: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      actionPlansList: [],
+      currentActionPlanList: null,
+      renderCreateActionPlan: false
+    };
+  }
 
   onActionsFetched = actionPlansList => {
     // console.log(actionPlansList);
@@ -34,17 +39,29 @@ export default class ActionPlanHome extends Component {
   }
 
   render() {
+    let { actionPlansList, renderCreateActionPlan } = this.state;
     return (
       <ScrollView style={styles.commitmentHomeViewContainer}>
         <Text style={styles.heading}>Action Plan Screen</Text>
-        <FlatList
-          data={this.state.actionPlansList}
-          renderItem={this.renderRow}
-          keyExtractor={item => item.id}
-        />
-        <TouchableOpacity style={styles.addButton}>
-          <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
+        {renderCreateActionPlan ? (
+          <CreateActionPlan />
+        ) : (
+          <View>
+            <FlatList
+              data={actionPlansList}
+              renderItem={this.renderRow}
+              keyExtractor={item => item.id}
+            />
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => {
+                this.setState({ renderCreateActionPlan: true });
+              }}
+            >
+              <Text style={styles.buttonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </ScrollView>
     );
   }
