@@ -1,3 +1,5 @@
+import firebase from "firebase";
+import "firebase/firestore";
 import React, { Component } from "react";
 import { View, Text, ScrollView, TouchableOpacity, Modal } from "react-native";
 import {
@@ -87,6 +89,11 @@ export default class Commitment extends Component {
         this.setState(prevState => ({
             modeGrade: [(prevState.modeGrade = modeGrade)]
         }));
+
+        getGradesByCommitmentId(
+            this.props.commitment.id,
+            this.onCommitmentsGradesFetched
+        );
     };
 
     componentDidMount() {
@@ -118,6 +125,7 @@ export default class Commitment extends Component {
 
         const grade = {
             commitment,
+            userId: firebase.auth().currentUser.uid,
             commitmentId,
             commitmentGrade
         };
