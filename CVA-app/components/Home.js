@@ -8,9 +8,7 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.heading}>
-          Home Page To be designed and styled..
-        </Text>
+        <Text style={styles.heading}>Citizen, Voice, Action</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={() => navigation.navigate("Action-Plan")}
