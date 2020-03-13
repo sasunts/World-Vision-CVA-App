@@ -25,38 +25,104 @@ function MyStack() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "Home",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
+        />
         <Stack.Screen
           name="Action-Plan"
           component={ActionPlanHome}
-          options={{ title: "Action Plans" }}
+          options={{
+            title: "Action Plans",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
         />
         <Stack.Screen
           name="ActionPlan"
           component={ActionPlan}
           options={({ route }) => ({
-            title: route.params.list?.title
+            title: route.params.list?.title,
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
           })}
         />
         <Stack.Screen
           name="Govt-Commitments-Home"
           component={GovtCommitmentsHome}
-          options={{ title: "Government Commitments" }}
+          options={{
+            title: "Government Commitments",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
         />
         <Stack.Screen
           name="CommitmentPage"
           component={CommitmentPage}
           options={({ route }) => ({
-            title: route.params.details?.title
+            title: route.params.details?.title,
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
           })}
         />
         <Stack.Screen
           name="SuggestionsHome"
           component={SuggestionsHome}
-          options={{ title: "SuggestionsHome" }}
+          options={{
+            title: "SuggestionsHome",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
         />
         <Stack.Screen name="UpdateCommitment" component={UpdateCommitment} />
-        <Stack.Screen name="Report" component={Report} />
+        <Stack.Screen
+          name="Report"
+          component={Report}
+          options={{
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

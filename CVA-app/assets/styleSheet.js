@@ -3,6 +3,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const styles = StyleSheet.create({
   heading: {
+    fontWeight: "bold",
     fontSize: 22,
     color: "black",
     marginBottom: 10
@@ -34,6 +35,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    padding: 20
+  },
+  homeContainer: {
+    flex: 1,
+    paddingTop: "30%",
     padding: 20
   },
   input: {

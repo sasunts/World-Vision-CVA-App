@@ -7,7 +7,7 @@ const Home = ({ navigation }) => {
   console.disableYellowBox = true;
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
+      <View style={styles.homeContainer}>
         <Text style={styles.heading}>Citizen, Voice, Action</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
