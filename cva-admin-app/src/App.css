@@ -38,10 +38,17 @@
 }
 
 .Login-box {
-	/* margin-top: 200px; */
-	/* margin-left: 500px; */
-
-	margin: 200px auto;
+	margin: 13% auto;
 	width: 50%;
 	/* position: center; */
+}
+
+.admin-box {
+	margin: 9% auto;
+	width: 50%;
+}
+
+.logo {
+	margin: 10px auto;
+	width: 41.5%;
 }
