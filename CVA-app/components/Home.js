@@ -1,6 +1,13 @@
 import * as React from "react";
 import firebase from "firebase";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Button,
+  Image
+} from "react-native";
 import styles from "../assets/styleSheet";
 
 const Home = ({ navigation }) => {
