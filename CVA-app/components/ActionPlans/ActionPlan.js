@@ -31,7 +31,7 @@ function ActionPlan({ route, navigation }) {
             console.log(list.id), handleDeleteActionPlan(list.id);
           }}
         >
-          <Text>Delete</Text>
+          <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>

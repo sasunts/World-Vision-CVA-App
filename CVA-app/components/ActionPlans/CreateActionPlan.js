@@ -140,9 +140,6 @@ export default class CreateActionPlan extends Component {
                 </TouchableOpacity>
               )}
             </View>
-
-            {/*------ Submiting the new Commitment 
-        FIX RETURN TO HOME------*/}
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => {

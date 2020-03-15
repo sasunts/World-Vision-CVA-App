@@ -49,9 +49,7 @@ export default class ActionPlanHome extends Component {
               closeDisplay={() =>
                 this.setState({ renderCreateActionPlan: false })
               }
-              refreshScreen={() =>
-                this.setState({ lastRefresh: Date(Date.now()).toString() })
-              }
+              refreshScreen={() => getActions(this.onActionsFetched)}
             />
           ) : (
             <View>
