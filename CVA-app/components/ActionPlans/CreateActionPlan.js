@@ -23,6 +23,16 @@ export default class CreateActionPlan extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  datePrettifier(str) {
+    var date = str.split(" ");
+    var day = date[0];
+    var month = date[1];
+    var dateNum = date[2];
+    var year = date[3];
+    var retStr = day + " " + month + " " + dateNum + " " + year;
+    return retStr;
+  }
+
   handleSubmit() {
     const {
       title,
@@ -103,7 +113,7 @@ export default class CreateActionPlan extends Component {
           />
           <Text style={styles.contentHeading}>Action Plan deadline:</Text>
           <Text style={styles.contentHeading}>
-            {this.state.deadline.toString()}
+            {this.datePrettifier(this.state.deadline.toString())}
           </Text>
 
           {this.state.datePickerRender ? (
