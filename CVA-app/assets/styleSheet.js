@@ -6,7 +6,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 22,
     color: "black",
-    marginBottom: 10
+    paddingLeft: 10
+  },
+  contentHeading: {
+    fontWeight: "bold",
+    fontSize: 16
   },
   content: {
     marginTop: 10,
@@ -18,10 +22,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20
   },
-  buttonContainer: {
+  defButtonContainer: {
     backgroundColor: "#A9A9A9",
     padding: 15,
-    borderRadius: 8
+    borderRadius: 8,
+    margin: 5
   },
   containerLogin: {
     paddingTop: "50%",
@@ -34,15 +39,21 @@ const styles = StyleSheet.create({
     width: "80%"
   },
   container: {
-    flex: 1,
-    padding: 20
+    paddingHorizontal: 5,
+    paddingVertical: 10
   },
   homeContainer: {
     flex: 1,
     paddingTop: "30%",
     padding: 20
   },
+  modalContainer: {
+    flex: 1,
+    paddingTop: "15%",
+    padding: 20
+  },
   input: {
+    borderWidth: 0.2,
     height: 50,
     paddingLeft: 10,
     marginBottom: 15,
@@ -50,8 +61,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     backgroundColor: "#fff",
     shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
     shadowOffset: {
       height: 1,
       width: 1
@@ -75,44 +86,57 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     margin: 5,
     shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
     shadowOffset: {
       height: 1,
       width: 1
     }
   },
-  commitmentHomeViewContainer: {
-    backgroundColor: "#FFFFFF"
-  },
+  commitmentHomeViewContainer: {},
   commitmentOverviewContainer: {
-    backgroundColor: "#5F3B98",
+    backgroundColor: "#82ddfa",
     padding: 10,
     borderRadius: 8,
     marginHorizontal: 5,
-    marginTop: 5
+    marginTop: 5,
+    marginBottom: 5
   },
   addButton: {
     width: 50,
     height: 50,
     margin: 20,
-    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: "#ff7800",
+    borderRadius: 50,
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#5F3B98"
+    backgroundColor: "#FFF",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
   addButtonText: {
+    fontWeight: "bold",
+    color: "#ff7800",
     textAlignVertical: "center",
     fontSize: 20
   },
   standardsTableOuterContainer: {
     backgroundColor: "#898989",
-    margin: 5
+    margin: 2
   },
   standardsTableInnerContainer: {
-    backgroundColor: "#A9A9A9",
-    margin: 5
+    backgroundColor: "#FFF",
+    margin: 2
+  },
+  standardsTableInnerFont: {
+    fontWeight: "bold"
   },
   inputCommitmentTitle: {
     height: 40,
@@ -165,7 +189,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlignVertical: "center",
     justifyContent: "center",
-    backgroundColor: "#A9A9A9"
+    backgroundColor: "#FFF"
   },
   removeInputButton: {
     width: 30,
@@ -174,7 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "#A9A9A9"
+    backgroundColor: "#FFF"
   },
   veryGoodButtonContainer: {
     marginTop: 50,
@@ -216,7 +240,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFFFFF",
     fontWeight: "bold",
-    fontSize: 10
+    fontSize: 16
   },
   modalGradeBox: {
     paddingTop: "10%"

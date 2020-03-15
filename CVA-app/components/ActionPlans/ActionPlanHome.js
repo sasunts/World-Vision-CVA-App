@@ -8,10 +8,11 @@ import {
   ListItem
 } from "react-native";
 import styles from "../../assets/styleSheet";
-import { createAction, getActions } from "../../api/actionPlanApi";
+import { getActions } from "../../api/actionPlanApi";
 import { FlatList } from "react-native-gesture-handler";
 import ActionPlanOverview from "./ActionPlanOverview";
 import CreateActionPlan from "./CreateActionPlan";
+import { NavigationEvents } from "react-navigation";
 
 export default class ActionPlanHome extends Component {
   constructor(props) {
@@ -19,12 +20,12 @@ export default class ActionPlanHome extends Component {
     this.state = {
       actionPlansList: [],
       currentActionPlanList: null,
-      renderCreateActionPlan: false
+      renderCreateActionPlan: false,
+      lastRefresh: Date(Date.now()).toString()
     };
   }
 
   onActionsFetched = actionPlansList => {
-    // console.log(actionPlansList);
     this.setState(prevState => ({
       actionPlansList: (prevState.actionPlansList = actionPlansList)
     }));
@@ -42,26 +43,34 @@ export default class ActionPlanHome extends Component {
     let { actionPlansList, renderCreateActionPlan } = this.state;
     return (
       <ScrollView style={styles.commitmentHomeViewContainer}>
-        <Text style={styles.heading}>Action Plan Screen</Text>
-        {renderCreateActionPlan ? (
-          <CreateActionPlan />
-        ) : (
-          <View>
-            <FlatList
-              data={actionPlansList}
-              renderItem={this.renderRow}
-              keyExtractor={item => item.id}
+        <View style={styles.container}>
+          {renderCreateActionPlan ? (
+            <CreateActionPlan
+              display={this.state.renderCreateActionPlan}
+              closeDisplay={() =>
+                this.setState({ renderCreateActionPlan: false })
+              }
+              refreshScreen={() => getActions(this.onActionsFetched)}
             />
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => {
-                this.setState({ renderCreateActionPlan: true });
-              }}
-            >
-              <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+          ) : (
+            <View>
+              <Text style={styles.heading}>Action Plans</Text>
+              <FlatList
+                data={actionPlansList}
+                renderItem={this.renderRow}
+                keyExtractor={item => item.id}
+              />
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => {
+                  this.setState({ renderCreateActionPlan: true });
+                }}
+              >
+                <Text style={styles.addButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </ScrollView>
     );
   }

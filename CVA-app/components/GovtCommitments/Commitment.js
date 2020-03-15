@@ -54,7 +54,6 @@ export default class Commitment extends Component {
             };
         }
     }
-
     onCommitmentsGradesFetched = commitmentGradesRecieved => {
         this.setState(prevState => ({
             commitmentGradesRecieved: (prevState.commitmentGradesRecieved = commitmentGradesRecieved)
@@ -91,14 +90,16 @@ export default class Commitment extends Component {
             modeGrade: [(prevState.modeGrade = modeGrade)]
         }));
 
-        console.log("Lets see how many times your run little 1 boy");
+        getGradesByCommitmentId(
+            this.props.commitment.id,
+            this.onCommitmentsGradesFetched
+        );
     };
 
     componentDidMount() {
         getGradesByCommitmentId(
             this.props.commitment.id,
-            this.onCommitmentsGradesFetched,
-            console.log("Lets see how many times your run little 4 boy")
+            this.onCommitmentsGradesFetched
         );
     }
 
@@ -131,11 +132,9 @@ export default class Commitment extends Component {
         gradeCommitment(grade, () => {
             console.log("commitment graded");
         });
-
         getGradesByCommitmentId(
             this.props.commitment.id,
-            this.onCommitmentsGradesFetched,
-            console.log("Lets see how many times your run little 5 boy")
+            this.onCommitmentsGradesFetched
         );
     };
 
@@ -146,59 +145,70 @@ export default class Commitment extends Component {
             <ScrollView>
                 <View style={styles.standardsTableOuterContainer}>
                     <Modal visible={modalOpen} animationType="slide">
-                        <TouchableOpacity
-                            style={styles.veryGoodButtonContainer}
-                            onPress={() => {
-                                this.handleSubmit(5);
-                            }}
-                        >
-                            <Text style={styles.gradeButtonText}>
-                                Very Good!
+                        <View style={styles.modalContainer}>
+                            <Text style={styles.heading}>
+                                Rate Government Commitment
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.goodButtonContainer}
-                            onPress={() => {
-                                this.handleSubmit(4);
-                            }}
-                        >
-                            <Text style={styles.gradeButtonText}>Good!</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.averageButtonContainer}
-                            onPress={() => {
-                                this.handleSubmit(3);
-                            }}
-                        >
-                            <Text style={styles.gradeButtonText}>Average.</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.badButtonContainer}
-                            onPress={() => {
-                                this.handleSubmit(2);
-                            }}
-                        >
-                            <Text style={styles.gradeButtonText}>Bad.</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.veryBadButtonContainer}
-                            onPress={() => {
-                                this.handleSubmit(1);
-                            }}
-                        >
-                            <Text style={styles.gradeButtonText}>
-                                Very Bad.
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                            onPress={() => {
-                                console.log("Cancel");
-                                this.setState({ modalOpen: false });
-                            }}
-                        >
-                            <Text style={styles.gradeButtonText}>Cancel</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.veryGoodButtonContainer}
+                                onPress={() => {
+                                    this.handleSubmit(5);
+                                }}
+                            >
+                                <Text style={styles.gradeButtonText}>
+                                    Very Good!
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.goodButtonContainer}
+                                onPress={() => {
+                                    this.handleSubmit(4);
+                                }}
+                            >
+                                <Text style={styles.gradeButtonText}>
+                                    Good!
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.averageButtonContainer}
+                                onPress={() => {
+                                    this.handleSubmit(3);
+                                }}
+                            >
+                                <Text style={styles.gradeButtonText}>
+                                    Average.
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.badButtonContainer}
+                                onPress={() => {
+                                    this.handleSubmit(2);
+                                }}
+                            >
+                                <Text style={styles.gradeButtonText}>Bad.</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.veryBadButtonContainer}
+                                onPress={() => {
+                                    this.handleSubmit(1);
+                                }}
+                            >
+                                <Text style={styles.gradeButtonText}>
+                                    Very Bad.
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.defButtonContainer}
+                                onPress={() => {
+                                    console.log("Cancel");
+                                    this.setState({ modalOpen: false });
+                                }}
+                            >
+                                <Text style={styles.gradeButtonText}>
+                                    Cancel
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </Modal>
                 </View>
 
@@ -214,7 +224,12 @@ export default class Commitment extends Component {
                                         borderColor: "#c8e1ff"
                                     }}
                                 >
-                                    <Row data={this.state.tableHead} />
+                                    <Row
+                                        data={this.state.tableHead}
+                                        textStyle={
+                                            styles.standardsTableInnerFont
+                                        }
+                                    />
                                     <Rows data={this.state.standards} />
                                 </Table>
                                 <Table
@@ -224,7 +239,12 @@ export default class Commitment extends Component {
                                     }}
                                 >
                                     <TableWrapper style={styles.wrapper}>
-                                        <Col data={this.state.gradeTableHead} />
+                                        <Col
+                                            data={this.state.gradeTableHead}
+                                            textStyle={
+                                                styles.standardsTableInnerFont
+                                            }
+                                        />
                                         <Col data={this.state.modeGrade} />
                                     </TableWrapper>
                                 </Table>
@@ -238,14 +258,9 @@ export default class Commitment extends Component {
                                 this.setState({ modalOpen: true });
                             }}
                         >
-                            <Text>Rate This Commitment</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                            onPress={() => RootNavigation.navigate("Chat")}
-                        >
-                            <Text>Open Chat</Text>
+                            <Text style={styles.buttonText}>
+                                Rate This Commitment
+                            </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
@@ -254,7 +269,9 @@ export default class Commitment extends Component {
                                 this.setState({ renderEditor: true });
                             }}
                         >
-                            <Text>Edit Commitment</Text>
+                            <Text style={styles.buttonText}>
+                                Edit Commitment
+                            </Text>
                         </TouchableOpacity>
 
                         <View
@@ -271,7 +288,9 @@ export default class Commitment extends Component {
                                     })
                                 }
                             >
-                                <Text style={styles}>Suggestions</Text>
+                                <Text style={styles.buttonText}>
+                                    Suggestions
+                                </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.buttonContainer}
@@ -281,7 +300,9 @@ export default class Commitment extends Component {
                                     })
                                 }
                             >
-                                <Text>Create Standards Report</Text>
+                                <Text style={styles.buttonText}>
+                                    Create Report
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity
@@ -290,7 +311,9 @@ export default class Commitment extends Component {
                                 this.handleDeleteCommitment(commitment.id);
                             }}
                         >
-                            <Text>Delete Commitment</Text>
+                            <Text style={styles.buttonText}>
+                                Delete Commitment
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 )}

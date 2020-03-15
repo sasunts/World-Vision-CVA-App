@@ -7,7 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "firebase": "^7.10.0",
-    "firebase-admin": "^8.9.2",
+    "firebase-admin": "^8.10.0",
     "http2": "^3.3.7",
     "react": "^16.13.0",
     "react-admin-firebase": "^3.0.0",
@@ -17,7 +17,7 @@
     "react-scripts": "3.4.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "yarn": "^1.22.0"
+    "yarn": "^1.22.1"
   },
   "scripts": {
     "start": "react-scripts start",

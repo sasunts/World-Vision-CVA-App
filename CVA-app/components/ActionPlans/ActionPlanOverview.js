@@ -13,13 +13,25 @@ const ActionPlanOverview = ({ params }) => {
         navigation.navigate("ActionPlan", { list: passParams });
       }}
     >
-      <Text>Title: {params.title}</Text>
+      <Text style={styles.contentHeading}>Title: {params.title}</Text>
       <Text>Description: {params.description}</Text>
       <Text>Carried out by: {params.carriedOutBy}</Text>
       <Text>Monitored by: {params.monitoredBy}</Text>
-      <Text>Deadline: {params.deadline.toDate().toString()} </Text>
+      <Text>
+        Deadline: {datePrettifier(params.deadline.toDate().toString())}{" "}
+      </Text>
     </TouchableOpacity>
   );
 };
+
+function datePrettifier(str) {
+  var date = str.split(" ");
+  var day = date[0];
+  var month = date[1];
+  var dateNum = date[2];
+  var year = date[3];
+  var retStr = day + " " + month + " " + dateNum + " " + year;
+  return retStr;
+}
 
 export default ActionPlanOverview;
