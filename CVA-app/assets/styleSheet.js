@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     width: "80%"
   },
   container: {
-    paddingTop: 10
+    paddingHorizontal: 5,
+    paddingVertical: 10
   },
   homeContainer: {
     flex: 1,
@@ -92,15 +93,14 @@ const styles = StyleSheet.create({
       width: 1
     }
   },
-  commitmentHomeViewContainer: {
-    backgroundColor: "#FFFFFF"
-  },
+  commitmentHomeViewContainer: {},
   commitmentOverviewContainer: {
     backgroundColor: "#82ddfa",
     padding: 10,
     borderRadius: 8,
     marginHorizontal: 5,
-    marginTop: 5
+    marginTop: 5,
+    marginBottom: 5
   },
   addButton: {
     width: 50,
@@ -129,11 +129,14 @@ const styles = StyleSheet.create({
   },
   standardsTableOuterContainer: {
     backgroundColor: "#898989",
-    margin: 5
+    margin: 2
   },
   standardsTableInnerContainer: {
-    backgroundColor: "#A9A9A9",
-    margin: 5
+    backgroundColor: "#FFF",
+    margin: 2
+  },
+  standardsTableInnerFont: {
+    fontWeight: "bold"
   },
   inputCommitmentTitle: {
     height: 40,
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlignVertical: "center",
     justifyContent: "center",
-    backgroundColor: "#A9A9A9"
+    backgroundColor: "#FFF"
   },
   removeInputButton: {
     width: 30,
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "#A9A9A9"
+    backgroundColor: "#FFF"
   },
   veryGoodButtonContainer: {
     marginTop: 50,

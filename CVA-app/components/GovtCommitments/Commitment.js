@@ -213,7 +213,10 @@ export default class Commitment extends Component {
                     borderColor: "#c8e1ff"
                   }}
                 >
-                  <Row data={this.state.tableHead} />
+                  <Row
+                    data={this.state.tableHead}
+                    textStyle={styles.standardsTableInnerFont}
+                  />
                   <Rows data={this.state.standards} />
                 </Table>
                 <Table
@@ -223,7 +226,10 @@ export default class Commitment extends Component {
                   }}
                 >
                   <TableWrapper style={styles.wrapper}>
-                    <Col data={this.state.gradeTableHead} />
+                    <Col
+                      data={this.state.gradeTableHead}
+                      textStyle={styles.standardsTableInnerFont}
+                    />
                     <Col data={this.state.modeGrade} />
                   </TableWrapper>
                 </Table>
@@ -237,7 +243,7 @@ export default class Commitment extends Component {
                 this.setState({ modalOpen: true });
               }}
             >
-              <Text>Rate This Commitment</Text>
+              <Text style={styles.buttonText}>Rate This Commitment</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -246,7 +252,7 @@ export default class Commitment extends Component {
                 this.setState({ renderEditor: true });
               }}
             >
-              <Text>Edit Commitment</Text>
+              <Text style={styles.buttonText}>Edit Commitment</Text>
             </TouchableOpacity>
 
             <View
@@ -263,7 +269,7 @@ export default class Commitment extends Component {
                   })
                 }
               >
-                <Text style={styles}>Suggestions</Text>
+                <Text style={styles.buttonText}>Suggestions</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.buttonContainer}
@@ -273,7 +279,7 @@ export default class Commitment extends Component {
                   })
                 }
               >
-                <Text>Create Standards Report</Text>
+                <Text style={styles.buttonText}>Create Report</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity
@@ -282,7 +288,7 @@ export default class Commitment extends Component {
                 this.handleDeleteCommitment(commitment.id);
               }}
             >
-              <Text>Delete Commitment</Text>
+              <Text style={styles.buttonText}>Delete Commitment</Text>
             </TouchableOpacity>
           </View>
         )}

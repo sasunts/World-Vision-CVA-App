@@ -8,10 +8,11 @@ import {
   ListItem
 } from "react-native";
 import styles from "../../assets/styleSheet";
-import { createAction, getActions } from "../../api/actionPlanApi";
+import { getActions } from "../../api/actionPlanApi";
 import { FlatList } from "react-native-gesture-handler";
 import ActionPlanOverview from "./ActionPlanOverview";
 import CreateActionPlan from "./CreateActionPlan";
+import { NavigationEvents } from "react-navigation";
 
 export default class ActionPlanHome extends Component {
   constructor(props) {
