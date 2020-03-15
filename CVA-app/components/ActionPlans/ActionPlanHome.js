@@ -42,26 +42,28 @@ export default class ActionPlanHome extends Component {
     let { actionPlansList, renderCreateActionPlan } = this.state;
     return (
       <ScrollView style={styles.commitmentHomeViewContainer}>
-        <Text style={styles.heading}>Action Plan Screen</Text>
-        {renderCreateActionPlan ? (
-          <CreateActionPlan />
-        ) : (
-          <View>
-            <FlatList
-              data={actionPlansList}
-              renderItem={this.renderRow}
-              keyExtractor={item => item.id}
-            />
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => {
-                this.setState({ renderCreateActionPlan: true });
-              }}
-            >
-              <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <View style={styles.container}>
+          <Text style={styles.heading}>Action Plans</Text>
+          {renderCreateActionPlan ? (
+            <CreateActionPlan />
+          ) : (
+            <View>
+              <FlatList
+                data={actionPlansList}
+                renderItem={this.renderRow}
+                keyExtractor={item => item.id}
+              />
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => {
+                  this.setState({ renderCreateActionPlan: true });
+                }}
+              >
+                <Text style={styles.addButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </ScrollView>
     );
   }

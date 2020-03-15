@@ -13,7 +13,7 @@ const ActionPlanOverview = ({ params }) => {
         navigation.navigate("ActionPlan", { list: passParams });
       }}
     >
-      <Text>Title: {params.title}</Text>
+      <Text style={styles.contentHeading}>Title: {params.title}</Text>
       <Text>Description: {params.description}</Text>
       <Text>Carried out by: {params.carriedOutBy}</Text>
       <Text>Monitored by: {params.monitoredBy}</Text>

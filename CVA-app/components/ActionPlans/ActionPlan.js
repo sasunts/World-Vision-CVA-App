@@ -2,8 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import styles from "../../assets/styleSheet";
 import * as api from "../../api/actionPlanApi";
-import * as RootNavigation from "../../routes/RootNavigation"
-
+import * as RootNavigation from "../../routes/RootNavigation";
 
 function handleDeleteActionPlan(id) {
   api.deleteAction(id, () => {
@@ -17,7 +16,7 @@ function ActionPlan({ route, navigation }) {
   const { list } = route.params;
   return (
     <View>
-      <Text>Title: {list.title}</Text>
+      <Text style={styles.contentHeading}>Title: {list.title}</Text>
       <Text>Description: {list.description}</Text>
       <Text>Carried out by: {list.carriedOutBy}</Text>
       <Text>Monitored by: {list.monitoredBy}</Text>
