@@ -19,12 +19,12 @@ export default class ActionPlanHome extends Component {
     this.state = {
       actionPlansList: [],
       currentActionPlanList: null,
-      renderCreateActionPlan: false
+      renderCreateActionPlan: false,
+      lastRefresh: Date(Date.now()).toString()
     };
   }
 
   onActionsFetched = actionPlansList => {
-    // console.log(actionPlansList);
     this.setState(prevState => ({
       actionPlansList: (prevState.actionPlansList = actionPlansList)
     }));
@@ -44,7 +44,15 @@ export default class ActionPlanHome extends Component {
       <ScrollView style={styles.commitmentHomeViewContainer}>
         <View style={styles.container}>
           {renderCreateActionPlan ? (
-            <CreateActionPlan />
+            <CreateActionPlan
+              display={this.state.renderCreateActionPlan}
+              closeDisplay={() =>
+                this.setState({ renderCreateActionPlan: false })
+              }
+              refreshScreen={() =>
+                this.setState({ lastRefresh: Date(Date.now()).toString() })
+              }
+            />
           ) : (
             <View>
               <Text style={styles.heading}>Action Plans</Text>
