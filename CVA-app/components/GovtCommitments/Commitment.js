@@ -54,6 +54,7 @@ export default class Commitment extends Component {
             };
         }
     }
+
     onCommitmentsGradesFetched = commitmentGradesRecieved => {
         this.setState(prevState => ({
             commitmentGradesRecieved: (prevState.commitmentGradesRecieved = commitmentGradesRecieved)
@@ -90,16 +91,14 @@ export default class Commitment extends Component {
             modeGrade: [(prevState.modeGrade = modeGrade)]
         }));
 
-        getGradesByCommitmentId(
-            this.props.commitment.id,
-            this.onCommitmentsGradesFetched
-        );
+        console.log("Lets see how many times your run little 1 boy");
     };
 
     componentDidMount() {
         getGradesByCommitmentId(
             this.props.commitment.id,
-            this.onCommitmentsGradesFetched
+            this.onCommitmentsGradesFetched,
+            console.log("Lets see how many times your run little 4 boy")
         );
     }
 
@@ -132,9 +131,11 @@ export default class Commitment extends Component {
         gradeCommitment(grade, () => {
             console.log("commitment graded");
         });
+
         getGradesByCommitmentId(
             this.props.commitment.id,
-            this.onCommitmentsGradesFetched
+            this.onCommitmentsGradesFetched,
+            console.log("Lets see how many times your run little 5 boy")
         );
     };
 
@@ -238,6 +239,13 @@ export default class Commitment extends Component {
                             }}
                         >
                             <Text>Rate This Commitment</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => RootNavigation.navigate("Chat")}
+                        >
+                            <Text>Open Chat</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
