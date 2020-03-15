@@ -101,8 +101,10 @@ export default class CreateActionPlan extends Component {
             value={this.state.comments}
             onChangeText={comments => this.setState({ comments })}
           />
-          <Text>Action Plan deadline</Text>
-          <Text>Deadline: {this.state.deadline.toString()}</Text>
+          <Text style={styles.contentHeading}>Action Plan deadline:</Text>
+          <Text style={styles.contentHeading}>
+            {this.state.deadline.toString()}
+          </Text>
 
           {this.state.datePickerRender ? (
             <DateTimePicker
@@ -118,7 +120,7 @@ export default class CreateActionPlan extends Component {
                 this.setState({ datePickerRender: true });
               }}
             >
-              <Text style={styles.addButtonText}>Select Deadline Date</Text>
+              <Text style={styles.buttonText}>Select Deadline Date</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -131,7 +133,7 @@ export default class CreateActionPlan extends Component {
             this.handleSubmit();
           }}
         >
-          <Text style={styles.addButtonText}>Create Action Plan</Text>
+          <Text style={styles.buttonText}>Create Action Plan</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonContainer}
@@ -139,7 +141,7 @@ export default class CreateActionPlan extends Component {
             this.GoBack();
           }}
         >
-          <Text style={styles.addButtonText}>Back</Text>
+          <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
       </View>
     );

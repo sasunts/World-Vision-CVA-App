@@ -43,11 +43,11 @@ export default class ActionPlanHome extends Component {
     return (
       <ScrollView style={styles.commitmentHomeViewContainer}>
         <View style={styles.container}>
-          <Text style={styles.heading}>Action Plans</Text>
           {renderCreateActionPlan ? (
             <CreateActionPlan />
           ) : (
             <View>
+              <Text style={styles.heading}>Action Plans</Text>
               <FlatList
                 data={actionPlansList}
                 renderItem={this.renderRow}
