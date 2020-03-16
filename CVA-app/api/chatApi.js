@@ -1,61 +1,63 @@
 import firebase from "firebase";
-import uuid from "uuid";
 import "firebase/firestore";
 
-class FirebaseSvc {
-    constructor() {}
+export async function fetchUserInfo(userEmail, showCurrentUserInfo) {
+    var currentUserInfo = [];
 
-    get uid() {
-        return (firebase.auth().currentUser || {}).uid;
-    }
+    var data = await firebase
+        .firestore()
+        .collection("users")
+        .get();
 
-    get ref() {
-        return firebase.database().ref("Messages");
-    }
-
-    parse = snapshot => {
-        const { timestamp: numberStamp, text, user } = snapshot.val();
-        const { key: id } = snapshot;
-        const { key: _id } = snapshot; //needed for giftedchat
-        const timestamp = new Date(numberStamp);
-
-        const message = {
-            id,
-            _id,
-            timestamp,
-            text,
-            user
-        };
-        return message;
-    };
-
-    refOn = callback => {
-        this.ref
-            .limitToLast(20)
-            .on("child_added", snapshot => callback(this.parse(snapshot)));
-    };
-
-    get timestamp() {
-        return firebase.database.ServerValue.TIMESTAMP;
-    }
-
-    // send the message to the Backend
-    send = messages => {
-        for (let i = 0; i < messages.length; i++) {
-            const { text, user } = messages[i];
-            const message = {
-                text,
-                user,
-                createdAt: this.timestamp
+    data.forEach(document => {
+        let temp = document.data();
+        if (userEmail == temp.email) {
+            const user = {
+                email: temp.email,
+                name: temp.name,
+                type: temp.type
             };
-            this.ref.push(message);
+            currentUserInfo.push(user);
         }
-    };
-
-    refOff() {
-        this.ref.off();
-    }
+    });
+    showCurrentUserInfo(currentUserInfo);
 }
 
-const firebaseSvc = new FirebaseSvc();
-export default firebaseSvc;
+export function sendMessage(messageBeingSent, createComplete) {
+    const messageSentAt = firebase.firestore.FieldValue.serverTimestamp();
+
+    firebase
+        .firestore()
+        .collection("Messages")
+        .add({
+            _id: messageBeingSent._id,
+            text: messageBeingSent.text,
+            createdAt: messageSentAt,
+            user: messageBeingSent.user
+        })
+        .then(data => data.get())
+        .then(messageData => createComplete(messageData.data()))
+        .catch(error => console.log(error));
+}
+
+export async function getMessages(messagesFetched) {
+    var messages = [];
+    var data = await firebase
+        .firestore()
+        .collection("Messages")
+        .orderBy("createdAt", "desc")
+        .limitToLast(5)
+        .get();
+
+    data.forEach(document => {
+        let temp = document.data();
+        const message = {
+            _id: temp._id,
+            text: temp.text,
+            createdAt: temp.createdAt.toDate(),
+            user: temp.user
+        };
+        messages.push(message);
+    });
+    messagesFetched(messages);
+}

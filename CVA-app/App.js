@@ -20,7 +20,8 @@ class App extends Component {
             projectId: "tomscva",
             storageBucket: "tomscva.appspot.com",
             messagingSenderId: "944453411118",
-            appId: "1:944453411118:web:6e8b7c6ba48c0a60ef9abf"
+            appId: "1:944453411118:web:6e8b7c6ba48c0a60ef9abf",
+            measurementId: "G-0FDDH4XPXG"
         };
         // Initialize Firebase
         if (!firebase.apps.length) {
