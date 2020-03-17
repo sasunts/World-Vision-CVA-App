@@ -1,63 +1,81 @@
 import firebase from "firebase";
 import "firebase/firestore";
 
-export async function fetchUserInfo(userEmail, showCurrentUserInfo) {
-    var currentUserInfo = [];
+class FirebaseSvc {
+    constructor() {}
 
-    var data = await firebase
-        .firestore()
-        .collection("users")
-        .get();
+    userName = (userEmail, callback) => {
+        var data = firebase
+            .firestore()
+            .collection("users")
+            .get()
+            .then(function(doc) {
+                doc.forEach(document => {
+                    let temp = document.data();
 
-    data.forEach(document => {
-        let temp = document.data();
-        if (userEmail == temp.email) {
-            const user = {
-                email: temp.email,
-                name: temp.name,
-                type: temp.type
-            };
-            currentUserInfo.push(user);
-        }
-    });
-    showCurrentUserInfo(currentUserInfo);
-}
+                    if (userEmail == temp.email) {
+                        const user = {
+                            email: temp.email,
+                            name: temp.name,
+                            type: temp.type
+                        };
+                        callback(user);
+                    }
+                });
+            });
+    };
 
-export function sendMessage(messageBeingSent, createComplete) {
-    const messageSentAt = firebase.firestore.FieldValue.serverTimestamp();
+    get uid() {
+        return (firebase.auth().currentUser || {}).uid;
+    }
 
-    firebase
-        .firestore()
-        .collection("Messages")
-        .add({
-            _id: messageBeingSent._id,
-            text: messageBeingSent.text,
-            createdAt: messageSentAt,
-            user: messageBeingSent.user
-        })
-        .then(data => data.get())
-        .then(messageData => createComplete(messageData.data()))
-        .catch(error => console.log(error));
-}
+    get ref() {
+        return firebase.database().ref("Messages");
+    }
 
-export async function getMessages(messagesFetched) {
-    var messages = [];
-    var data = await firebase
-        .firestore()
-        .collection("Messages")
-        .orderBy("createdAt", "desc")
-        .limitToLast(5)
-        .get();
+    parse = snapshot => {
+        const { timestamp: numberStamp, text, user } = snapshot.val();
+        const { key: id } = snapshot;
+        const { key: _id } = snapshot; //needed for giftedchat
+        const timestamp = new Date(numberStamp);
 
-    data.forEach(document => {
-        let temp = document.data();
         const message = {
-            _id: temp._id,
-            text: temp.text,
-            createdAt: temp.createdAt.toDate(),
-            user: temp.user
+            id,
+            _id,
+            timestamp,
+            text,
+            user
         };
-        messages.push(message);
-    });
-    messagesFetched(messages);
+        return message;
+    };
+
+    refOn = callback => {
+        this.ref
+            .limitToLast(20)
+            .on("child_added", snapshot => callback(this.parse(snapshot)));
+    };
+
+    get timestamp() {
+        return firebase.database.ServerValue.TIMESTAMP;
+    }
+
+    // send the message to the Backend
+    send = messages => {
+        for (let i = 0; i < messages.length; i++) {
+            const { text, user } = messages[i];
+            const message = {
+                text,
+                user,
+                createdAt: this.timestamp
+            };
+            this.ref.push(message);
+        }
+    };
+
+    refOff() {
+        this.ref.off();
+    }
 }
+
+const firebaseSvc = new FirebaseSvc();
+export default firebaseSvc;
