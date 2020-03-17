@@ -30,7 +30,7 @@ class FirebaseSvc {
     }
 
     get ref() {
-        return firebase.database().ref("Messages");
+        return firebase.firestore().collection("Messages");
     }
 
     parse = snapshot => {
@@ -46,13 +46,33 @@ class FirebaseSvc {
             text,
             user
         };
+
         return message;
     };
 
     refOn = callback => {
-        this.ref
-            .limitToLast(20)
-            .on("child_added", snapshot => callback(this.parse(snapshot)));
+        this.ref.onSnapshot(function(querySnapshot) {
+            var messages = [];
+
+            querySnapshot.forEach(function(doc) {
+                const { timestamp: numberStamp, text, user } = doc.data();
+                const { key: id } = doc;
+                const { key: _id } = doc; //needed for giftedchat
+                const timestamp = new Date(numberStamp);
+                console.log(timestamp);
+
+                const message = {
+                    id,
+                    _id,
+                    timestamp,
+                    text,
+                    user
+                };
+
+                // messages.push(doc.data());
+                callback(message);
+            });
+        });
     };
 
     get timestamp() {
@@ -61,20 +81,24 @@ class FirebaseSvc {
 
     // send the message to the Backend
     send = messages => {
+        const messageSentAt = firebase.firestore.FieldValue.serverTimestamp();
+        console.log("Made this at: ", messageSentAt);
         for (let i = 0; i < messages.length; i++) {
-            const { text, user } = messages[i];
-            const message = {
-                text,
-                user,
-                createdAt: this.timestamp
-            };
-            this.ref.push(message);
+            const { text, user, createdAt } = messages[i];
+
+            this.ref
+                .add({
+                    text,
+                    user,
+                    createdAt
+                })
+                .catch(error => console.log(error));
         }
     };
 
-    refOff() {
-        this.ref.off();
-    }
+    // refOff() {
+    //     this.ref.off();
+    // }
 }
 
 const firebaseSvc = new FirebaseSvc();

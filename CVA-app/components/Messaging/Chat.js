@@ -8,34 +8,42 @@ import firebaseSvc from "../../api/chatApi";
 export default class Chat extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            userId: "",
-            userName: "",
-            messages: []
-        };
     }
+    state = {
+        userId: "",
+        userName: "",
+        messages: []
+    };
 
     get getUser() {
-        const userEmail = firebase.auth().currentUser.email;
-        const userUid = firebase.auth().currentUser.uid;
-        firebaseSvc.userName(userEmail, userName => {
-            return {
-                name: userName,
-                email: userEmail,
-                id: userUid,
-                _id: userUid // need for gifted-chat
-            };
-        });
+        return {
+            name: "Tomasz Wisniowski",
+            email: firebase.auth().currentUser.email,
+            id: firebase.auth().currentUser.uid,
+            _id: firebase.auth().currentUser.uid // need for gifted-chat
+        };
+        // const userEmail = firebase.auth().currentUser.email;
+        // const userUid = firebase.auth().currentUser.uid;
+        // firebaseSvc.userName(userEmail, userName => {
+        //     console.log("This is: ", userName.name);
+        //     console.log(userEmail);
+        //     console.log(userUid);
+        //     console.log(userUid);
+        //     return {
+        //         name: userName,
+        //         // email: userEmail,
+        //         // id: userUid,
+        //         _id: userUid // need for gifted-chat
+        //     };
+        // });
+    }
 
-        // console.log("This is: ", userName);
-
-        // return {
-        //     name: userName,
-        //     email: userEmail,
-        //     id: firebaseSvc.uid,
-        //     _id: firebaseSvc.uid // need for gifted-chat
-        // };
+    componentDidMount() {
+        firebaseSvc.refOn(message =>
+            this.setState(previousState => ({
+                messages: GiftedChat.append(previousState.messages, message)
+            }))
+        );
     }
 
     render() {
@@ -48,14 +56,7 @@ export default class Chat extends Component {
         );
     }
 
-    componentDidMount() {
-        firebaseSvc.refOn(message =>
-            this.setState(previousState => ({
-                messages: GiftedChat.append(previousState.messages, message)
-            }))
-        );
-    }
-    componentWillUnmount() {
-        firebaseSvc.refOff();
-    }
+    // componentWillUnmount() {
+    //     firebaseSvc.refOff();
+    // }
 }
