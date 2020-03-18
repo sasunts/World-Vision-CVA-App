@@ -57,25 +57,19 @@ class FirebaseSvc {
             .onSnapshot(function(querySnapshot) {
                 querySnapshot.docChanges().forEach(function(change) {
                     if (change.type === "added") {
-                        const {
-                            timestamp: numberStamp,
-                            text,
-                            user
-                        } = change.doc.data();
+                        const { createdAt, text, user } = change.doc.data();
+
                         const { key: id } = change;
                         const { key: _id } = change; //needed for giftedchat
-                        const timestamp = new Date(numberStamp);
-                        console.log(timestamp);
 
                         const message = {
                             id,
                             _id,
-                            timestamp,
+                            createdAt,
                             text,
                             user
                         };
 
-                        // messages.push(doc.data());
                         callback(message);
                     }
                 });
@@ -88,16 +82,17 @@ class FirebaseSvc {
 
     // send the message to the Backend
     send = messages => {
-        const messageSentAt = firebase.firestore.FieldValue.serverTimestamp();
+        const messageSentAt = Date.now();
         console.log("Made this at: ", messageSentAt);
         for (let i = 0; i < messages.length; i++) {
-            const { text, user, createdAt } = messages[i];
+            const { _id, text, user, createdAt } = messages[i];
 
             this.ref
                 .add({
+                    _id,
                     text,
                     user,
-                    createdAt
+                    createdAt: messageSentAt
                 })
                 .catch(error => console.log(error));
         }
