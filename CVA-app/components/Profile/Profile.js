@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View, TextInput, Modal } from "react-native";
-import Dialog from "react-native-dialog";
+import * as RootNavigation from "../../routes/RootNavigation";
 import { getUser } from "../../api/profileApi";
 import DialogBox from "./DialogBox"
 import firebase from "firebase";
@@ -14,7 +14,8 @@ class Profile extends Component {
 		super(props);
 
 
-		// this.handleChange = this.handleChange.bind(this);
+		this.submitChanges = this.submitChanges.bind(this);
+		this.cancelChanges = this.cancelChanges.bind(this);
 
 		this.state = {
 			name: "",
@@ -49,16 +50,24 @@ class Profile extends Component {
 	}
 
 	submitChanges() {
-
+		firebase
+			.firestore()
+			.collection("users")
+			.doc(firebase.auth().currentUser.email)
+			.set(
+				{
+					age: this.state.age,
+					sex: this.state.sex,
+					occupation: this.state.occupation
+				},
+				{ merge: true }
+			);
 	}
 
 	cancelChanges() {
-
 	}
 
 	render() {
-		// const editIcon = <Icon name="edit" size={18} />
-
 		return (
 			<View style={styles.container} >
 				<View style={styles.commitmentOverviewContainer}>
@@ -87,23 +96,18 @@ class Profile extends Component {
 
 				<TouchableOpacity
 					style={styles.buttonContainer}
-					onPress={() => submitChanges()}
+					onPress={this.submitChanges}
 				>
 					<Text style={styles.buttonText}>Save</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity
 					style={styles.buttonContainer}
-					onPress={() => cancelChanges()}
+					onPress={() =>
+						RootNavigation.navigate("Home")
+					}
 				>
 					<Text style={styles.buttonText}>Cancel</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity
-					style={styles.profileLogoutButton}
-					onPress={() => firebase.auth().signOut()}
-				>
-					<Text style={styles.buttonText}>Logout</Text>
 				</TouchableOpacity>
 
 			</View >

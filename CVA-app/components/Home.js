@@ -27,18 +27,6 @@ const Home = ({ navigation }) => {
 					<Text style={styles.buttonText}>Govt Commitments</Text>
 				</TouchableOpacity>
 				<View style={{ paddingTop: 20 }}></View>
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					onPress={() => firebase.auth().signOut()}
-				>
-					<Text style={styles.buttonText}>Logout</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					onPress={() => navigation.navigate("Profile")}
-				>
-					<Text style={styles.buttonText}>Profile</Text>
-				</TouchableOpacity>
 			</View>
 		</View >
 	);

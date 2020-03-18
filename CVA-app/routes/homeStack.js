@@ -1,7 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
+import firebase from "firebase";
+import * as RootNavigation from "../routes/RootNavigation";
 import "react-native-gesture-handler";
 import ActionPlan from "../components/ActionPlans/ActionPlan";
 import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
@@ -42,8 +44,11 @@ function MyStack() {
               fontWeight: "bold"
             },
             headerRight: ({ navigate }) => (
-              <TouchableOpacity>
-                <Icon style={{ marginRight: 5 }} name="account-circle" size={40} color="white" />
+              <TouchableOpacity onPress={() =>
+                RootNavigation.navigate("Profile")
+              }>
+                <Icon style={{ marginLeft: 7 }} name="account-circle" size={30} color="white" />
+                <Text style={{ marginRight: 10, color: "white", fontWeight: "bold" }}>Profile</Text>
               </TouchableOpacity>
             )
           }}
@@ -59,7 +64,15 @@ function MyStack() {
             headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold"
-            }
+            },
+            headerRight: ({ navigate }) => (
+              <TouchableOpacity
+                onPress={() => firebase.auth().signOut()}
+              >
+                <Icon style={{ marginLeft: 10.5 }} name="exit-to-app" size={25} color="white" />
+                <Text style={{ marginRight: 10, color: "white", fontWeight: "bold" }}>Logout</Text>
+              </TouchableOpacity>
+            )
           }}
         />
         <Stack.Screen
