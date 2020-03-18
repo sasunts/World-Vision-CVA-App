@@ -6,14 +6,15 @@ import Loading from './components/Loading';
 import LoginForm from './components/LoginScreen/LoginForm';
 import Home from './components/Home';
 import Navigator from './routes/homeStack';
+console.disableYellowBox = true;
 
-class App extends Component{
-  
-  state={
-    loggedIn:null
+class App extends Component {
+
+  state = {
+    loggedIn: null
   }
 
-  componentDidMount(){
+  componentDidMount() {
     var firebaseConfig = {
       apiKey: "AIzaSyBED4E6DHNaXml61ENPAvOcyZUMSd-ePeU",
       authDomain: "cva-worldvision.firebaseapp.com",
@@ -26,40 +27,40 @@ class App extends Component{
     // Initialize Firebase
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
+    }
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({
+          loggedIn: true
+        })
+      } else {
+        this.setState({
+          loggedIn: false
+        })
+      }
+    })
+
+
   }
- 
-     firebase.auth().onAuthStateChanged(user => {
-          if(user){
-             this.setState({
-               loggedIn:true
-             })
-          }else{
-            this.setState({
-              loggedIn:false
-            })
-          }
-     })
-
-   
-  }
 
 
-  renderContent = () =>{
-    switch(this.state.loggedIn){
+  renderContent = () => {
+    switch (this.state.loggedIn) {
       case false:
-        return <LoginForm/>
+        return <LoginForm />
       case true:
-        return <Navigator/>
+        return <Navigator />
       default:
-        return <Loading/>
+        return <Loading />
 
 
     }
   }
 
-  render(){
+  render() {
     return (
-          this.renderContent()
+      this.renderContent()
     );
   }
 }
@@ -67,7 +68,7 @@ class App extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    
+
   },
 });
 

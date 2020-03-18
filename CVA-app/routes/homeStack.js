@@ -1,17 +1,21 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
+import { TouchableOpacity } from "react-native";
 import "react-native-gesture-handler";
 import ActionPlan from "../components/ActionPlans/ActionPlan";
 import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
 import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
 import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
 import UpdateCommitment from "../components/GovtCommitments/UpdateCommitment";
+import Profile from "../components/Profile/Profile";
 import Home from "../components/Home";
 import Report from "../components/Reports/Report";
 import SuggestionsHome from "../components/Suggestions/SuggestionsHome";
 import CommitmentPage from "../components/GovtCommitments/CommitmentPage";
 import { navigationRef, isMountedRef } from "./RootNavigation";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 const Stack = createStackNavigator();
 
@@ -30,6 +34,25 @@ function MyStack() {
           component={Home}
           options={{
             title: "Home",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            },
+            headerRight: ({ navigate }) => (
+              <TouchableOpacity>
+                <Icon style={{ marginRight: 5 }} name="account-circle" size={40} color="white" />
+              </TouchableOpacity>
+            )
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            title: "My Profile",
             headerStyle: {
               backgroundColor: "#ff7800"
             },
