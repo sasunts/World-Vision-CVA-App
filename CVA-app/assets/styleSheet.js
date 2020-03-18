@@ -254,7 +254,39 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff"
   },
   tableHead: { height: 40, backgroundColor: "#f1f8ff" },
-  tableText: { margin: 6, textAlign: "center" }
+  tableText: { margin: 6, textAlign: "center" },
+
+  profileHeader: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 22,
+    color: "black",
+    paddingLeft: 10
+  },
+  profileText: {
+    textAlign: "center",
+    marginLeft: 10,
+    fontSize: 18
+  },
+
+  editProfileInfo: {
+    borderColor: "black",
+    borderWidth: 2
+  },
+  profileLogoutButton: {
+    backgroundColor: "#ff7800",
+    padding: 15,
+    borderRadius: 8,
+    margin: 5,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    },
+    marginTop: 170
+  }
 });
 
 export default styles;
