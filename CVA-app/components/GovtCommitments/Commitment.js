@@ -256,13 +256,6 @@ export default class Commitment extends Component {
 
                         <TouchableOpacity
                             style={styles.buttonContainer}
-                            onPress={() => RootNavigation.navigate("Chat")}
-                        >
-                            <Text style={styles.buttonText}>Open Chat</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
                             onPress={() => {
                                 this.setState({ renderEditor: true });
                             }}
