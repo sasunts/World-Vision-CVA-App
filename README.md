@@ -7,4 +7,5 @@
 * Install React Native.
 * Install Expo.
 * CD into `CVA-app`.
+* Run `yarn install`.
 * Run `yarn start`.
