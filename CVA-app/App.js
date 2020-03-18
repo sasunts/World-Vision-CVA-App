@@ -14,14 +14,13 @@ class App extends Component {
 
     componentDidMount() {
         var firebaseConfig = {
-            apiKey: "AIzaSyBgq7pJF8_D2kdE8UAdTlKQAgfbOOCXG7E",
-            authDomain: "tomscva.firebaseapp.com",
-            databaseURL: "https://tomscva.firebaseio.com",
-            projectId: "tomscva",
-            storageBucket: "tomscva.appspot.com",
-            messagingSenderId: "944453411118",
-            appId: "1:944453411118:web:6e8b7c6ba48c0a60ef9abf",
-            measurementId: "G-0FDDH4XPXG"
+            apiKey: "AIzaSyBED4E6DHNaXml61ENPAvOcyZUMSd-ePeU",
+            authDomain: "cva-worldvision.firebaseapp.com",
+            databaseURL: "https://cva-worldvision.firebaseio.com",
+            projectId: "cva-worldvision",
+            storageBucket: "cva-worldvision.appspot.com",
+            messagingSenderId: "615471052636",
+            appId: "1:615471052636:web:9df5e821e9981b4fc47399"
         };
         // Initialize Firebase
         if (!firebase.apps.length) {
