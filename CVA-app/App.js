@@ -1,10 +1,8 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import firebase from 'firebase'
-import { View, Text, StyleSheet } from 'react-native';
 import Loading from './components/Loading';
 import LoginForm from './components/LoginScreen/LoginForm';
-import Home from './components/Home';
 import Navigator from './routes/homeStack';
 console.disableYellowBox = true;
 
@@ -53,24 +51,16 @@ class App extends Component {
         return <Navigator />
       default:
         return <Loading />
-
-
-    renderContent = () => {
-        switch (this.state.loggedIn) {
-            case false:
-                return <LoginForm />;
-            case true:
-                return <Navigator />;
-            default:
-                return <Loading />;
-        }
-    };
-
-    render() {
-        return this.renderContent();
     }
+  }
+
+  render() {
+    return (this.renderContent()
+    );
+  }
 
 
-});
+
+};
 
 export default App;

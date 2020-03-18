@@ -33,7 +33,7 @@ class DialogBox extends Component {
                         onChangeText={edit => this.setState({ edit })}
                     />
                     <Dialog.Button label="Cancel" onPress={() => { this.setState({ dialogVisible: false }) }} />
-                    <Dialog.Button label="Accept"
+                    <Dialog.Button label="Submit"
                         onPress={() => { this.props.handleChange(this.state.edit), this.setState({ dialogVisible: false }) }}
                     />
                 </Dialog.Container>

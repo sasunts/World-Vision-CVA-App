@@ -1,12 +1,12 @@
 import * as React from "react";
 import {
 
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Button,
-    Image
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	Button,
+	Image
 
 } from "react-native";
 import styles from "../assets/styleSheet";
@@ -30,15 +30,15 @@ const Home = ({ navigation }) => {
 				>
 					<Text style={styles.buttonText}>Govt Commitments</Text>
 				</TouchableOpacity>
-        <TouchableOpacity
-                    style={styles.buttonContainer}
-                    onPress={() => navigation.navigate("Chat")}
-                >
-                    <Text style={styles.buttonText}>Open Global Chat</Text>
-                </TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonContainer}
+					onPress={() => navigation.navigate("Chat")}
+				>
+					<Text style={styles.buttonText}>Open Global Chat</Text>
+				</TouchableOpacity>
 				<View style={{ paddingTop: 20 }}></View>
 			</View>
 		</View >
 	);
-
+}
 export default Home;
