@@ -12,6 +12,7 @@ import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHo
 import UpdateCommitment from "../components/GovtCommitments/UpdateCommitment";
 import Profile from "../components/Profile/Profile";
 import Chat from "../components/Messaging/Chat";
+import ChatHome from "../components/Messaging/ChatHome";
 import Home from "../components/Home";
 import Report from "../components/Reports/Report";
 import SuggestionsHome from "../components/Suggestions/SuggestionsHome";
@@ -23,11 +24,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Stack = createStackNavigator();
 
 function MyStack() {
-    React.useEffect(() => {
-        isMountedRef.current = true;
+  React.useEffect(() => {
+    isMountedRef.current = true;
 
-        return () => (isMountedRef.current = false);
-    }, []);
+    return () => (isMountedRef.current = false);
+  }, []);
 
   return (
     <NavigationContainer ref={navigationRef}>
@@ -119,19 +120,33 @@ function MyStack() {
           }}
         />
         <Stack.Screen
-                    name="Chat"
-                    component={Chat}
-                    options={{
-                        title: "Chat",
-                        headerStyle: {
-                            backgroundColor: "#ff7800"
-                        },
-                        headerTintColor: "#fff",
-                        headerTitleStyle: {
-                            fontWeight: "bold"
-                        }
-                    }}
-                />
+          name="Chat"
+          component={Chat}
+          options={{
+            title: "Chat",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
+        />
+        <Stack.Screen
+          name="ChatHome"
+          component={ChatHome}
+          options={{
+            title: "ChatHome",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
+        />
         <Stack.Screen
           name="CommitmentPage"
           component={CommitmentPage}
