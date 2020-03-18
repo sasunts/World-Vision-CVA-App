@@ -51,28 +51,35 @@ class FirebaseSvc {
     };
 
     refOn = callback => {
-        this.ref.onSnapshot(function(querySnapshot) {
-            var messages = [];
+        this.ref
+            .limitToLast(20)
+            .orderBy("createdAt")
+            .onSnapshot(function(querySnapshot) {
+                querySnapshot.docChanges().forEach(function(change) {
+                    if (change.type === "added") {
+                        const {
+                            timestamp: numberStamp,
+                            text,
+                            user
+                        } = change.doc.data();
+                        const { key: id } = change;
+                        const { key: _id } = change; //needed for giftedchat
+                        const timestamp = new Date(numberStamp);
+                        console.log(timestamp);
 
-            querySnapshot.forEach(function(doc) {
-                const { timestamp: numberStamp, text, user } = doc.data();
-                const { key: id } = doc;
-                const { key: _id } = doc; //needed for giftedchat
-                const timestamp = new Date(numberStamp);
-                console.log(timestamp);
+                        const message = {
+                            id,
+                            _id,
+                            timestamp,
+                            text,
+                            user
+                        };
 
-                const message = {
-                    id,
-                    _id,
-                    timestamp,
-                    text,
-                    user
-                };
-
-                // messages.push(doc.data());
-                callback(message);
+                        // messages.push(doc.data());
+                        callback(message);
+                    }
+                });
             });
-        });
     };
 
     get timestamp() {
