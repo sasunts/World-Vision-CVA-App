@@ -1,16 +1,30 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import firebase from 'firebase'
+import { getUser } from "./api/profileApi";
 import Loading from './components/Loading';
 import LoginForm from './components/LoginScreen/LoginForm';
 import Navigator from './routes/homeStack';
+import OnBoard from './routes/OnBoardingStack';
 console.disableYellowBox = true;
 
 class App extends Component {
+  constructor(props) {
+    super(props);
 
-  state = {
-    loggedIn: null
+    this.state = {
+      loggedIn: null,
+      firstLogin: false,
+      userInfo: []
+    }
+
   }
+
+  onActionsFetched = userInfo => {
+    this.setState(prevState => ({
+      userInfo: (prevState.userInfo = userInfo)
+    }));
+  };
 
   componentDidMount() {
     var firebaseConfig = {
@@ -27,8 +41,9 @@ class App extends Component {
       firebase.initializeApp(firebaseConfig);
     }
 
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(async user => {
       if (user) {
+        await getUser(user.email, this.onActionsFetched)
         this.setState({
           loggedIn: true
         })
@@ -38,17 +53,21 @@ class App extends Component {
         })
       }
     })
-
-
   }
-
 
   renderContent = () => {
     switch (this.state.loggedIn) {
       case false:
         return <LoginForm />
       case true:
-        return <Navigator />
+        console.log(this.state.userInfo)
+        if (this.state.firstLogin == this.state.userInfo[0].signedUp) {
+
+          return <OnBoard />
+        } else {
+          return <Navigator />
+        }
+
       default:
         return <Loading />
     }
@@ -58,9 +77,6 @@ class App extends Component {
     return (this.renderContent()
     );
   }
-
-
-
 };
 
 export default App;

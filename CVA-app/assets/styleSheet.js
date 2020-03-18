@@ -286,6 +286,50 @@ const styles = StyleSheet.create({
       width: 1
     },
     marginTop: 170
+  },
+  onBoardHeader: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "black",
+    // marginTop: 100
+  },
+  onBoardInput: {
+    marginTop: 10,
+    marginLeft: 40,
+    marginRight: 50,
+    // marginHorizontal: "10%",
+    width: 270,
+    borderWidth: 0.2,
+    height: 50,
+    paddingLeft: 10,
+    marginBottom: 15,
+    borderRadius: 5,
+    fontSize: 15,
+    backgroundColor: "#fff",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+  onBoardButton: {
+    width: 60,
+    marginTop: 170,
+    marginLeft: 150,
+    backgroundColor: "#ff7800",
+    padding: 15,
+    borderRadius: 8,
+    margin: 5,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   }
 });
 
