@@ -1,14 +1,18 @@
 import * as React from "react";
-import firebase from "firebase";
 import {
-	View,
-	Text,
-	TouchableOpacity,
+
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Button,
+    Image
+
 } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from "../assets/styleSheet";
 
 const Home = ({ navigation }) => {
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.homeContainer}>
@@ -26,10 +30,15 @@ const Home = ({ navigation }) => {
 				>
 					<Text style={styles.buttonText}>Govt Commitments</Text>
 				</TouchableOpacity>
+        <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={() => navigation.navigate("Chat")}
+                >
+                    <Text style={styles.buttonText}>Open Global Chat</Text>
+                </TouchableOpacity>
 				<View style={{ paddingTop: 20 }}></View>
 			</View>
 		</View >
 	);
-};
 
 export default Home;

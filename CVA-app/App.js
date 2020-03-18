@@ -55,21 +55,22 @@ class App extends Component {
         return <Loading />
 
 
+    renderContent = () => {
+        switch (this.state.loggedIn) {
+            case false:
+                return <LoginForm />;
+            case true:
+                return <Navigator />;
+            default:
+                return <Loading />;
+        }
+    };
+
+    render() {
+        return this.renderContent();
     }
-  }
-
-  render() {
-    return (
-      this.renderContent()
-    );
-  }
-}
 
 
-const styles = StyleSheet.create({
-  container: {
-
-  },
 });
 
 export default App;
