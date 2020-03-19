@@ -50,8 +50,8 @@ class FirebaseSvc {
         return message;
     };
 
-    refOn = callback => {
-        this.ref
+    refOn = (listenerOnListinerOff, callback) => {
+        var willThisWork = this.ref
             .limitToLast(20)
             .orderBy("createdAt")
             .onSnapshot(function(querySnapshot) {
@@ -74,6 +74,10 @@ class FirebaseSvc {
                     }
                 });
             });
+        if (listenerOnListinerOff == 0) {
+            willThisWork();
+            console.log("Turned off listiner daddy");
+        }
     };
 
     get timestamp() {
