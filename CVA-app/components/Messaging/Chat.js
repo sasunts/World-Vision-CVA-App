@@ -32,7 +32,7 @@ export default class Chat extends Component {
             this.setState({ userName: userName.name });
         });
 
-        firebaseSvc.refOn(message =>
+        firebaseSvc.refOn(1, message =>
             this.setState(previousState => ({
                 messages: GiftedChat.append(previousState.messages, message)
             }))
@@ -49,7 +49,7 @@ export default class Chat extends Component {
         );
     }
 
-    // componentWillUnmount() {
-    //     firebaseSvc.refOff();
-    // }
+    componentWillUnmount() {
+        firebaseSvc.refOn(0, whatever => console.log(whatever));
+    }
 }
