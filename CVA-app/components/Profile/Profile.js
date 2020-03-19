@@ -1,18 +1,14 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View, TextInput, Modal } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import * as RootNavigation from "../../routes/RootNavigation";
 import { getUser } from "../../api/profileApi";
 import DialogBox from "./DialogBox"
 import firebase from "firebase";
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from "../../assets/styleSheet";
-
-const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
 class Profile extends Component {
 	constructor(props) {
 		super(props);
-
 
 		this.submitChanges = this.submitChanges.bind(this);
 		this.cancelChanges = this.cancelChanges.bind(this);
@@ -24,7 +20,6 @@ class Profile extends Component {
 			sex: "",
 			occupation: "",
 			groupID: "",
-			signedUp: false,
 			userInfo: [],
 			dialogVisible: false,
 			editAge: "",
@@ -49,8 +44,8 @@ class Profile extends Component {
 		})
 	}
 
-	submitChanges() {
-		firebase
+	async submitChanges() {
+		await firebase
 			.firestore()
 			.collection("users")
 			.doc(firebase.auth().currentUser.email)
@@ -62,6 +57,7 @@ class Profile extends Component {
 				},
 				{ merge: true }
 			);
+		RootNavigation.navigate("Home")
 	}
 
 	cancelChanges() {
