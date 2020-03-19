@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View, TextInput, Image } from "react-native";
+import { Text, TouchableOpacity, View, TextInput, Image, Button } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from "../../assets/styleSheet";
 
@@ -7,9 +7,20 @@ class NameScreen extends Component {
     constructor(props) {
         super(props);
 
+        this.onChangeName = this.onChangeName.bind(this);
+
         this.state = {
             name: ""
         };
+    }
+
+    onChangeName() {
+        if (this.state.name.trim() === "") {
+            alert("Name required");
+        } else {
+            this.props.navigation.navigate("AgeScreen", { name: this.state.name })
+        }
+
     }
 
     render() {
@@ -26,7 +37,8 @@ class NameScreen extends Component {
                 />
                 <TouchableOpacity
                     style={styles.onBoardButton}
-                    onPress={() => this.props.navigation.navigate("AgeScreen", { name: this.state.name })}
+                    // onPress={() => this.props.navigation.navigate("AgeScreen", { name: this.state.name })}
+                    onPress={this.onChangeName}
                 >
                     <Text style={styles.buttonText}><Icon name="arrow-forward" size={25} /></Text>
                 </TouchableOpacity>
