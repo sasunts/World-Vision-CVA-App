@@ -7,11 +7,26 @@ class AgeScreen extends Component {
     constructor(props) {
         super(props);
 
-
+        this.onChanged = this.onChanged.bind(this);
 
         this.state = {
             age: ""
         };
+    }
+
+    onChanged(text) {
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i = 0; i < text.length; i++) {
+            if (numbers.indexOf(text[i]) > -1) {
+                newText = newText + text[i];
+            }
+            else {
+                alert("Please enter a number");
+            }
+        }
+        this.setState({ age: newText });
     }
 
     render() {
@@ -22,10 +37,12 @@ class AgeScreen extends Component {
                 <Text style={{ textAlign: "center", marginTop: 150, fontSize: 25 }}>Please enter your age:</Text>
 
                 <TextInput
+                    keyboardType={"numeric"}
                     placeholder="Age..."
                     style={styles.onBoardInput}
                     value={this.state.age}
-                    onChangeText={age => this.setState({ age })}
+                    onChangeText={(text) => this.onChanged(text)}
+                    maxLength={3}
                 />
                 <TouchableOpacity
                     style={styles.onBoardButton}

@@ -18,6 +18,47 @@ class DialogBox extends Component {
         this.setState({ dialogVisible: false, age: this.state.edit });
     }
 
+    onChangeAge(text) {
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i = 0; i < text.length; i++) {
+            if (numbers.indexOf(text[i]) > -1) {
+                newText = newText + text[i];
+            }
+            else {
+                alert("Please enter a number");
+                this.setState({ edit: "" });
+            }
+        }
+        this.setState({ edit: newText });
+    }
+
+    inputType() {
+        console.log(this.props.type)
+        if (this.props.type === "age") {
+            return (
+                <TextInput
+                    keyboardType={"numeric"}
+                    placeholder="Edit..."
+                    type="text"
+                    style={styles.input}
+                    onChangeText={(text) => this.onChangeAge(text)}
+                    maxLength={3}
+                />
+            )
+        } else {
+            return (
+                <TextInput
+                    placeholder="Edit..."
+                    type="text"
+                    style={styles.input}
+                    onChangeText={edit => this.setState({ edit })}
+                />
+            )
+        }
+    }
+
     render() {
         return (
             <View >
@@ -26,12 +67,7 @@ class DialogBox extends Component {
                 </TouchableOpacity>
                 <Dialog.Container visible={this.state.dialogVisible}>
                     <Dialog.Title>Edit {this.props.type}:</Dialog.Title>
-                    <TextInput
-                        placeholder="Edit..."
-                        type="text"
-                        style={styles.input}
-                        onChangeText={edit => this.setState({ edit })}
-                    />
+                    {this.inputType()}
                     <Dialog.Button label="Cancel" onPress={() => { this.setState({ dialogVisible: false }) }} />
                     <Dialog.Button label="Submit"
                         onPress={() => { this.props.handleChange(this.state.edit), this.setState({ dialogVisible: false }) }}
