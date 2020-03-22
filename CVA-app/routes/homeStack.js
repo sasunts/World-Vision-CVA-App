@@ -18,8 +18,7 @@ import Report from "../components/Reports/Report";
 import SuggestionsHome from "../components/Suggestions/SuggestionsHome";
 import CommitmentPage from "../components/GovtCommitments/CommitmentPage";
 import { navigationRef, isMountedRef } from "./RootNavigation";
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Stack = createStackNavigator();
 
@@ -46,11 +45,24 @@ function MyStack() {
               fontWeight: "bold"
             },
             headerRight: ({ navigate }) => (
-              <TouchableOpacity onPress={() =>
-                RootNavigation.navigate("Profile")
-              }>
-                <Icon style={{ marginLeft: 7 }} name="account-circle" size={30} color="white" />
-                <Text style={{ marginRight: 10, color: "white", fontWeight: "bold" }}>Profile</Text>
+              <TouchableOpacity
+                onPress={() => RootNavigation.navigate("Profile")}
+              >
+                <Icon
+                  style={{ marginLeft: 7 }}
+                  name="account-circle"
+                  size={30}
+                  color="white"
+                />
+                <Text
+                  style={{
+                    marginRight: 10,
+                    color: "white",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Profile
+                </Text>
               </TouchableOpacity>
             )
           }}
@@ -68,11 +80,22 @@ function MyStack() {
               fontWeight: "bold"
             },
             headerRight: ({ navigate }) => (
-              <TouchableOpacity
-                onPress={() => firebase.auth().signOut()}
-              >
-                <Icon style={{ marginLeft: 10.5 }} name="exit-to-app" size={25} color="white" />
-                <Text style={{ marginRight: 10, color: "white", fontWeight: "bold" }}>Logout</Text>
+              <TouchableOpacity onPress={() => firebase.auth().signOut()}>
+                <Icon
+                  style={{ marginLeft: 10.5 }}
+                  name="exit-to-app"
+                  size={25}
+                  color="white"
+                />
+                <Text
+                  style={{
+                    marginRight: 10,
+                    color: "white",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Logout
+                </Text>
               </TouchableOpacity>
             )
           }}
@@ -137,7 +160,7 @@ function MyStack() {
           name="ChatHome"
           component={ChatHome}
           options={{
-            title: "ChatHome",
+            title: "Chat Home",
             headerStyle: {
               backgroundColor: "#ff7800"
             },
