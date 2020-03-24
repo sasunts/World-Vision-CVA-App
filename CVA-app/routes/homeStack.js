@@ -33,8 +33,6 @@ function MyStack() {
 		return () => (isMountedRef.current = false);
 	}, []);
 
-
-
 	return (
 		<NavigationContainer ref={navigationRef}>
 			<Stack.Navigator>
@@ -132,154 +130,154 @@ function MyStack() {
 						}
 					}}
 				/>
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            title: "My Profile",
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            },
-            headerRight: ({ navigate }) => (
-              <TouchableOpacity onPress={() => firebase.auth().signOut()}>
-                <Icon
-                  style={{ marginLeft: 10.5 }}
-                  name="exit-to-app"
-                  size={25}
-                  color="white"
-                />
-                <Text
-                  style={{
-                    marginRight: 10,
-                    color: "white",
-                    fontWeight: "bold"
-                  }}
-                >
-                  Logout
-                </Text>
-              </TouchableOpacity>
-            )
-          }}
-        />
-        <Stack.Screen
-          name="Action-Plan"
-          component={ActionPlanHome}
-          options={{
-            title: "Action Plans",
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          }}
-        />
-        <Stack.Screen
-          name="ActionPlan"
-          component={ActionPlan}
-          options={({ route }) => ({
-            title: route.params.list?.title,
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          })}
-        />
-        <Stack.Screen
-          name="Govt-Commitments-Home"
-          component={GovtCommitmentsHome}
-          options={{
-            title: "Government Commitments",
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          }}
-        />
-        <Stack.Screen
-          name="Chat"
-          component={Chat}
-          options={{
-            title: "Chat",
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          }}
-        />
-        <Stack.Screen
-          name="ChatHome"
-          component={ChatHome}
-          options={{
-            title: "Chat Home",
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          }}
-        />
-        <Stack.Screen
-          name="CommitmentPage"
-          component={CommitmentPage}
-          options={({ route }) => ({
-            title: route.params.details?.title,
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          })}
-        />
-        <Stack.Screen
-          name="SuggestionsHome"
-          component={SuggestionsHome}
-          options={{
-            title: "SuggestionsHome",
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          }}
-        />
-        <Stack.Screen name="UpdateCommitment" component={UpdateCommitment} />
-        <Stack.Screen
-          name="Report"
-          component={Report}
-          options={{
-            headerStyle: {
-              backgroundColor: "#ff7800"
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold"
-            }
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+				<Stack.Screen
+					name="Profile"
+					component={Profile}
+					options={{
+						title: "My Profile",
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						},
+						headerRight: ({ navigate }) => (
+							<TouchableOpacity onPress={() => firebase.auth().signOut()}>
+								<Icon
+									style={{ marginLeft: 10.5 }}
+									name="exit-to-app"
+									size={25}
+									color="white"
+								/>
+								<Text
+									style={{
+										marginRight: 10,
+										color: "white",
+										fontWeight: "bold"
+									}}
+								>
+									Logout
+								</Text>
+							</TouchableOpacity>
+						)
+					}}
+				/>
+				<Stack.Screen
+					name="Action-Plan"
+					component={ActionPlanHome}
+					options={{
+						title: "Action Plans",
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					}}
+				/>
+				<Stack.Screen
+					name="ActionPlan"
+					component={ActionPlan}
+					options={({ route }) => ({
+						title: route.params.list?.title,
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					})}
+				/>
+				<Stack.Screen
+					name="Govt-Commitments-Home"
+					component={GovtCommitmentsHome}
+					options={{
+						title: "Government Commitments",
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					}}
+				/>
+				<Stack.Screen
+					name="Chat"
+					component={Chat}
+					options={{
+						title: "Chat",
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					}}
+				/>
+				<Stack.Screen
+					name="ChatHome"
+					component={ChatHome}
+					options={{
+						title: "Chat Home",
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					}}
+				/>
+				<Stack.Screen
+					name="CommitmentPage"
+					component={CommitmentPage}
+					options={({ route }) => ({
+						title: route.params.details?.title,
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					})}
+				/>
+				<Stack.Screen
+					name="SuggestionsHome"
+					component={SuggestionsHome}
+					options={{
+						title: "SuggestionsHome",
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					}}
+				/>
+				<Stack.Screen name="UpdateCommitment" component={UpdateCommitment} />
+				<Stack.Screen
+					name="Report"
+					component={Report}
+					options={{
+						headerStyle: {
+							backgroundColor: "#ff7800"
+						},
+						headerTintColor: "#fff",
+						headerTitleStyle: {
+							fontWeight: "bold"
+						}
+					}}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }
 
 export default MyStack;
