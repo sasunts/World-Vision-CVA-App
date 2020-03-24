@@ -11,8 +11,9 @@ import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
 import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
 import UpdateCommitment from "../components/GovtCommitments/UpdateCommitment";
 import Profile from "../components/Profile/Profile";
-import Chat from "../components/Messaging/Chat";
+import Chats from "../components/Messaging/Chats";
 import ChatHome from "../components/Messaging/ChatHome";
+import Users from "../components/Messaging/Users";
 import Home from "../components/Home";
 import Report from "../components/Reports/Report";
 import SuggestionsHome from "../components/Suggestions/SuggestionsHome";
@@ -120,10 +121,10 @@ function MyStack() {
           }}
         />
         <Stack.Screen
-          name="Chat"
-          component={Chat}
+          name="Chats"
+          component={Chats}
           options={{
-            title: "Chat",
+            title: "Chats",
             headerStyle: {
               backgroundColor: "#ff7800"
             },
@@ -138,6 +139,20 @@ function MyStack() {
           component={ChatHome}
           options={{
             title: "ChatHome",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Users"
+          component={Users}
+          options={{
+            title: "Users",
             headerStyle: {
               backgroundColor: "#ff7800"
             },
