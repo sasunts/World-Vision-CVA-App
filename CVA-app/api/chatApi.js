@@ -25,7 +25,7 @@ class FirebaseSvc {
             });
     };
 
-    getUsers(callback) {
+    getUsers(userEmail, callback) {
         var users = [];
         var data = firebase
             .firestore()
@@ -39,7 +39,11 @@ class FirebaseSvc {
                         email: temp.email,
                         name: temp.name
                     };
-                    users.push(user);
+
+                    if (temp.email != userEmail)
+                    {
+                        users.push(user);
+                    }
                     
                 });
 

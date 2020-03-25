@@ -1,45 +1,123 @@
-import * as React from "react";
-import {
-
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	Button,
-	Image
-
-} from "react-native";
+import React, { Component } from "react";
+import Loading from "../components/Loading";
+import { getUser } from "../api/profileApi";
+import firebase from "firebase";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
 import styles from "../assets/styleSheet";
 
-const Home = ({ navigation }) => {
+class Home extends Component {
+	constructor(props) {
+		super(props);
 
-	return (
-		<View style={styles.container}>
-			<View style={styles.homeContainer}>
-				<Text style={styles.heading}>Citizen, Voice, Action</Text>
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					onPress={() => navigation.navigate("Action-Plan")}
-				>
-					<Text style={styles.buttonText}>Action Plan</Text>
-				</TouchableOpacity>
-				<View style={{ paddingTop: 20 }} />
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					onPress={() => navigation.navigate("Govt-Commitments-Home")}
-				>
-					<Text style={styles.buttonText}>Govt Commitments</Text>
-				</TouchableOpacity>
-				<View style={{ paddingTop: 20 }} />
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					onPress={() => navigation.navigate("ChatHome")}
-				>
-					<Text style={styles.buttonText}>Messaging</Text>
-				</TouchableOpacity>
-				<View style={{ paddingTop: 20 }}></View>
-			</View>
-		</View >
-	);
+		this.onChangeName = this.onChangeName.bind(this);
+
+		this.state = {
+			firstLogin: null,
+			userInfo: [],
+			name: ""
+		};
+	}
+
+	onActionsFetched = userInfo => {
+		this.setState(prevState => ({
+			userInfo: (prevState.userInfo = userInfo)
+		}));
+	};
+
+	async componentDidMount() {
+		await getUser(firebase.auth().currentUser.email, this.onActionsFetched);
+
+		if (this.state.userInfo[0].signedUp == true) {
+			this.setState({ firstLogin: true });
+		} else {
+			this.setState({ firstLogin: false });
+		}
+	}
+
+	onChangeName() {
+		if (this.state.name.trim() === "") {
+			alert("Name required");
+		} else {
+			this.props.navigation.navigate("AgeScreen", { name: this.state.name });
+		}
+	}
+
+	renderContent() {
+		switch (this.state.firstLogin) {
+			case false:
+				return (
+					<View style={styles.container}>
+						<Text style={styles.onBoardHeader}>
+							Welcome to World Vision {"\n"}CVA App!
+						</Text>
+						<Text style={{ textAlign: "center", marginTop: 150, fontSize: 25 }}>
+							Please enter full your name:
+						</Text>
+
+						<TextInput
+							placeholder="Name..."
+							style={styles.onBoardInput}
+							value={this.state.name}
+							onChangeText={name => this.setState({ name })}
+						/>
+						<TouchableOpacity
+							style={styles.onBoardButton}
+							onPress={this.onChangeName}
+						>
+							<Text style={styles.buttonText}>
+								<Icon name="arrow-forward" size={25} />
+							</Text>
+						</TouchableOpacity>
+
+						<Image
+							source={require("../assets/images/4_dots1.png")}
+							style={{
+								width: "15%",
+								height: 50,
+								marginLeft: "44%"
+							}}
+						/>
+					</View>
+				);
+			case true:
+				return (
+					<View style={styles.container}>
+						<View style={styles.homeContainer}>
+							<Text style={styles.heading}>Citizen, Voice, Action</Text>
+							<TouchableOpacity
+								style={styles.buttonContainer}
+								onPress={() => this.props.navigation.navigate("Action-Plan")}
+							>
+								<Text style={styles.buttonText}>Action Plan</Text>
+							</TouchableOpacity>
+							<View style={{ paddingTop: 20 }} />
+							<TouchableOpacity
+								style={styles.buttonContainer}
+								onPress={() =>
+									this.props.navigation.navigate("Govt-Commitments-Home")
+								}
+							>
+								<Text style={styles.buttonText}>Govt Commitments</Text>
+							</TouchableOpacity>
+							<View style={{ paddingTop: 20 }} />
+							<TouchableOpacity
+								style={styles.buttonContainer}
+								onPress={() => this.props.navigation.navigate("ChatHome")}
+							>
+								<Text style={styles.buttonText}>Messaging</Text>
+							</TouchableOpacity>
+							<View style={{ paddingTop: 20 }}></View>
+						</View>
+					</View>
+				);
+			default:
+				return <Loading />;
+		}
+	}
+
+	render() {
+		return this.renderContent();
+	}
 }
 export default Home;

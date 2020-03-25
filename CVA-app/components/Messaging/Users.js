@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, ScrollView } from "react-native
 import * as RootNavigation from "../../routes/RootNavigation";
 import styles from "../../assets/styleSheet";
 import firebaseSvc from "../../api/chatApi";
+import firebase from "firebase";
 
 
 class Users extends Component {
@@ -21,7 +22,7 @@ class Users extends Component {
     };
 
     componentDidMount() {
-        firebaseSvc.getUsers(usersData => {
+        firebaseSvc.getUsers(firebase.auth().currentUser.email, usersData => {
             this.setState({ usersData: usersData });
         });
         console.log("Users Fetched");
