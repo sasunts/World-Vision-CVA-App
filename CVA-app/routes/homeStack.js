@@ -10,6 +10,7 @@ import SexScreen from "../components/OnBoarding/SexScreen";
 import OccupationScreen from "../components/OnBoarding/OccupationScreen";
 import InformationScreen from "../components/OnBoarding/InformationScreen";
 import ActionPlan from "../components/ActionPlans/ActionPlan";
+import EditActionPlan from "../components/ActionPlans/EditActionPlan";
 import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
 import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
 import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
@@ -33,6 +34,7 @@ function MyStack() {
 
 		return () => (isMountedRef.current = false);
 	}, []);
+
 
 	return (
 		<NavigationContainer ref={navigationRef}>
@@ -192,6 +194,20 @@ function MyStack() {
 						}
 					})}
 				/>
+        <Stack.Screen
+          name="EditActionPlan"
+          component={EditActionPlan}
+          options={({ route }) => ({
+            title: "Edit Action Plan",
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          })}
+        />
 				<Stack.Screen
 					name="Govt-Commitments-Home"
 					component={GovtCommitmentsHome}
