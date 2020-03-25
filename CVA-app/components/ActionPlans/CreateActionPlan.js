@@ -1,5 +1,12 @@
 import React, { Component, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Modal } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Modal
+} from "react-native";
 import styles from "../../assets/styleSheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { createAction } from "../../api/actionPlanApi";
@@ -130,15 +137,15 @@ export default class CreateActionPlan extends Component {
                   onChange={this.onChange}
                 />
               ) : (
-                  <TouchableOpacity
-                    style={styles.buttonContainer}
-                    onPress={() => {
-                      this.setState({ datePickerRender: true });
-                    }}
-                  >
-                    <Text style={styles.buttonText}>Select Deadline Date</Text>
-                  </TouchableOpacity>
-                )}
+                <TouchableOpacity
+                  style={styles.buttonContainer}
+                  onPress={() => {
+                    this.setState({ datePickerRender: true });
+                  }}
+                >
+                  <Text style={styles.buttonText}>Select Deadline Date</Text>
+                </TouchableOpacity>
+              )}
             </View>
             <TouchableOpacity
               style={styles.buttonContainer}
@@ -156,6 +163,7 @@ export default class CreateActionPlan extends Component {
             >
               <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
+            <View style={{ height: 80 }}></View>
           </ScrollView>
         </Modal>
       </View>
