@@ -34,21 +34,21 @@ class App extends Component {
 	authListener() {
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
-				for (let i = 0; i < this.state.admin_users.length; i++) {
-					if (
-						user.email === this.state.admin_users[i].email &&
-						this.state.admin_users[i].type === "admin"
-					) {
-						this.setState({ user });
-						return;
-					}
+				// for (let i = 0; i < this.state.admin_users.length; i++) {
+				// 	if (
+				// 		user.email === this.state.admin_users[i].email &&
+				// 		this.state.admin_users[i].type === "admin"
+				// 	) {
+				this.setState({ user });
+				// 		return;
+				// 	}
 
-					this.setState({ admin: false });
-				}
-				if (this.state.admin === false) {
-					alert("Not admin user");
-					// firebase.auth().signOut();
-				}
+				// 	this.setState({ admin: false });
+				// }
+				// if (this.state.admin === false) {
+				// 	alert("Not admin user");
+				// 	// firebase.auth().signOut();
+				// }
 			} else {
 				// alert("Not an admin user.");
 				this.setState({ user: null });
