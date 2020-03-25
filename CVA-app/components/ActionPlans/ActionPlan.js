@@ -34,7 +34,14 @@ function ActionPlan({ route, navigation }) {
           Deadline: {datePrettifier(list.deadline.toDate().toString())}{" "}
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => {
+              RootNavigation.navigate("EditActionPlan", {
+                passList: list
+              });
+            }}
+          >
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
           <TouchableOpacity

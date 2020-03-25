@@ -6,6 +6,7 @@ import firebase from "firebase";
 import * as RootNavigation from "../routes/RootNavigation";
 import "react-native-gesture-handler";
 import ActionPlan from "../components/ActionPlans/ActionPlan";
+import EditActionPlan from "../components/ActionPlans/EditActionPlan";
 import ActionPlanHome from "../components/ActionPlans/ActionPlanHome";
 import CreateCommitment from "../components/GovtCommitments/CreateCommitment";
 import GovtCommitmentsHome from "../components/GovtCommitments/GovtCommitmentsHome";
@@ -119,6 +120,20 @@ function MyStack() {
           component={ActionPlan}
           options={({ route }) => ({
             title: route.params.list?.title,
+            headerStyle: {
+              backgroundColor: "#ff7800"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold"
+            }
+          })}
+        />
+        <Stack.Screen
+          name="EditActionPlan"
+          component={EditActionPlan}
+          options={({ route }) => ({
+            title: "Edit Action Plan",
             headerStyle: {
               backgroundColor: "#ff7800"
             },
