@@ -34,12 +34,14 @@ class App extends Component {
 	authListener() {
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
+				// console.log(this.state.admin_users[user.email].type);
 				// for (let i = 0; i < this.state.admin_users.length; i++) {
-				// 	if (
-				// 		user.email === this.state.admin_users[i].email &&
-				// 		this.state.admin_users[i].type === "admin"
-				// 	) {
+				// if (
+				// 	// user.email === this.state.admin_users[i].email &&
+				// 	this.state.admin_users[user.email].type === "admin"
+				// ) {
 				this.setState({ user });
+				// }
 				// 		return;
 				// 	}
 

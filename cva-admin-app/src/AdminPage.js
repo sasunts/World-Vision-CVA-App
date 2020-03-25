@@ -138,7 +138,7 @@ class AdminPage extends Component {
 			.doc(email)
 			.delete();
 
-		// this.getUsers();
+		this.getUsers();
 
 		const deleteUser = firebase.functions().httpsCallable("deleteUser");
 
