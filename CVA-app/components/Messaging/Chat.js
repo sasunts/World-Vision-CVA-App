@@ -32,7 +32,7 @@ export default class Chat extends Component {
       this.setState({ userName: userName.name });
     });
 
-    firebaseSvc.refOn(1, message =>
+    firebaseSvc.refOn(1, this.props.chat, userEmail, message =>
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message)
       }))
@@ -43,7 +43,7 @@ export default class Chat extends Component {
     return (
       <GiftedChat
         messages={this.state.messages}
-        onSend={firebaseSvc.send}
+        onSend={messages => firebaseSvc.send(messages, this.props.chat, firebase.auth().currentUser.email)}
         user={this.getUser}
         renderBubble={this.renderBubble}
       />

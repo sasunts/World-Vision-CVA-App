@@ -19,9 +19,15 @@ class Profile extends Component {
             <ScrollView style={styles.container} >
                 <TouchableOpacity
                     style={styles.buttonContainer}
-                    onPress={() => RootNavigation.navigate("Chat")}
+                    onPress={() => RootNavigation.navigate("Chats", {chat: "global"} )}
                 >
                     <Text style={styles.buttonText}>Global chat</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={() => RootNavigation.navigate("Users")}
+                >
+                    <Text style={styles.buttonText}>Users</Text>
                 </TouchableOpacity>
 
             </ScrollView >
