@@ -8,6 +8,7 @@ import {
 	Segment,
 	Header,
 	Message,
+	Image,
 	Modal,
 	List,
 	Icon,
@@ -157,73 +158,66 @@ class AdminPage extends Component {
 		});
 		const { openModal } = this.state;
 		return (
-			<div>
+			<Container>
 				<br />
-				<div className="admin-box">
-					<div>
-						<img
-							style={{ width: 300, marginLeft: 210, marginBottom: 20 }}
+				<Container className="admin-box">
+					<Container style={{ textAlign: "center", width: 300 }}>
+						<Image
+							style={{ width: 300 }}
 							src={require("./images/world_vision_logo.png")}
 							alt="Logo"
 						/>
-					</div>
-
-					<Container style={{ textAlign: "center", width: 300 }}>
 						<Message hidden={this.state.showMessage} color="green">
 							<Message.Header>User added</Message.Header>
 						</Message>
 						<Segment padded placeholder>
-							<Grid textAlign="center">
-								<Grid.Column>
-									<Form onSubmit={this.signup}>
-										<Header>Add new user</Header>
-										<Form.Input
-											icon="user"
-											iconPosition="left"
-											name="name"
-											type="name"
-											placeholder="Enter name"
-											onChange={this.handleChange}
-										/>
-										<Form.Input
-											icon="at"
-											iconPosition="left"
-											name="email"
-											type="email"
-											placeholder="Enter email"
-											onChange={this.handleChange}
-										/>
-										<Form.Input
-											icon="lock"
-											iconPosition="left"
-											name="password"
-											type="password"
-											placeholder="Enter password"
-											onChange={this.handleChange}
-										/>
-										<Form.Input
-											icon="group"
-											iconPosition="left"
-											name="groupID"
-											type="groupID"
-											placeholder="Enter groupID"
-											onChange={this.handleChange}
-										/>
-										<Form.Dropdown
-											placeholder="Select User Type"
-											fluid
-											selection
-											name="dropdown"
-											options={[
-												{ key: "admin", text: "admin", value: "admin" },
-												{ key: "user", text: "user", value: "user" }
-											]}
-											onChange={(e, { value }) => (this.state.userType = value)}
-										/>
-										<Button content="Add" primary />
-									</Form>
-								</Grid.Column>
-							</Grid>
+							<Form onSubmit={this.signup}>
+								<Header>Add new user</Header>
+								<Form.Input
+									icon="user"
+									iconPosition="left"
+									name="name"
+									type="name"
+									placeholder="Enter name"
+									onChange={this.handleChange}
+								/>
+								<Form.Input
+									icon="at"
+									iconPosition="left"
+									name="email"
+									type="email"
+									placeholder="Enter email"
+									onChange={this.handleChange}
+								/>
+								<Form.Input
+									icon="lock"
+									iconPosition="left"
+									name="password"
+									type="password"
+									placeholder="Enter password"
+									onChange={this.handleChange}
+								/>
+								<Form.Input
+									icon="group"
+									iconPosition="left"
+									name="groupID"
+									type="groupID"
+									placeholder="Enter groupID"
+									onChange={this.handleChange}
+								/>
+								<Form.Dropdown
+									placeholder="Select User Type"
+									fluid
+									selection
+									name="dropdown"
+									options={[
+										{ key: "admin", text: "admin", value: "admin" },
+										{ key: "user", text: "user", value: "user" }
+									]}
+									onChange={(e, { value }) => (this.state.userType = value)}
+								/>
+								<Button content="Add" primary />
+							</Form>
 						</Segment>
 						<Button floated="right" onClick={() => firebase.auth().signOut()}>
 							Sign out
@@ -352,8 +346,8 @@ class AdminPage extends Component {
 
 						<ul id="user-list"></ul>
 					</Container>
-				</div>
-			</div>
+				</Container>
+			</Container>
 		);
 	}
 }
