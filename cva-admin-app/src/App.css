@@ -52,3 +52,7 @@
 	margin: 10px auto;
 	width: 41.5%;
 }
+
+.ui.modal ::-webkit-scrollbar {
+	width: 0;
+}

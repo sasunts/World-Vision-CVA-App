@@ -10,8 +10,8 @@ admin.initializeApp({
 	databaseURL: "https://cva-worldvision.firebaseio.com"
 });
 
-exports.deleteUser = functions.https.onCall(async (data, context) => {
-	await admin
+exports.deleteUser = functions.https.onCall((data, context) => {
+	admin
 		.auth()
 		.getUserByEmail(data.email)
 		.then(function(user) {
@@ -21,5 +21,21 @@ exports.deleteUser = functions.https.onCall(async (data, context) => {
 		})
 		.catch(function(error) {
 			console.log("Error fetching user data:", error);
+		});
+});
+
+exports.addUser = functions.https.onCall((data, context) => {
+	admin
+		.auth()
+		.createUser({
+			email: data.email,
+			password: data.password
+		})
+		.then(function(user) {
+			console.log("Successfully created new user:", user.uid);
+			return null;
+		})
+		.catch(function(error) {
+			return error;
 		});
 });

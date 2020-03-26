@@ -13,18 +13,20 @@ class App extends Component {
 
 		this.state = {
 			user: null,
+			admin: false,
+			notAdmin: true,
 			admin_users: []
 		};
 	}
 
-	getUsers() {
+	async getUser(email) {
 		this.setState({ admin_users: [] });
-		db.collection("users")
+		await db
+			.collection("users")
+			.doc(email)
 			.get()
-			.then(snapshot => {
-				snapshot.docs.forEach(doc => {
-					this.state.admin_users.push(doc.data());
-				});
+			.then(doc => {
+				this.state.admin_users.push(doc.data());
 			});
 	}
 
@@ -32,34 +34,34 @@ class App extends Component {
 		this.authListener();
 	}
 	authListener() {
-		firebase.auth().onAuthStateChanged(user => {
+		firebase.auth().onAuthStateChanged(async user => {
 			if (user) {
-				// console.log(this.state.admin_users[user.email].type);
-				// for (let i = 0; i < this.state.admin_users.length; i++) {
-				// if (
-				// 	// user.email === this.state.admin_users[i].email &&
-				// 	this.state.admin_users[user.email].type === "admin"
-				// ) {
-				this.setState({ user });
-				// }
-				// 		return;
-				// 	}
+				await this.getUser(user.email);
 
-				// 	this.setState({ admin: false });
-				// }
-				// if (this.state.admin === false) {
-				// 	alert("Not admin user");
-				// 	// firebase.auth().signOut();
-				// }
+				if (this.state.admin_users[0].type === "admin") {
+					this.setState({ user });
+					return;
+				}
+
+				if (this.state.admin === false) {
+					firebase.auth().signOut();
+					this.setState({ notAdmin: false });
+				}
 			} else {
-				// alert("Not an admin user.");
 				this.setState({ user: null });
-				this.getUsers();
 			}
 		});
 	}
 	render() {
-		return <div>{this.state.user ? <AdminPage /> : <LoginPage />}</div>;
+		return (
+			<div>
+				{this.state.user ? (
+					<AdminPage />
+				) : (
+					<LoginPage notAdmin={this.state.notAdmin} />
+				)}
+			</div>
+		);
 	}
 }
 

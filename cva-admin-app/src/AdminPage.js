@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase, { db } from "./Firebase";
-import * as admin from "firebase-admin";
 import {
 	Grid,
 	Button,
@@ -8,9 +7,13 @@ import {
 	Container,
 	Segment,
 	Header,
+	Message,
 	Modal,
 	List,
-	Icon
+	Icon,
+	Popup,
+	Input,
+	Divider
 } from "semantic-ui-react";
 import "./App.css";
 
@@ -21,77 +24,21 @@ class AdminPage extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.getUsers = this.getUsers.bind(this);
 		this.deleteUser = this.deleteUser.bind(this);
-		// this.readUser = this.readUser.bind(this);
 
 		this.state = {
+			search: "",
+			showMessage: true,
 			email: "",
 			password: "",
 			name: "",
 			userType: "",
-			group: "",
-			auth_users: []
+			groupID: "",
+			auth_users: [],
+			group_users: []
 		};
 
 		this.getUsers();
-		this.readUser();
-
-		// admin.initializeApp({
-		// 	credential: admin.credential.applicationDefault(),
-		// 	databaseURL: "https://test-50175.firebaseio.com"
-		// });
-
-		// const user = admin.auth.get_user_by_email("sasuntsv@tcd.ie");
-		// admin.auth.delete_user(user.uid);
-
-		// admin
-		// 	.auth()
-		// 	.deleteUser("7dBnzAFOJYN5fy8hAkOOmxVjI9b2")
-		// 	.then(function() {
-		// 		console.log("Successfully deleted user");
-		// 	})
-		// 	.catch(function(error) {
-		// 		console.log("Error deleting user:", error);
-		// 	});
-
-		// firebase
-		// 	.auth()
-		// 	.fetchProvidersForEmail(email)
-		// 	.then(providers => {
-		// 		if (providers.length === 0) {
-		// 			// this email hasn't signed up yet
-		// 		} else {
-		// 			// has signed up
-		// 		}
-		// 	});
-
-		// console.log(firebase.auth().fetchSignInMethodsForEmail("sasuntsv@tcd.ie"));
-		// user = firebase.auth.EmailAuthProvider.credential(
-		// 	"sasuntsa@tcd.ie",
-		// 	"test1234"
-		// );
 	}
-	readUser = async user => {
-		// user = await firebase.auth().fetchSignInMethodsForEmail("sasuntsa@tcd.ie");
-		// user = await firebase.auth.EmailAuthProvider.credential(
-		// 	"sasuntsa@tcd.ie",
-		// 	"test1234"
-		// )
-		// user = firebase
-		// 	.auth()
-		// 	.getUser("WzfB479IYeSVX4wk0aAMDicObn03")
-		// console.log(user);
-		// console.log(user.i);
-		// user
-		// .delete()
-		// .then(function() {
-		// User deleted.
-		// })
-		// .catch(function(error) {
-		// An error happened.
-		// });
-		// user = admin.auth.get_user_by_email("sasuntsv@tcd.ie");
-		// admin.auth.delete_user(user.uid);
-	};
 
 	getUsers() {
 		let users = [];
@@ -105,49 +52,110 @@ class AdminPage extends Component {
 			});
 	}
 
+	// getUserGroups(groupID) {
+	// 	let users = [];
+	// 	db.collection("groups")
+	// 		.doc("group" + groupID)
+	// 		.get()
+	// 		.then(doc => {
+	// 			users.push(doc.data().email);
+	// 		});
+	// 	this.setState({ group_users: users });
+	// }
+
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	async signup(e) {
+		let tmp = [];
+
 		let isError = null;
 		e.preventDefault();
-		await firebase
-			.auth()
-			.createUserWithEmailAndPassword(this.state.email, this.state.password)
-			.catch(error => {
-				alert(error);
-				isError = 1;
-			});
+
+		// await this.getUserGroups(this.state.groupID);
+
+		// this.state.group_users[0].forEach(user => {
+		// 	tmp.push(user);
+		// });
+
+		// console.log("group:", this.state.group_users);
+		// console.log("VFS:", this.state.group_users[0]);
+		// console.log("tmp", tmp);
+
+		const addUser = firebase.functions().httpsCallable("addUser");
+		await addUser({
+			email: this.state.email,
+			password: this.state.password
+		}).then(res => {
+			// alert(res);
+			// console.log(res.data);
+		});
+		// .catch(error => {
+		// 	alert(error);
+		// 	isError = 1;
+		// });
 		if (isError == null) {
 			db.collection("users")
 				.doc(this.state.email)
 				.set({
 					name: this.state.name,
 					email: this.state.email,
-					group: this.state.group,
+					groupID: this.state.groupID,
 					type: this.state.userType
 				});
-			alert("User added");
+			// db.collection("groups")
+			// 	.doc("group" + this.state.groupID)
+			// 	.set({
+			// 		email: tmp
+			// 	});
+			// alert("User added");
+			this.setState({ showMessage: false });
+			this.timeout = setTimeout(() => {
+				this.setState({ showMessage: true });
+			}, 2000);
 			this.getUsers();
 		}
 	}
 
-	deleteUser(email) {
-		db.collection("users")
+	async deleteUser(email) {
+		await db
+			.collection("users")
 			.doc(email)
 			.delete();
 
 		this.getUsers();
 
 		const deleteUser = firebase.functions().httpsCallable("deleteUser");
-
-		deleteUser({ email: "test@tcd.ie" }).then(res => {
-			console.log(res.data);
-		});
+		deleteUser({ email: email });
 	}
 
+	updateSearch(event) {
+		this.setState({ search: event.target.value.substr(0, 20) });
+	}
+
+	onchange = e => this.setState({ search: e.target.value });
+
+	state = { openModal: false, isOpen: false };
+
+	openModal = () => this.setState({ openModal: true });
+	closeModal = () => this.setState({ openModal: false });
+
+	handlePopupOpen = () => {
+		this.setState({ isOpen: true });
+	};
+
+	handlePopupClose = () => {
+		this.setState({ isOpen: false });
+	};
+
 	render() {
+		let filteredUsers = this.state.auth_users.filter(user => {
+			return (
+				user.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+			);
+		});
+		const { openModal } = this.state;
 		return (
 			<div>
 				<br />
@@ -160,7 +168,10 @@ class AdminPage extends Component {
 						/>
 					</div>
 
-					<Container style={{ width: 300 }}>
+					<Container style={{ textAlign: "center", width: 300 }}>
+						<Message hidden={this.state.showMessage} color="green">
+							<Message.Header>User added</Message.Header>
+						</Message>
 						<Segment padded placeholder>
 							<Grid textAlign="center">
 								<Grid.Column>
@@ -193,9 +204,9 @@ class AdminPage extends Component {
 										<Form.Input
 											icon="group"
 											iconPosition="left"
-											name="group"
-											type="group"
-											placeholder="Enter group"
+											name="groupID"
+											type="groupID"
+											placeholder="Enter groupID"
 											onChange={this.handleChange}
 										/>
 										<Form.Dropdown
@@ -218,8 +229,9 @@ class AdminPage extends Component {
 							Sign out
 						</Button>
 						<Modal
+							open={openModal}
 							trigger={
-								<Button floated="left" color="blue">
+								<Button floated="left" color="blue" onClick={this.openModal}>
 									View users
 								</Button>
 							}
@@ -227,7 +239,12 @@ class AdminPage extends Component {
 						>
 							<Modal.Header>
 								<Modal.Actions>
-									<Button icon color="red" floated="right">
+									<Button
+										icon
+										color="red"
+										floated="right"
+										onClick={this.closeModal}
+									>
 										<Icon name="close" />
 									</Button>
 								</Modal.Actions>
@@ -235,31 +252,104 @@ class AdminPage extends Component {
 							</Modal.Header>
 
 							<Modal.Content>
-								<Modal.Description>
-									{this.state.auth_users.map(user => (
-										<List divided verticalAlign="middle">
-											<List.Item>
-												<List.Content>
-													<p>
-														<i aria-hidden="true" className="user icon"></i>
-														<b>{user.name} </b>
-														{user.email} {user.type} {user.group}
-														<Button
-															floated="right"
-															icon="trash alternate"
-															onClick={() => {
-																this.deleteUser(user.email);
-															}}
-														></Button>
-													</p>
-												</List.Content>
-											</List.Item>
-											<List.Item></List.Item>
-										</List>
-									))}
-								</Modal.Description>
+								<Segment placeholder>
+									<Modal.Description>
+										{/* <Segment inverted color="grey"> */}
+										<Input
+											type="text"
+											fluid
+											size="big"
+											icon="search"
+											placeholder="Search user..."
+											value={this.state.search}
+											onChange={this.updateSearch.bind(this)}
+										/>
+										{/* </Segment> */}
+										<Modal.Content scrolling>
+											<Divider />
+											{filteredUsers.map(user => (
+												<List divided verticalAlign="middle">
+													<List.Item>
+														<List.Content>
+															<p style={{ marginBottom: 15, fontSize: 14 }}>
+																<i aria-hidden="true" className="user icon"></i>
+																<b>{user.name} </b>
+																<br />
+																<Popup
+																	trigger={
+																		<Button
+																			floated="right"
+																			icon="trash alternate"
+																			onClick={() => {
+																				this.deleteUser(user.email);
+																			}}
+																		/>
+																	}
+																	content="Are you sure?"
+																	position="left center"
+																	size="tiny"
+																	inverted
+																/>
+																<b>Email:</b> {user.email} <br />
+																<b>User type:</b> {user.type} <br />
+																<b>Group ID: </b>
+																{user.groupID}
+																{/* <Popup
+															wide
+															open={this.state.isOpen}
+															onClose={this.handleClose}
+															onOpen={this.handleOpen}
+															position="left center"
+															trigger={
+																<Button
+																	floated="right"
+																	icon="trash alternate"
+																	onClick={this.handlePopupOpen}
+																></Button>
+															}
+															on="click"
+														>
+															<Grid divided columns="equal">
+																<Grid.Column>
+																	<Popup
+																		trigger={
+																			<Button
+																				color="green"
+																				content="Confirm"
+																				fluid
+																				onClick={() => {
+																					this.deleteUser(user.email);
+																				}}
+																			/>
+																		}
+																		content="Are you sure?"
+																		position="top center"
+																		size="tiny"
+																		inverted
+																	/>
+																</Grid.Column>
+																<Grid.Column>
+																	<Button
+																		color="red"
+																		content="Cancel"
+																		fluid
+																		onClick={this.handlePopupClose}
+																	/>
+																</Grid.Column>
+															</Grid>
+														</Popup> */}
+															</p>
+														</List.Content>
+													</List.Item>
+													<List.Item></List.Item>
+												</List>
+											))}
+										</Modal.Content>
+									</Modal.Description>
+								</Segment>
 							</Modal.Content>
 						</Modal>
+
 						<ul id="user-list"></ul>
 					</Container>
 				</div>

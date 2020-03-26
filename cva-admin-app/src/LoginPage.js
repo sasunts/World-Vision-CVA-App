@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { db } from "./Firebase";
 import firebase from "./Firebase";
 import {
 	Grid,
@@ -7,23 +6,32 @@ import {
 	Form,
 	Container,
 	Segment,
-	Header
+	Header,
+	Message
 } from "semantic-ui-react";
 import "./App.css";
 
 class LoginPage extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.login = this.login.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 
 		this.state = {
+			notAdmin: this.props.notAdmin,
 			email: "",
 			password: "",
 			admin_users: []
 		};
 
 		firebase.auth().signOut();
+	}
+
+	componentWillReceiveProps(newProps) {
+		this.setState({ notAdmin: newProps.notAdmin });
+		this.timeout = setTimeout(() => {
+			this.setState({ notAdmin: true });
+		}, 2000);
 	}
 
 	handleChange(e) {
@@ -51,6 +59,9 @@ class LoginPage extends Component {
 						alt="Logo"
 					/>
 					<Container style={{ width: 300 }}>
+						<Message hidden={this.state.notAdmin} color="red">
+							<Message.Header>Not an admin user</Message.Header>
+						</Message>
 						<Segment placeholder padded>
 							<Grid>
 								<Grid.Column>
@@ -72,12 +83,7 @@ class LoginPage extends Component {
 											type="password"
 											onChange={this.handleChange}
 										/>
-										<Button
-											// onClick={this.login}
-											content="Login"
-											primary
-											type="submit"
-										/>
+										<Button content="Login" primary type="submit" />
 									</Form>
 								</Grid.Column>
 							</Grid>
