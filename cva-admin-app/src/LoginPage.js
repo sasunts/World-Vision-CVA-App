@@ -1,29 +1,36 @@
 import React, { Component } from "react";
-import { db } from "./Firebase";
 import firebase from "./Firebase";
 import {
-	Grid,
 	Button,
 	Form,
 	Container,
 	Segment,
-	Header
+	Header,
+	Message,
+	Image
 } from "semantic-ui-react";
 import "./App.css";
 
 class LoginPage extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.login = this.login.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 
 		this.state = {
+			notAdmin: this.props.notAdmin,
+			message: "",
 			email: "",
 			password: "",
 			admin_users: []
 		};
+	}
 
-		firebase.auth().signOut();
+	componentWillReceiveProps(newProps) {
+		this.setState({ notAdmin: newProps.notAdmin });
+		this.timeout = setTimeout(() => {
+			this.setState({ notAdmin: true });
+		}, 3000);
 	}
 
 	handleChange(e) {
@@ -32,59 +39,62 @@ class LoginPage extends Component {
 
 	login(e) {
 		e.preventDefault();
+
+		this.setState({ message: "Not an admin user" });
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.catch(error => {
-				alert(error);
+				this.setState({ message: error.message, notAdmin: false });
+				this.timeout = setTimeout(() => {
+					this.setState({ notAdmin: true });
+				}, 3000);
 			});
 	}
 
 	render() {
 		return (
-			<div>
+			<Container>
 				<br />
-				<div className="Login-box">
-					<img
-						style={{ width: 300, marginLeft: 210, marginBottom: 20 }}
-						src={require("./images/world_vision_logo.png")}
-						alt="Logo"
-					/>
+				<Container className="Login-box">
 					<Container style={{ width: 300 }}>
+						<Image
+							style={{ width: 300 }}
+							src={require("./images/world_vision_logo.png")}
+							alt="Logo"
+						/>
+						<Message
+							style={{ textAlign: "center" }}
+							hidden={this.state.notAdmin}
+							color="red"
+						>
+							<Message.Header>{this.state.message}</Message.Header>
+						</Message>
 						<Segment placeholder padded>
-							<Grid>
-								<Grid.Column>
-									<Form onSubmit={this.login}>
-										<Header textAlign="center">Admin Login</Header>
-										<Form.Input
-											icon="user"
-											iconPosition="left"
-											label="Email"
-											name="email"
-											type="email"
-											onChange={this.handleChange}
-										/>
-										<Form.Input
-											icon="lock"
-											iconPosition="left"
-											label="Password"
-											name="password"
-											type="password"
-											onChange={this.handleChange}
-										/>
-										<Button
-											// onClick={this.login}
-											content="Login"
-											primary
-											type="submit"
-										/>
-									</Form>
-								</Grid.Column>
-							</Grid>
+							<Form onSubmit={this.login}>
+								<Header textAlign="center">Admin Login</Header>
+								<Form.Input
+									icon="user"
+									iconPosition="left"
+									label="Email"
+									name="email"
+									type="email"
+									onChange={this.handleChange}
+								/>
+								<Form.Input
+									icon="lock"
+									iconPosition="left"
+									label="Password"
+									name="password"
+									type="password"
+									onChange={this.handleChange}
+								/>
+								<Button content="Login" primary type="submit" />
+							</Form>
 						</Segment>
 					</Container>
-				</div>
-			</div>
+				</Container>
+			</Container>
 		);
 	}
 }
