@@ -3,7 +3,14 @@ import Loading from "../components/Loading";
 import { getUser } from "../api/profileApi";
 import firebase from "firebase";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
+import {
+	View,
+	Text,
+	TouchableOpacity,
+	TextInput,
+	Image,
+	Keyboard
+} from "react-native";
 import styles from "../assets/styleSheet";
 
 class Home extends Component {
@@ -47,20 +54,31 @@ class Home extends Component {
 		switch (this.state.firstLogin) {
 			case false:
 				return (
-					<View style={styles.container}>
-						<Text style={styles.onBoardHeader}>
-							Welcome to World Vision {"\n"}CVA App!
-						</Text>
-						<Text style={{ textAlign: "center", marginTop: 150, fontSize: 25 }}>
-							Please enter full your name:
-						</Text>
+					<View
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							paddingVertical: 10
+						}}
+					>
+						<TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
+							<Text style={styles.onBoardHeader}>
+								Welcome to World Vision {"\n"}CVA App!
+							</Text>
+							<Text
+								style={{ textAlign: "center", marginTop: 150, fontSize: 25 }}
+							>
+								Please enter full your name:
+							</Text>
 
-						<TextInput
-							placeholder="Name..."
-							style={styles.onBoardInput}
-							value={this.state.name}
-							onChangeText={name => this.setState({ name })}
-						/>
+							<TextInput
+								placeholder="Name..."
+								style={styles.onBoardInput}
+								value={this.state.name}
+								onChangeText={name => this.setState({ name })}
+							/>
+						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.onBoardButton}
 							onPress={this.onChangeName}
@@ -74,8 +92,7 @@ class Home extends Component {
 							source={require("../assets/images/4_dots1.png")}
 							style={{
 								width: "15%",
-								height: 50,
-								marginLeft: "44%"
+								height: 50
 							}}
 						/>
 					</View>
