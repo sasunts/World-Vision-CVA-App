@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import styles from '../../assets/styleSheet';
+import React, { Component } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import styles from "../../assets/styleSheet";
 import { createGovtCommitment } from "../../api/govtCommitmentsApi";
 import * as RootNavigation from "../../routes/RootNavigation";
 
@@ -10,27 +10,25 @@ export default class CreateCommitment extends Component {
 
     let temp = null;
     let commitment = this.props.commitment;
-    console.log(this.props)
+    console.log(this.props);
 
     if (commitment != null) {
-
       if (commitment.inputTypes && commitment.govtStandards) {
         for (let i = 0; i < commitment.inputTypes.length; i++) {
           const commitmentName = commitment.inputTypes[i];
           const standard = commitment.govtStandards[i];
 
-          temp.push({ name: commitmentName, standard: standard })
-
+          temp.push({ name: commitmentName, standard: standard });
         }
       }
     }
 
-    console.log(temp)
+    console.log(temp);
 
     this.state = {
       title: commitment?.title ?? null,
       description: commitment?.description ?? null,
-      inputs: temp ?? [{ name: "", standard: "" }],
+      inputs: temp ?? [{ name: "", standard: "" }]
     };
   }
 
@@ -38,7 +36,7 @@ export default class CreateCommitment extends Component {
   // checks which input from the array is being written to
   // this allows the form to be dynamic e.g. users can add and
   // remove inputs
-  handleInputNameChange = (idx) => (evt) => {
+  handleInputNameChange = idx => evt => {
     const newInputs = this.state.inputs.map((input, sidx) => {
       if (idx !== sidx) return input;
       return { ...input, name: evt.nativeEvent.text };
@@ -48,7 +46,7 @@ export default class CreateCommitment extends Component {
 
   // same as a above but for the standards value associated with
   // that input
-  handleInputStandardChange = (idx) => (evt) => {
+  handleInputStandardChange = idx => evt => {
     const newInputs = this.state.inputs.map((input, sidx) => {
       if (idx !== sidx) return input;
       return { ...input, standard: evt.nativeEvent.text };
@@ -71,15 +69,19 @@ export default class CreateCommitment extends Component {
     // Formating the standards and input types for storage
     inputs.forEach(input => {
       inputTypes.push(input.name);
-      govtStandards.push(input.standard)
+      govtStandards.push(input.standard);
     });
     const govtCommitments = {
-      title, description,
-      inputTypes, govtStandards
-    }
-    createGovtCommitment(govtCommitments, () => { console.log("commitment uploaded") })
-    RootNavigation.navigate('Govt-Commitments-Home');
-  };
+      title,
+      description,
+      inputTypes,
+      govtStandards
+    };
+    createGovtCommitment(govtCommitments, () => {
+      console.log("commitment uploaded");
+    });
+    RootNavigation.navigate("Govt-Commitments-Home");
+  }
 
   render() {
     return (
@@ -87,13 +89,16 @@ export default class CreateCommitment extends Component {
         {/*------ Title and Description Section ------*/}
         <View style={styles.commitmentOverviewContainer}>
           <Text style={styles.heading}> Create Commitment </Text>
-          <TextInput placeholder="Commitment Title"
+          <TextInput
+            placeholder="Commitment Title"
             style={styles.inputCommitmentTitle}
             value={this.state.title}
             onChangeText={title => this.setState({ title })}
           />
-          <TextInput placeholder="Commitment Description"
-            style={styles.inputCommitmentDescription} multiline={true}
+          <TextInput
+            placeholder="Commitment Description"
+            style={styles.inputCommitmentDescription}
+            multiline={true}
             value={this.state.description}
             onChangeText={description => this.setState({ description })}
           />
@@ -114,27 +119,39 @@ export default class CreateCommitment extends Component {
                 value={input.standard}
                 onChange={this.handleInputStandardChange(idx)}
               />
-              <TouchableOpacity style={styles.removeInputButton}
-                onPress={this.handleRemoveInput(idx)}>
+              <TouchableOpacity
+                style={styles.removeInputButton}
+                onPress={this.handleRemoveInput(idx)}
+              >
                 <Text style={styles.addButtonText}>-</Text>
               </TouchableOpacity>
             </View>
           ))}
           <View>
             {/*----- This button adds a new field to the inputs array-----*/}
-            <TouchableOpacity style={styles.addInputButton}
-              onPress={() => { this.setState({ inputs: this.state.inputs.concat([{ name: "", standard: "" }]) }) }}>
+            <TouchableOpacity
+              style={styles.addInputButton}
+              onPress={() => {
+                this.setState({
+                  inputs: this.state.inputs.concat([{ name: "", standard: "" }])
+                });
+              }}
+            >
               <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {/*------ Submiting the new Commitment ------*/}
-        <TouchableOpacity style={styles.buttonContainer}
-          onPress={() => { this.handleSubmit() }}>
-          <Text style={styles.addButtonText}>Create Commitment</Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            this.handleSubmit();
+          }}
+        >
+          <Text style={styles.buttonText}>Create Commitment</Text>
         </TouchableOpacity>
-      </View >
+      </View>
     );
   }
 }
