@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase, { db } from "./Firebase";
 import {
-	Grid,
 	Button,
 	Form,
 	Container,
@@ -29,13 +28,15 @@ class AdminPage extends Component {
 		this.state = {
 			search: "",
 			showMessage: true,
+			messageColor: "",
+			message: "",
+			errorMessage: false,
 			email: "",
 			password: "",
 			name: "",
 			userType: "",
 			groupID: "",
-			auth_users: [],
-			group_users: []
+			auth_users: []
 		};
 
 		this.getUsers();
@@ -53,69 +54,79 @@ class AdminPage extends Component {
 			});
 	}
 
-	// getUserGroups(groupID) {
-	// 	let users = [];
-	// 	db.collection("groups")
-	// 		.doc("group" + groupID)
-	// 		.get()
-	// 		.then(doc => {
-	// 			users.push(doc.data().email);
-	// 		});
-	// 	this.setState({ group_users: users });
-	// }
-
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	async signup(e) {
-		let tmp = [];
+		if (this.state.name.trim() === "") {
+			this.setState({
+				showMessage: false,
+				message: "Name required",
+				messageColor: "red"
+			});
+		} else if (this.state.email.trim() === "") {
+			this.setState({
+				showMessage: false,
+				message: "Email required",
+				messageColor: "red"
+			});
+		} else if (this.state.password.trim() === "") {
+			this.setState({
+				showMessage: false,
+				message: "Password required",
+				messageColor: "red"
+			});
+		} else if (this.state.groupID.trim() === "") {
+			this.setState({
+				showMessage: false,
+				message: "Group ID required",
+				messageColor: "red"
+			});
+		} else if (this.state.userType.trim() === "") {
+			this.setState({
+				showMessage: false,
+				message: "User type required",
+				messageColor: "red"
+			});
+		} else {
+			let isError = null;
+			e.preventDefault();
 
-		let isError = null;
-		e.preventDefault();
-
-		// await this.getUserGroups(this.state.groupID);
-
-		// this.state.group_users[0].forEach(user => {
-		// 	tmp.push(user);
-		// });
-
-		// console.log("group:", this.state.group_users);
-		// console.log("VFS:", this.state.group_users[0]);
-		// console.log("tmp", tmp);
-
-		const addUser = firebase.functions().httpsCallable("addUser");
-		await addUser({
-			email: this.state.email,
-			password: this.state.password
-		}).then(res => {
-			// alert(res);
-			// console.log(res.data);
-		});
-		// .catch(error => {
-		// 	alert(error);
-		// 	isError = 1;
-		// });
-		if (isError == null) {
-			db.collection("users")
-				.doc(this.state.email)
-				.set({
-					name: this.state.name,
-					email: this.state.email,
-					groupID: this.state.groupID,
-					type: this.state.userType
+			const addUser = firebase.functions().httpsCallable("addUser");
+			await addUser({
+				email: this.state.email,
+				password: this.state.password
+			}).then(res => {
+				if (res.data !== "user added") {
+					isError = 1;
+					this.setState({
+						showMessage: false,
+						message: res.data.errorInfo.message,
+						messageColor: "red"
+					});
+				}
+			});
+			if (isError == null) {
+				db.collection("users")
+					.doc(this.state.email)
+					.set({
+						name: this.state.name,
+						email: this.state.email,
+						groupID: this.state.groupID,
+						type: this.state.userType,
+						signedUp: false
+					});
+				this.setState({
+					showMessage: false,
+					message: "User added",
+					messageColor: "green"
 				});
-			// db.collection("groups")
-			// 	.doc("group" + this.state.groupID)
-			// 	.set({
-			// 		email: tmp
-			// 	});
-			// alert("User added");
-			this.setState({ showMessage: false });
-			this.timeout = setTimeout(() => {
-				this.setState({ showMessage: true });
-			}, 2000);
-			this.getUsers();
+				this.timeout = setTimeout(() => {
+					this.setState({ showMessage: true });
+				}, 3000);
+				this.getUsers();
+			}
 		}
 	}
 
@@ -167,8 +178,11 @@ class AdminPage extends Component {
 							src={require("./images/world_vision_logo.png")}
 							alt="Logo"
 						/>
-						<Message hidden={this.state.showMessage} color="green">
-							<Message.Header>User added</Message.Header>
+						<Message
+							hidden={this.state.showMessage}
+							color={this.state.messageColor}
+						>
+							<Message.Header>{this.state.message}</Message.Header>
 						</Message>
 						<Segment padded placeholder>
 							<Form onSubmit={this.signup}>
@@ -214,7 +228,9 @@ class AdminPage extends Component {
 										{ key: "admin", text: "admin", value: "admin" },
 										{ key: "user", text: "user", value: "user" }
 									]}
-									onChange={(e, { value }) => (this.state.userType = value)}
+									onChange={(e, { value }) =>
+										this.setState({ userType: value })
+									}
 								/>
 								<Button content="Add" primary />
 							</Form>
@@ -248,7 +264,6 @@ class AdminPage extends Component {
 							<Modal.Content>
 								<Segment placeholder>
 									<Modal.Description>
-										{/* <Segment inverted color="grey"> */}
 										<Input
 											type="text"
 											fluid
@@ -258,7 +273,6 @@ class AdminPage extends Component {
 											value={this.state.search}
 											onChange={this.updateSearch.bind(this)}
 										/>
-										{/* </Segment> */}
 										<Modal.Content scrolling>
 											<Divider />
 											{filteredUsers.map(user => (

@@ -25,15 +25,14 @@ exports.deleteUser = functions.https.onCall((data, context) => {
 });
 
 exports.addUser = functions.https.onCall((data, context) => {
-	admin
+	return admin
 		.auth()
 		.createUser({
 			email: data.email,
 			password: data.password
 		})
 		.then(function(user) {
-			console.log("Successfully created new user:", user.uid);
-			return null;
+			return "user added";
 		})
 		.catch(function(error) {
 			return error;

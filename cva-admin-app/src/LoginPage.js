@@ -19,19 +19,18 @@ class LoginPage extends Component {
 
 		this.state = {
 			notAdmin: this.props.notAdmin,
+			message: "",
 			email: "",
 			password: "",
 			admin_users: []
 		};
-
-		firebase.auth().signOut();
 	}
 
 	componentWillReceiveProps(newProps) {
 		this.setState({ notAdmin: newProps.notAdmin });
 		this.timeout = setTimeout(() => {
 			this.setState({ notAdmin: true });
-		}, 2000);
+		}, 3000);
 	}
 
 	handleChange(e) {
@@ -40,11 +39,16 @@ class LoginPage extends Component {
 
 	login(e) {
 		e.preventDefault();
+
+		this.setState({ message: "Not an admin user" });
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.catch(error => {
-				alert(error);
+				this.setState({ message: error.message, notAdmin: false });
+				this.timeout = setTimeout(() => {
+					this.setState({ notAdmin: true });
+				}, 3000);
 			});
 	}
 
@@ -59,8 +63,12 @@ class LoginPage extends Component {
 							src={require("./images/world_vision_logo.png")}
 							alt="Logo"
 						/>
-						<Message hidden={this.state.notAdmin} color="red">
-							<Message.Header>Not an admin user</Message.Header>
+						<Message
+							style={{ textAlign: "center" }}
+							hidden={this.state.notAdmin}
+							color="red"
+						>
+							<Message.Header>{this.state.message}</Message.Header>
 						</Message>
 						<Segment placeholder padded>
 							<Form onSubmit={this.login}>

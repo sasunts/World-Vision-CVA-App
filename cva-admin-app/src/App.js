@@ -13,7 +13,6 @@ class App extends Component {
 
 		this.state = {
 			user: null,
-			admin: false,
 			notAdmin: true,
 			admin_users: []
 		};
@@ -39,11 +38,9 @@ class App extends Component {
 				await this.getUser(user.email);
 
 				if (this.state.admin_users[0].type === "admin") {
+					this.setState({ notAdmin: true });
 					this.setState({ user });
-					return;
-				}
-
-				if (this.state.admin === false) {
+				} else {
 					firebase.auth().signOut();
 					this.setState({ notAdmin: false });
 				}
