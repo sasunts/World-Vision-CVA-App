@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   inputCommitmentTitle: {
+    color: "black",
     height: 40,
     paddingTop: 5,
     paddingLeft: 10,

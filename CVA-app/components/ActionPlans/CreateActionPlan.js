@@ -5,7 +5,8 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Modal
+  Modal,
+  Platform
 } from "react-native";
 import styles from "../../assets/styleSheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -129,7 +130,7 @@ export default class CreateActionPlan extends Component {
                 {this.datePrettifier(this.state.deadline.toString())}
               </Text>
 
-              {this.state.datePickerRender ? (
+              {Platform.OS === "ios" ? (
                 <DateTimePicker
                   mode="date"
                   value={this.state.deadline}
@@ -145,6 +146,17 @@ export default class CreateActionPlan extends Component {
                 >
                   <Text style={styles.buttonText}>Select Deadline Date</Text>
                 </TouchableOpacity>
+              )}
+
+              {this.state.datePickerRender ? (
+                <DateTimePicker
+                  mode="date"
+                  value={this.state.deadline}
+                  minimumDate={new Date()}
+                  onChange={this.onChange}
+                />
+              ) : (
+                <View />
               )}
             </View>
             <TouchableOpacity

@@ -28,13 +28,6 @@ export default class ActionPlanHome extends Component {
     console.log(this.props.route.params.passList);
   }
 
-  // handleDeleteActionPlan(id) {
-  //   api.deleteAction(id, () => {
-  //     console.log("Action Plan deletion successful");
-  //     RootNavigation.navigate("Action-Plan");
-  //   });
-  // }
-
   handleSubmit() {
     const {
       title,
