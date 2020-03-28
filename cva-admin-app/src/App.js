@@ -29,6 +29,17 @@ class App extends Component {
 			});
 	}
 
+	componentWillMount() {
+		localStorage.getItem("user") &&
+			this.setState({
+				user: JSON.parse(localStorage.getItem("user"))
+			});
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		localStorage.setItem("user", JSON.stringify(nextState.user));
+	}
+
 	componentDidMount() {
 		this.authListener();
 	}
