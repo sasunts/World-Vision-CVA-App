@@ -5,7 +5,7 @@ import {
 	View,
 	TextInput,
 	Image,
-	Keyboard
+	Keyboard,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import styles from "../../assets/styleSheet";
@@ -17,10 +17,11 @@ class AgeScreen extends Component {
 		this.onChanged = this.onChanged.bind(this);
 
 		this.state = {
-			age: ""
+			age: "",
 		};
 	}
 
+	// ensures that only numbers can be entered
 	onChanged(text) {
 		let newText = "";
 		let numbers = "0123456789";
@@ -35,6 +36,7 @@ class AgeScreen extends Component {
 		this.setState({ age: newText });
 	}
 
+	// renders Age screen UI
 	render() {
 		const { params } = this.props.route;
 		return (
@@ -43,7 +45,7 @@ class AgeScreen extends Component {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					paddingVertical: 10
+					paddingVertical: 10,
 				}}
 			>
 				<TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
@@ -59,7 +61,7 @@ class AgeScreen extends Component {
 						placeholder="Age..."
 						style={styles.onBoardInput}
 						value={this.state.age}
-						onChangeText={text => this.onChanged(text)}
+						onChangeText={(text) => this.onChanged(text)}
 						maxLength={3}
 					/>
 				</TouchableOpacity>
@@ -68,7 +70,7 @@ class AgeScreen extends Component {
 					onPress={() =>
 						this.props.navigation.navigate("SexScreen", {
 							age: this.state.age,
-							name: params.name
+							name: params.name,
 						})
 					}
 				>
@@ -81,7 +83,7 @@ class AgeScreen extends Component {
 					source={require("../../assets/images/4_dots2.png")}
 					style={{
 						width: "15%",
-						height: 50
+						height: 50,
 					}}
 				/>
 			</View>

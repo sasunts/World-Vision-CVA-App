@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import * as RootNavigation from "../../routes/RootNavigation";
 import { getUser } from "../../api/profileApi";
-import DialogBox from "./DialogBox"
+import DialogBox from "./DialogBox";
 import firebase from "firebase";
 import styles from "../../assets/styleSheet";
 
@@ -11,7 +11,6 @@ class Profile extends Component {
 		super(props);
 
 		this.submitChanges = this.submitChanges.bind(this);
-		this.cancelChanges = this.cancelChanges.bind(this);
 
 		this.state = {
 			name: "",
@@ -24,26 +23,31 @@ class Profile extends Component {
 			dialogVisible: false,
 			editAge: "",
 			editSex: "",
-			editOccupation: ""
+			editOccupation: "",
 		};
 	}
 
-	onActionsFetched = userInfo => {
-		this.setState(prevState => ({
-			userInfo: (prevState.userInfo = userInfo)
-		}));
-	};
-
+	// recieves user information from profileApi
 	async componentDidMount() {
 		await getUser(firebase.auth().currentUser.email, this.onActionsFetched);
 
 		this.setState({
-			name: this.state.userInfo[0].name, email: this.state.userInfo[0].email,
-			age: this.state.userInfo[0].age, sex: this.state.userInfo[0].sex,
-			occupation: this.state.userInfo[0].occupation, groupID: this.state.userInfo[0].groupID
-		})
+			name: this.state.userInfo[0].name,
+			email: this.state.userInfo[0].email,
+			age: this.state.userInfo[0].age,
+			sex: this.state.userInfo[0].sex,
+			occupation: this.state.userInfo[0].occupation,
+			groupID: this.state.userInfo[0].groupID,
+		});
 	}
 
+	onActionsFetched = (userInfo) => {
+		this.setState((prevState) => ({
+			userInfo: (prevState.userInfo = userInfo),
+		}));
+	};
+
+	// stores changed data into the database on form submission
 	async submitChanges() {
 		await firebase
 			.firestore()
@@ -53,41 +57,46 @@ class Profile extends Component {
 				{
 					age: this.state.age,
 					sex: this.state.sex,
-					occupation: this.state.occupation
+					occupation: this.state.occupation,
 				},
 				{ merge: true }
 			);
-		RootNavigation.navigate("Home")
+		RootNavigation.navigate("Home");
 	}
 
-	cancelChanges() {
-	}
-
+	// renders profile UI
 	render() {
 		return (
-			<View style={styles.container} >
+			<View style={styles.container}>
 				<View style={styles.commitmentOverviewContainer}>
 					<Text style={styles.profileHeader}>{this.state.name}</Text>
 
 					<Text style={styles.profileText}>Email: {this.state.email} </Text>
 
 					<Text style={styles.profileText}>Age: {this.state.age}</Text>
-					<DialogBox type={"age"} value={this.state.age}
+					<DialogBox
+						type={"age"}
+						value={this.state.age}
 						handleChange={(value) => this.setState({ age: value })}
 					/>
 
 					<Text style={styles.profileText}>Sex: {this.state.sex} </Text>
-					<DialogBox type={"sex"} value={this.state.value}
+					<DialogBox
+						type={"sex"}
+						value={this.state.value}
 						handleChange={(value) => this.setState({ sex: value })}
 					/>
 
-					<Text style={styles.profileText}>Occupation: {this.state.occupation}</Text>
-					<DialogBox type={"occupation"} value={this.state.occupation}
+					<Text style={styles.profileText}>
+						Occupation: {this.state.occupation}
+					</Text>
+					<DialogBox
+						type={"occupation"}
+						value={this.state.occupation}
 						handleChange={(value) => this.setState({ occupation: value })}
 					/>
 
 					<Text style={styles.profileText}>Group ID: {this.state.groupID}</Text>
-
 				</View>
 
 				<TouchableOpacity
@@ -99,17 +108,13 @@ class Profile extends Component {
 
 				<TouchableOpacity
 					style={styles.buttonContainer}
-					onPress={() =>
-						RootNavigation.navigate("Home")
-					}
+					onPress={() => RootNavigation.navigate("Home")}
 				>
 					<Text style={styles.buttonText}>Cancel</Text>
 				</TouchableOpacity>
-
-			</View >
+			</View>
 		);
 	}
-
-};
+}
 
 export default Profile;

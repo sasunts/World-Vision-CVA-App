@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, Dimensions, ScrollView, View } from "react-native";
+import { Text, ScrollView, View } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import { getGradesByCommitmentId } from "../../api/commitmentGradeApi";
 import { Table, Row, Rows } from "react-native-table-component";
@@ -22,6 +22,7 @@ export default class Commitment extends Component {
 		console.log(this.state.commitmentGradesRecieved);
 	}
 
+	// receives grades for commitment calling from commitmentGradeApi
 	async componentDidMount() {
 		await getGradesByCommitmentId(
 			this.props.route.params.commitment.id,
@@ -34,39 +35,9 @@ export default class Commitment extends Component {
 		this.setState((prevState) => ({
 			commitmentGradesRecieved: (prevState.commitmentGradesRecieved = commitmentGradesRecieved),
 		}));
-		let justGradesGiven = [];
-
-		for (let i = 0; i < commitmentGradesRecieved.length; i++) {
-			justGradesGiven.push(commitmentGradesRecieved[i].commitmentGrade);
-		}
-
-		let modeGrade = Math.round(
-			justGradesGiven.reduce((a, b) => a + b, 0) / justGradesGiven.length
-		);
-		if (isNaN(modeGrade) == true) {
-			modeGrade = "Has not been graded yet.";
-		}
-		if (modeGrade == 1) {
-			modeGrade = "Very Bad.";
-		}
-		if (modeGrade == 2) {
-			modeGrade = "Bad.";
-		}
-		if (modeGrade == 3) {
-			modeGrade = "Average.";
-		}
-		if (modeGrade == 4) {
-			modeGrade = "Good!";
-		}
-		if (modeGrade == 5) {
-			modeGrade = "Very Good!";
-		}
-
-		this.setState((prevState) => ({
-			modeGrade: [(prevState.modeGrade = modeGrade)],
-		}));
 	};
 
+	// takes each grade and counts each one accordingly, data used in table and bar chart
 	setData() {
 		let grades = this.state.commitmentGradesRecieved;
 
@@ -90,6 +61,7 @@ export default class Commitment extends Component {
 		}
 	}
 
+	// renders Report UI
 	render() {
 		return (
 			<ScrollView>
@@ -100,7 +72,6 @@ export default class Commitment extends Component {
 								textAlign: "center",
 								fontSize: 20,
 								fontWeight: "bold",
-								// marginTop: 10,
 								padding: 10,
 							}}
 						>
@@ -125,7 +96,6 @@ export default class Commitment extends Component {
 							height={300}
 							chartConfig={{
 								backgroundGradientFrom: "rgba(0, 0, 0, 0",
-								// backgroundGradientTo: "#222",
 								backgroundGradientToOpacity: 0,
 								barPercentage: 0.7,
 								color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
@@ -143,7 +113,12 @@ export default class Commitment extends Component {
 					</View>
 					<View style={styles.commitmentOverviewContainer}>
 						<View style={styles.tableContainer}>
-							<Table borderStyle={{ borderWidth: 2, borderColor: "#white" }}>
+							<Table
+								borderStyle={{
+									borderWidth: 2,
+									borderColor: "rgba(0, 0, 0, 0.7)",
+								}}
+							>
 								<Row
 									data={["Very good", "Good", "Ok", "Bad", "Very bad"]}
 									style={styles.tableHead}
