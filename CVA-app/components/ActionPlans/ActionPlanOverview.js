@@ -3,6 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 import styles from "../../assets/styleSheet";
 import { useNavigation } from "@react-navigation/native";
 
+//Render UI
 const ActionPlanOverview = ({ params }) => {
   const navigation = useNavigation();
   const passParams = params;
@@ -24,6 +25,7 @@ const ActionPlanOverview = ({ params }) => {
   );
 };
 
+// Function which changes time stamp to human readable format
 function datePrettifier(str) {
   var date = str.split(" ");
   var day = date[0];

@@ -25,20 +25,24 @@ export default class ActionPlanHome extends Component {
     };
   }
 
+  // Fetch Actions from Firebase
   onActionsFetched = actionPlansList => {
     this.setState(prevState => ({
       actionPlansList: (prevState.actionPlansList = actionPlansList)
     }));
   };
 
+  // On screen mount fetch Actions
   componentDidMount() {
     getActions(this.onActionsFetched);
   }
 
+  //Function to render each action Plan
   renderRow({ item }) {
     return <ActionPlanOverview params={item} />;
   }
 
+  // Render UI
   render() {
     let { actionPlansList, renderCreateActionPlan } = this.state;
     return (

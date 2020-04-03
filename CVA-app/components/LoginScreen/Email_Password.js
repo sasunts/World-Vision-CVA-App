@@ -16,7 +16,7 @@ class Email_Password extends Component {
     error: "",
     loading: false
   };
-
+  //Handle Sign in
   onBottomPress = () => {
     firebase
       .auth()
@@ -35,6 +35,7 @@ class Email_Password extends Component {
     });
   };
 
+  //Render UI
   render() {
     return (
       <View style={styles.container}>

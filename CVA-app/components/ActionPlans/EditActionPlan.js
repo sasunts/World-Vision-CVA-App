@@ -28,6 +28,7 @@ export default class ActionPlanHome extends Component {
     console.log(this.props.route.params.passList);
   }
 
+  // Update Action plan handler
   handleSubmit() {
     const {
       title,
@@ -54,6 +55,7 @@ export default class ActionPlanHome extends Component {
     this.props.navigation.navigate("Action-Plan");
   }
 
+  //Handle date change
   onChange(event, date) {
     if (date !== undefined) {
       this.setState({
@@ -63,11 +65,13 @@ export default class ActionPlanHome extends Component {
     this.setState({ datePickerRender: false });
   }
 
+  //Show date picker
   showDatepicker() {
     this.datePickerRender = true;
     return;
   }
 
+  // Function which changes time stamp to human readable format
   datePrettifier(str) {
     var date = str.split(" ");
     var day = date[0];
@@ -78,6 +82,7 @@ export default class ActionPlanHome extends Component {
     return retStr;
   }
 
+  // Render UI
   render() {
     //function ActionPlan({ route, navigation }) {
 

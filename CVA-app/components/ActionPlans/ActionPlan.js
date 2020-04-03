@@ -4,6 +4,7 @@ import styles from "../../assets/styleSheet";
 import * as api from "../../api/actionPlanApi";
 import * as RootNavigation from "../../routes/RootNavigation";
 
+// Function calls api to delete action plan
 function handleDeleteActionPlan(id) {
   api.deleteAction(id, () => {
     console.log("Action Plan deletion successful");
@@ -11,6 +12,7 @@ function handleDeleteActionPlan(id) {
   });
 }
 
+// Function which changes time stamp to human readable format
 function datePrettifier(str) {
   var date = str.split(" ");
   var day = date[0];
@@ -21,6 +23,7 @@ function datePrettifier(str) {
   return retStr;
 }
 
+// Render Action plan UI
 function ActionPlan({ route, navigation }) {
   const { list } = route.params;
   return (

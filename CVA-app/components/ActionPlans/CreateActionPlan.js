@@ -32,6 +32,7 @@ export default class CreateActionPlan extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  // Function which changes time stamp to human readable format
   datePrettifier(str) {
     var date = str.split(" ");
     var day = date[0];
@@ -42,6 +43,7 @@ export default class CreateActionPlan extends Component {
     return retStr;
   }
 
+  // Send Action Plan to Database
   handleSubmit() {
     const {
       title,
@@ -67,6 +69,7 @@ export default class CreateActionPlan extends Component {
     this.props.closeDisplay();
   }
 
+  // Handle date change on deadline
   onChange(event, date) {
     if (date !== undefined) {
       this.setState({
@@ -76,11 +79,13 @@ export default class CreateActionPlan extends Component {
     this.setState({ datePickerRender: false });
   }
 
+  // Show date picker for android
   showDatepicker() {
     this.datePickerRender = true;
     return;
   }
 
+  //Render UI
   render() {
     return (
       <View>

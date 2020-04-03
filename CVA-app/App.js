@@ -15,6 +15,7 @@ class App extends Component {
     };
   }
 
+  //Firebase Configuration. PLEASE CHANGE THIS TO PRODUCTION KEYS WHEN LAUNCHING APP.
   componentDidMount() {
     var firebaseConfig = {
       // apiKey: "AIzaSyBgq7pJF8_D2kdE8UAdTlKQAgfbOOCXG7E",
@@ -37,8 +38,8 @@ class App extends Component {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
-
-    firebase.auth().onAuthStateChanged( user => {
+    // Log in cases
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
           loggedIn: true
@@ -50,13 +51,13 @@ class App extends Component {
       }
     });
   }
-
+  //Render UI
   renderContent = () => {
     switch (this.state.loggedIn) {
       case false:
         return <LoginForm />;
       case true:
-          return <Navigator />;
+        return <Navigator />;
       default:
         return <Loading />;
     }

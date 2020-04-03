@@ -1,6 +1,7 @@
 import firebase from "firebase";
 import "firebase/firestore";
 
+//Create action plan api
 export function createAction(action, createComplete) {
   firebase
     .firestore()
@@ -19,6 +20,7 @@ export function createAction(action, createComplete) {
     .catch(error => console.log(error));
 }
 
+//fetch action plan api
 export async function getActions(actionsFetched) {
   var actionPlans = [];
   var data = await firebase
@@ -47,6 +49,7 @@ export async function getActions(actionsFetched) {
   actionsFetched(actionPlans);
 }
 
+//update action plan api
 export function updateAction(action, updateComplete) {
   action.creationDate = firebase.firestore.FieldValue.serverTimestamp();
   firebase
@@ -58,6 +61,7 @@ export function updateAction(action, updateComplete) {
     .catch(error => console.log(error));
 }
 
+//delete action plan api
 export function deleteAction(action, deleteComplete) {
   console.log(action + "-------------------");
   firebase
