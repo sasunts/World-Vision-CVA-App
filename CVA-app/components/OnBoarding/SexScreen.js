@@ -5,7 +5,7 @@ import {
 	View,
 	TextInput,
 	Image,
-	Keyboard
+	Keyboard,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import styles from "../../assets/styleSheet";
@@ -15,10 +15,11 @@ class SexScreen extends Component {
 		super(props);
 
 		this.state = {
-			sex: ""
+			sex: "",
 		};
 	}
 
+	// renders Sex screen UI
 	render() {
 		const { params } = this.props.route;
 		return (
@@ -27,7 +28,7 @@ class SexScreen extends Component {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					paddingVertical: 10
+					paddingVertical: 10,
 				}}
 			>
 				<TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
@@ -42,7 +43,7 @@ class SexScreen extends Component {
 						placeholder="Sex..."
 						style={styles.onBoardInput}
 						value={this.state.sex}
-						onChangeText={sex => this.setState({ sex })}
+						onChangeText={(sex) => this.setState({ sex })}
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity
@@ -51,7 +52,7 @@ class SexScreen extends Component {
 						this.props.navigation.navigate("OccupationScreen", {
 							sex: this.state.sex,
 							age: params.age,
-							name: params.name
+							name: params.name,
 						})
 					}
 				>
@@ -64,7 +65,7 @@ class SexScreen extends Component {
 					source={require("../../assets/images/4_dots3.png")}
 					style={{
 						width: "15%",
-						height: 50
+						height: 50,
 					}}
 				/>
 			</View>

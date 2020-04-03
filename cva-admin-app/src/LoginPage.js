@@ -7,7 +7,7 @@ import {
 	Segment,
 	Header,
 	Message,
-	Image
+	Image,
 } from "semantic-ui-react";
 import "./App.css";
 
@@ -22,10 +22,11 @@ class LoginPage extends Component {
 			message: "",
 			email: "",
 			password: "",
-			admin_users: []
+			admin_users: [],
 		};
 	}
 
+	// recieves notAdmin prop from App.js and updates if changed
 	componentWillReceiveProps(newProps) {
 		this.setState({ notAdmin: newProps.notAdmin });
 		this.timeout = setTimeout(() => {
@@ -33,10 +34,12 @@ class LoginPage extends Component {
 		}, 3000);
 	}
 
+	// sets email and password if changed
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
+	// check if username and password are in Firebase/correct and signs user in else gives error message
 	login(e) {
 		e.preventDefault();
 
@@ -44,7 +47,7 @@ class LoginPage extends Component {
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
-			.catch(error => {
+			.catch((error) => {
 				this.setState({ message: error.message, notAdmin: false });
 				this.timeout = setTimeout(() => {
 					this.setState({ notAdmin: true });
@@ -52,6 +55,7 @@ class LoginPage extends Component {
 			});
 	}
 
+	// renders Login page UI
 	render() {
 		return (
 			<Container>

@@ -5,7 +5,7 @@ import {
 	View,
 	TextInput,
 	Image,
-	Keyboard
+	Keyboard,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import styles from "../../assets/styleSheet";
@@ -15,10 +15,11 @@ class OccupationScreen extends Component {
 		super(props);
 
 		this.state = {
-			occupation: ""
+			occupation: "",
 		};
 	}
 
+	// renders Occupation screen UI
 	render() {
 		const { params } = this.props.route;
 		return (
@@ -27,7 +28,7 @@ class OccupationScreen extends Component {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					paddingVertical: 10
+					paddingVertical: 10,
 				}}
 			>
 				<TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
@@ -42,7 +43,7 @@ class OccupationScreen extends Component {
 						placeholder="Occupation..."
 						style={styles.onBoardInput}
 						value={this.state.occupation}
-						onChangeText={occupation => this.setState({ occupation })}
+						onChangeText={(occupation) => this.setState({ occupation })}
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity
@@ -52,7 +53,7 @@ class OccupationScreen extends Component {
 							occupation: this.state.occupation,
 							sex: params.sex,
 							age: params.age,
-							name: params.name
+							name: params.name,
 						})
 					}
 				>
@@ -65,7 +66,7 @@ class OccupationScreen extends Component {
 					source={require("../../assets/images/4_dots4.png")}
 					style={{
 						width: "15%",
-						height: 50
+						height: 50,
 					}}
 				/>
 			</View>
