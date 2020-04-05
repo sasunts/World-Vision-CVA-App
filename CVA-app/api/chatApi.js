@@ -99,7 +99,7 @@ class FirebaseSvc {
             .orderBy("createdAt")
             .onSnapshot(function(querySnapshot) {
                 querySnapshot.docChanges().forEach(function(change) {
-                    if (change.doc.data().chat.includes(chat) && (chat === "global" || chat == groupID || change.doc.data().chat.includes(userEmail))){
+                    if (change.doc.data().chat.includes(chat) && (chat === "global"|| chat === groupID || change.doc.data().chat.includes(userEmail))){
                         if (change.type === "added") {
                             const { createdAt, text, user } = change.doc.data();
     

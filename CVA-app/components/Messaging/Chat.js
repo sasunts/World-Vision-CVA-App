@@ -37,13 +37,12 @@ export default class Chat extends Component {
 
     firebaseSvc.groupID(userEmail, groupID => {
         this.setState({ groupID: groupID });
+        firebaseSvc.refOn(1, this.props.chat, this.state.groupID, userEmail, message =>
+          this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, message)
+          }))
+        );
     });
-
-    firebaseSvc.refOn(1, this.props.chat, this.state.groupID, userEmail, message =>
-      this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, message)
-      }))
-    );
   }
 
   render() {
