@@ -9,10 +9,13 @@ export default class Chat extends Component {
   constructor(props) {
     super(props);
 
+    let chat = this.props.chat;
+
     this.state = {
       userId: "",
       userName: "",
-      messages: []
+      messages: [],
+      groupID: ""
     };
   }
 
@@ -32,7 +35,11 @@ export default class Chat extends Component {
       this.setState({ userName: userName.name });
     });
 
-    firebaseSvc.refOn(1, this.props.chat, userEmail, message =>
+    firebaseSvc.groupID(userEmail, groupID => {
+        this.setState({ groupID: groupID });
+    });
+
+    firebaseSvc.refOn(1, this.props.chat, this.state.groupID, userEmail, message =>
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message)
       }))
