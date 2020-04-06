@@ -25,6 +25,23 @@ class FirebaseSvc {
             });
     };
 
+    groupID = (userEmail, callback) => {
+        var data = firebase
+            .firestore()
+            .collection("users")
+            .get()
+            .then(function(doc) {
+                doc.forEach(document => {
+                    let temp = document.data();
+
+                    if (userEmail == temp.email) {
+                        const groupID = temp.groupID;
+                        callback(groupID);
+                    }
+                });
+            });
+    };
+
     getUsers(userEmail, callback) {
         var users = [];
         var data = firebase
@@ -76,13 +93,13 @@ class FirebaseSvc {
         return message;
     };
 
-    refOn = (listenerOnListinerOff, chat, userEmail, callback) => {
+    refOn = (listenerOnListinerOff, chat, groupID, userEmail, callback) => {
         var willThisWork = this.ref
             .limitToLast(20)
             .orderBy("createdAt")
             .onSnapshot(function(querySnapshot) {
                 querySnapshot.docChanges().forEach(function(change) {
-                    if (change.doc.data().chat.includes(chat) && (chat === "global" || change.doc.data().chat.includes(userEmail))){
+                    if (change.doc.data().chat.includes(chat) && (chat === "global"|| chat === groupID || change.doc.data().chat.includes(userEmail))){
                         if (change.type === "added") {
                             const { createdAt, text, user } = change.doc.data();
     
