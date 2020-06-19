@@ -38,4 +38,4 @@ This leads to efficiency in documentation and allows CVA groups to work remotely
 this app CVA groups can track their governments commitments and ensure that they
 receive the right standards that the governments have promised!
 
-(https://github.com/sasunts/World-Vision-CVA-App/blob/master/Screenshot%202020-06-19%20at%2020.14.34.png "HomeScreen")
+![homescreen](https://github.com/sasunts/World-Vision-CVA-App/blob/master/Screenshot%202020-06-19%20at%2020.14.34.png "HomeScreen")
